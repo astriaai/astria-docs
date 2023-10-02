@@ -52,4 +52,4 @@ Even before the model is ready, you can prepare a queue of prompts (texts) that 
 
 1. Use `ohwx woman/man`  at the beginning of the sentence.
 2. Textual inversion can reduce similarity. Try to avoid it. Specifically TIs such as `ng_deepnegative_v1_75t` or CyberRealistic.
-3. [LoRa](https://www.notion.so/LoRAs-9541c36a558741cba17a788d42122091?pvs=21) can reduce similarity. Keep LoRa strength low
+3. [LoRa](/docs/features/loras) can reduce similarity. Keep LoRa strength low

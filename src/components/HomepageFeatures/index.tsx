@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import styles from './styles.module.css';
+import {Redirect} from "@docusaurus/router";
 
 type FeatureItem = {
   title: string;
@@ -56,6 +57,7 @@ function Feature({title, Svg, description}: FeatureItem) {
 }
 
 export default function HomepageFeatures(): JSX.Element {
+  return <Redirect to={'/docs/category/use-cases'} />
   return (
     <section className={styles.features}>
       <div className="container">

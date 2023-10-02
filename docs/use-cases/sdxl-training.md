@@ -46,5 +46,5 @@ All above tips will help increase similarity to the original subject.
 
 1. Unlike SD15 checkpoint training, SDXL on Astria is trained as a LoRa+text-embedding. As such, inference is taking place a on a base line model such as SDXL 1.0 and `prompt.text` should specify the loaded lora such as `<lora:123456:0.83>` - will load lora with id=123456 and strength=0.83
 2. Inference API can call ``POST [https://api.astria.ai/prompts](https://www.astria.ai/prompts)` with `tune_id=666678`or [`https://api.astria.ai/tunes/666678/prompts`](https://www.astria.ai/prompts)
-3. See [LoRa docs](/docs/feautres/lora) on lora syntax
+3. See [LoRa docs](/docs/features/loras) on lora syntax
 4. Note that you cannot combine or load multiple LoRa+Text-embedding in one prompt, unlike regular LoRa

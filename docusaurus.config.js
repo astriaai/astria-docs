@@ -61,7 +61,6 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // Replace with your project's social card
       image: 'img/logo@2x.png',
       navbar: {
         title: 'Astria documentation',
@@ -97,7 +96,7 @@ const config = {
             items: [
               {
                 label: 'Use cases',
-                to: '/docs/use-cases',
+                to: '/docs/category/use-cases',
               },
             ],
           },
