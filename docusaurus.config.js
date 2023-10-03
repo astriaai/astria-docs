@@ -38,6 +38,7 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
+          sidebarCollapsed: false,
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
@@ -97,6 +98,10 @@ const config = {
               {
                 label: 'Use cases',
                 to: '/docs/category/use-cases',
+              },
+              {
+                label: 'Features',
+                to: '/docs/category/features',
               },
             ],
           },
