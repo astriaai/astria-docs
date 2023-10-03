@@ -20,6 +20,7 @@
   --ifm-font-color-base: rgb(76, 77, 100);
   --doc-sidebar-width: 220px !important;
   --ifm-menu-color-background-active: rgb(245, 251, 255);
+  --ifm-tabs-padding-vertical: 1rem 1rem 0.25rem;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
