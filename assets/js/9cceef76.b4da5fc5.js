@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkastria_docs_2=self.webpackChunkastria_docs_2||[]).push([[6567],{7933:e=>{e.exports=JSON.parse('{"title":"Tunes","slug":"/category/tunes","permalink":"/docs/category/tunes","navigation":{"previous":{"title":"API","permalink":"/docs/category/api"},"next":{"title":"The tune object","permalink":"/docs/api/tune/tune"}}}')}}]);
