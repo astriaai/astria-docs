@@ -61,7 +61,7 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      image: 'img/logo@2x.png',
+      image: 'img/high-quality-finetuning.jpg',
       navbar: {
         title: 'Astria documentation',
         logo: {
