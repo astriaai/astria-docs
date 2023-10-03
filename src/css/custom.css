@@ -44,6 +44,7 @@ nav.menu>ul>li>div>a {
 }
 
 .api-method {
+  flex-wrap: wrap;
   display: flex;
   gap: 5vw;
 }
@@ -52,6 +53,11 @@ nav.menu>ul>li>div>a {
   overflow: scroll;
 }
 
+@media (max-width: 960px) {
+  .api-method>div {
+    flex: 1 1 100%;
+  }
+}
 h4 {
    margin-bottom: 0;
 }
