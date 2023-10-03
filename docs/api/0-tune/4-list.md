@@ -32,7 +32,8 @@ curl -X GET -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes
   <TabItem value="nodejs" label="Node.js">
 
 ```javascript showLineNumbers
-fetch('https://api.astria.ai/tunes', { headers: { Authorization: `Bearer ${API_KEY}` } });
+const headers = { Authorization: `Bearer ${API_KEY}` }
+fetch('https://api.astria.ai/tunes', { headers: headers });
 ```
   </TabItem>
   <TabItem value="python" label="Python">
@@ -207,8 +208,21 @@ curl -X POST -H"Content-Type: application/json" -H "Authorization: Bearer $API_K
 ```
   </TabItem>
   <TabItem value="javascript" label="Node.js">
+
+```javascript showLineNumbers
+const headers = { Authorization: `Bearer ${API_KEY}` }
+fetch('https://api.astria.ai/tunes', { headers: headers });
+```
+
   </TabItem>
   <TabItem value="python" label="Python">
+
+```python showLineNumbers
+import requests
+headers = {'Authorization': f'Bearer {API_KEY}'}
+requests.get('https://api.astria.ai/tunes')
+```
+
   </TabItem>
 </Tabs>
 

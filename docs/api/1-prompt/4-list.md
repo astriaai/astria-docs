@@ -30,9 +30,21 @@ curl -X GET -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes/1/pr
 
 </TabItem>
   <TabItem value="nodejs" label="Node.js">
+
+```javascript showLineNumbers
+const headers = { Authorization: `Bearer ${API_KEY}` }
+fetch('https://api.astria.ai/tunes/1/prompts', { headers: headers });
+```
   </TabItem>
   <TabItem value="python" label="Python">
-  </TabItem>
+
+```python showLineNumbers
+import requests
+headers = {'Authorization': f'Bearer {API_KEY}'}
+requests.get('https://api.astria.ai/tunes/1/prompts')
+```
+
+</TabItem>
 </Tabs>
 
 #### Response
