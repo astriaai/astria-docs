@@ -21,7 +21,7 @@ Returns the Tune object.
 
 <div>
 
-#### GET /tunes
+#### GET /tunes/:id
 <Tabs groupId="lang">
   <TabItem value="curl" label="cURL" default>
 

@@ -21,7 +21,7 @@ Returns the prompt object.
 
 <div>
 
-#### GET /tunes
+#### GET /tunes/:tune_id/prompts/:id
 <Tabs groupId="lang">
   <TabItem value="curl" label="cURL" default>
 

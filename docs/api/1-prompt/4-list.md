@@ -20,7 +20,7 @@ An array of prompts owned by the authenticated user. If used as a nested resourc
 
 <div>
 
-#### GET /tunes
+#### GET /tunes/:id/prompts
 <Tabs groupId="lang">
   <TabItem value="curl" label="cURL" default>
 
