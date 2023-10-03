@@ -6,9 +6,10 @@ hide_table_of_contents: true
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-<div class="api-method">
+<div className="api-method">
 <div>
 
+### Parameters
 
 No parameters
 
@@ -29,8 +30,19 @@ curl -X GET -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes
 
 </TabItem>
   <TabItem value="nodejs" label="Node.js">
+
+```javascript showLineNumbers
+fetch('https://api.astria.ai/tunes', { headers: { Authorization: `Bearer ${API_KEY}` } });
+```
   </TabItem>
   <TabItem value="python" label="Python">
+
+```python showLineNumbers
+import requests
+headers={'Authorization': f'Bearer {API_KEY}'}
+requests.get('https://api.astria.ai/tunes', headers=headers)
+```
+
   </TabItem>
 </Tabs>
 
@@ -114,7 +126,7 @@ curl -X GET -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes
 
 ## Create a tune
 
-<div class="api-method">
+<div className="api-method">
 <div>
 
 Creates a new fine-tune model from training images which in turn will be used to create prompts and generate images.

@@ -6,7 +6,7 @@ hide_table_of_contents: true
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-<div class="api-method">
+<div className="api-method">
 <div>
 
 ### Parameters
@@ -31,8 +31,21 @@ curl -X GET -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes/1
 
 </TabItem>
   <TabItem value="nodejs" label="Node.js">
-  </TabItem>
+
+```javascript showLineNumbers
+const headers = { Authorization: `Bearer ${API_KEY}` }
+fetch('https://api.astria.ai/tunes/1', { headers: headers });
+```
+
+</TabItem>
   <TabItem value="python" label="Python">
+
+```python showLineNumbers
+import requests
+headers = {'Authorization': f'Bearer {API_KEY}'}
+requests.get('https://api.astria.ai/tunes/1')
+```
+
   </TabItem>
 </Tabs>
 

@@ -1,0 +1,72 @@
+---
+title: Retrieve a prompt
+hide_table_of_contents: true
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<div className="api-method">
+<div>
+
+### Parameters
+
+No parameters
+
+### Returns
+
+Returns the prompt object.
+
+</div>
+
+<div>
+
+#### GET /tunes
+<Tabs groupId="lang">
+  <TabItem value="curl" label="cURL" default>
+
+```bash showLineNumbers
+curl -X GET -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes/1/prompts/1
+```
+
+</TabItem>
+  <TabItem value="nodejs" label="Node.js">
+
+```javascript showLineNumbers
+const headers = { Authorization: `Bearer ${API_KEY}` }
+fetch('https://api.astria.ai/tunes/1/prompts/1', { headers: headers });
+```
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python showLineNumbers
+import requests
+headers = {
+  'Authorization': f'Bearer {API_KEY}'
+}
+requests.get('https://api.astria.ai/tunes/1/prompts/1', headers=headers)
+```
+  </TabItem>
+</Tabs>
+
+#### Response
+```json
+{
+  "id": 1,
+  "callback": "https://optional-callback-url.com/to-your-service-when-ready",
+  "text": "a painting of sks man in the style of Van Gogh",
+  "negative_prompt": "old, blemish, wrinkles, mole",
+  "cfg_scale": null,
+  "steps": null,
+  "seed": null,
+  "trained_at": null,
+  "started_training_at": null,
+  "created_at": "2022-10-06T16:12:54.505Z",
+  "updated_at": "2022-10-06T16:12:54.505Z",
+  "tune_id": 1,
+  "url": "http://api.astria.ai/tunes/1/prompts/1.json"
+}
+```
+</div>
+</div>
+

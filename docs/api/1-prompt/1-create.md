@@ -1,0 +1,168 @@
+---
+title: Create a prompt
+hide_table_of_contents: true
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<div className="api-method">
+<div>
+
+Creates a new fine-tune model from training images which in turn will be used to create prompts and generate images.
+
+### Parameters
+
+#### `callback` (optional) 
+a URL that will be called when the prompt is done processing. The callback is a POST request where the body contains the prompt object.
+
+#### `ar` (optional) 
+Apect-Ratio. `1:1`, `portrait`, `16:9`, `landscape`, `anamorphic`
+
+#### `num_images` (optional) 
+Number of images to generate. Range: 1-8.
+
+#### `super_resolution` (optional) 
+Boolean. X4 super-resolution.
+
+#### `inpaint_faces` (optional) 
+Boolean. Requires super-resolution on. Inpaints faces.
+
+#### `hires_fix` (optional) 
+Boolean. Super resolution details. Available only when super_resolution is true. Adds details.
+
+#### `face_correct` (optional) 
+Boolean. Runs another AI model on top to correct the face in the image.
+
+#### `use_lpw` (optional) 
+Boolean. Use weighted prompts.
+
+#### `w` (optional) 
+width - In multiples of 8.
+
+#### `h` (optional) 
+height - In multiples of 8.
+
+## Controlnet parameters
+
+#### `controlnet` (optional) 
+BETA. Requires input_image. Possible values: lineart, canny, depth, mlsd, hed, pose, pose_with_hand, pose_with_face, pose_face_and_hand, tile, qr.
+
+#### `denoising_strength` (optional)
+For img2img. 1.0 - Take prompt. 0.0 - Take image. Range: 0.0-1.0
+
+#### `controlnet_conditioning_scale` (optional) 
+Strength of controlnet conditioning. 0.0-1.0
+
+#### `controlnet_txt2img` (optional) 
+Boolean toggle. True for text to image controlnet. False for image to image controlnet.
+
+#### `input_image` (optional) 
+Binary multi-part request with the image. Used in conjunction with controlnet parameter.
+
+#### `input_image_url` (optional) 
+URL to an image. Used in conjunction with controlnet parameter.
+
+#### `mask_image` (optional) 
+Binary multi-part request with one channel mask image. Used in conjunction with input_image parameter.
+
+#### `mask_image_url` (optional) 
+URL to a one channel mask image. Used in conjunction with input_image_url parameter.
+
+### Returns
+
+Returns a prompt object if successful which will start processing if tune is processed.
+
+</div>
+
+<div>
+
+#### POST /tunes/:id/prompts
+
+<Tabs groupId="lang">
+  <TabItem value="curl" label="cURL" default>
+
+```bash showLineNumbers
+curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes/1/prompts \
+          -F prompt[text]="a painting of sks man in the style of Van Gogh" \
+          -F prompt[negative_prompt]="old, blemish, wrin" \
+          -F prompt[super_resolution]=true \
+          -F prompt[face_correct]=true \
+          -F prompt[callback]="https://optional-callback-url.com/to-your-service-when-ready?prompt_id=1" 
+```
+  </TabItem>
+  <TabItem value="javascript" label="Node.js">
+
+```javascript
+const fetch = require('node-fetch');
+const FormData = require('form-data');
+
+const API_URL = 'https://api.astria.ai/tunes/1/prompts';
+const API_KEY = 'YOUR_API_KEY'; // Replace with your actual API key
+const headers = { Authorization: `Bearer ${API_KEY}` }
+
+const form = new FormData();
+form.append('prompt[text]', 'a painting of sks man in the style of Van Gogh');
+form.append('prompt[negative_prompt]', 'old, blemish, wrin');
+form.append('prompt[super_resolution]', true);
+form.append('prompt[face_correct]', true);
+form.append('prompt[callback]', 'https://optional-callback-url.com/to-your-service-when-ready?prompt_id=1');
+
+fetch(API_URL, {
+  method: 'POST',
+  headers: headers,
+  body: form
+}).then(response => response.json())
+
+
+```
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import requests
+
+API_URL = 'https://api.astria.ai/tunes/1/prompts'
+API_KEY = 'YOUR_API_KEY'  # Replace with your actual API key
+
+headers = {
+    'Authorization': f'Bearer {API_KEY}'
+}
+
+data = {
+  'prompt[text]': 'a painting of sks man in the style of Van Gogh',
+  'prompt[negative_prompt]': 'old, blemish, wrin',
+  'prompt[super_resolution]': True,
+  'prompt[face_correct]': True,
+  'prompt[callback]': 'https://optional-callback-url.com/to-your-service-when-ready?prompt_id=1'
+}
+files = []
+files.append((f"tune[prompts_attributes][{i}][input_image]", load_image(prompt['input_image'])))
+
+response = requests.post(API_URL, headers=headers, data=data)
+```
+  </TabItem>
+</Tabs>
+
+#### Response
+
+```json
+{
+  "id": 1,
+  "callback": "https://optional-callback-url.com/to-your-service-when-ready",
+  "text": "a painting of sks man in the style of Van Gogh",
+  "negative_prompt": "old, blemish, wrinkles, mole",
+  "cfg_scale": null,
+  "steps": null,
+  "seed": null,
+  "trained_at": null,
+  "started_training_at": null,
+  "created_at": "2022-10-06T16:12:54.505Z",
+  "updated_at": "2022-10-06T16:12:54.505Z",
+  "tune_id": 1,
+  "url": "http://api.astria.ai/tunes/1/prompts/1.json"
+}
+```
+</div>
+</div>
+

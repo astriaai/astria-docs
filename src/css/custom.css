@@ -18,7 +18,8 @@
   font-size: 14px;
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, "Helvetica Neue", Ubuntu, sans-serif;
   --ifm-font-color-base: rgb(76, 77, 100);
-  --doc-sidebar-width: 220px;
+  --doc-sidebar-width: 220px !important;
+  --ifm-menu-color-background-active: rgb(245, 251, 255);
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -49,4 +50,8 @@ nav.menu>ul>li>div>a {
     flex: 1;
     overflow: scroll;
   }
+}
+
+h4 {
+   margin-bottom: 0;
 }

@@ -1,4 +1,9 @@
-# ControlNet - Preserve composition
+---
+title: Controlnet
+---
+
+# ControlNet 
+## Preserve composition
 
 <div style={{ display: "grid", 'grid-template-columns': '1fr 1fr', gap: '1.5rem' }}>
 <div>

@@ -2,7 +2,7 @@
 title: API overview
 ---
 
-# Astria API Fine-tuning - Intro
+# Astria Fine-tuning API - Overview
 
 ## Billing
 The API uses account credits just like the web interface. See section below for 'Create a new fine-tune' for development purposes using <code>branch=fast</code>. Once you're ready for production, you can [purchase credits](https://www.astria.ai/users/edit#billing) and adjust the quantity on the checkout page to how much you need.
