@@ -33,7 +33,7 @@ const sidebars = {
         {
           type: 'link',
           label: 'Bubble.io Plugin',
-          href: 'https://documenter.getpostman.com/view/273068/2s8YmSrfgD',
+          href: 'https://bubble.io/plugin/astria-api---stable-diffusion-1674501522435x732640117689417700',
         },
         {
           type: 'link',
