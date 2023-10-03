@@ -47,6 +47,7 @@ nav.menu>ul>li>div>a {
   flex-wrap: wrap;
   display: flex;
   gap: 5vw;
+  margin-right: 2rem;
 }
 .api-method>div {
   flex: 1;
