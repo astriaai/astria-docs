@@ -1,5 +1,5 @@
 ---
-title: API overview
+title: Overview
 ---
 
 # Astria Fine-tuning API - Overview
