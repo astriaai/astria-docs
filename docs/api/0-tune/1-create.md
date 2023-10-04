@@ -40,6 +40,10 @@ Detects faces in training images and augments training set with cropped faces. D
 #### `base_tune_id` (optional)
 Training on top of former fine-tune or a different baseline model from the [gallery](https://www.astria.ai/gallery/tunes) (id in the URL)
 
+#### `model_type` (optional)
+Enum: `lora`, `pti`, `null` for checkopoint.
+For SDXL1 - API will default to `pti` and will ignore `model_type parameter.
+
 ### Returns
 
 Returns a tune object if successful which will start training immediately and call callback once training is complete.
