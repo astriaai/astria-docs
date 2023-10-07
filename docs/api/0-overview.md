@@ -39,8 +39,11 @@ Pay attention to 504 error below and turn on idempotency for your account to avo
 
 
 ## Idempotency
+
+Idempotency is a principle in programming which means that the same operation (a request in our case) can be made multiple times without changing the result. This can be useful when a request is interrupted and you want to make sure it is processed only once, and avoid duplicate objects.
+
 Idempotency can be enabled for the account in the [API settings](https://www.astria.ai/users/edit#api). 
 
-For tunes request with the same title, idempotency will return the existing tune object and will not create a new one. This is useful for cases where you want to make sure you don't create duplicate tunes. In this case set the tune title to a unique value such as a UUID which identifies the transaction.
+For tunes request with the same `title`, idempotency will return the existing tune object and will not create a new one. This is useful for cases where you want to make sure you don't create duplicate tunes. In this case set the tune title to a unique value such as a UUID which identifies the transaction.
 
-For prompts request with the same text and seed, idempotency will return the existing prompt object and will not create a new one. 
+For prompts request with the same `text` and `seed`, idempotency will return the existing prompt object and will not create a new one. 
