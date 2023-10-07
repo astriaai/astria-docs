@@ -5,7 +5,7 @@
 For each model created using your training image, Astria creates an AI model using high-end GPU machines, and then serves those models to allow image generation. This process is expensive.
 
 ## I didn't get my images. Where can I see it?
-Check out your tunes page [https://www.astria.ai/tunes](/tunes) and click on the tune thumbnail to see your results.
+Check out your [tunes page](https://www.astria.ai/tunes) and click on the tune thumbnail to see your results.
 
 ## Can I get higher resolution pictures?
 
@@ -17,7 +17,7 @@ Go to [https://www.astria.ai/tunes](https://www.google.com/url?q=https://www.ast
 
 ## Generated images look weird. What happened?
 
-See [Fine-tuning guide](/docs/use-cases/finetuning-guide) and the [AI Photohoot](/docs/use-cases/ai-photohoot) guide for tips on how to get the best results.
+See [Fine-tuning guide](/docs/use-cases/finetuning-guide) and the [AI Photohoot](/docs/use-cases/ai-photoshoot) guide for tips on how to get the best results.
 
 ## Can I download CKPT file? How do I use it?
 
