@@ -2,7 +2,7 @@
 
 ## Overview
 
-The term "AI Photoshoot" or "AI Headshots" refers to the process of creating a generative AI model from around 20 images of a person. This model can then be used to create professional photography imagery of the person, without requiring high-end camera equipment, lighting, or wardrobe.
+The term "AI Photoshoot" or "AI Headshots" or "AI Avatars" refers to the process of creating a generative AI model from around 20 images of a person. This model can then be used to create professional photography imagery of the person, without requiring high-end camera equipment, lighting, or wardrobe.
 
 AI headshots are particularly useful for social profile photos, such as those used on LinkedIn or Facebook, as well as on dating sites.
 
@@ -45,11 +45,16 @@ Even before the model is ready, you can prepare a queue of prompts (texts) that 
 ## Tips for training images
 
 1. Upload both portrait and full body shots of the person
+2. Use 10-20 pictures of your subject. Preferably cropped to 1:1 aspect ratio.
+3. Use 3 photos of full body or entire object + 5 medium shot photos from the chest up + 10 close-ups.
+4. Variation is key - Change body pose for every picture, use pictures from different days backgrounds and lighting. Every picture of your subject should introduce new info about your subject.
+5. Avoid pictures taken at the same hour/day. For example few pictures with the same shirt will make the model learn the shirt as well as part of the subject.
+6. Always pick a new background.
 2. Do not upload pictures mixed with other people
 3. Do not upload upload funny faces
 
 ## Tips for inference
 
-1. Use `ohwx woman/man`  at the beginning of the sentence.
-2. Textual inversion can reduce similarity. Try to avoid it. Specifically TIs such as `ng_deepnegative_v1_75t` or CyberRealistic.
-3. [LoRa](/docs/features/loras) can reduce similarity. Keep LoRa strength low
+1. Use `ohwx woman/man` at the *beginning* of the sentence.
+2. Textual inversion can reduce similarity. Try to avoid it. Specifically TIs such as `ng_deepnegative_v1_75t` or `CyberRealistic`.
+3. [LoRA](/docs/features/loras) can reduce similarity. Keep LoRA strength low.
