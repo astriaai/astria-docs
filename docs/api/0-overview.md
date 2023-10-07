@@ -46,4 +46,4 @@ Idempotency can be enabled for the account in the [API settings](https://www.ast
 
 For tunes request with the same `title`, idempotency will return the existing tune object and will not create a new one. This is useful for cases where you want to make sure you don't create duplicate tunes. In this case set the tune title to a unique value such as a UUID which identifies the transaction.
 
-For prompts request with the same `text` and `seed`, idempotency will return the existing prompt object and will not create a new one. 
+For prompts request with the same attributes (text, negative, seed, hires_fix, super_resolution ....), idempotency will return the existing prompt object and will not create a new one. 
