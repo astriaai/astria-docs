@@ -46,4 +46,9 @@ Idempotency can be enabled for the account in the [API settings](https://www.ast
 
 For tunes request with the same `title`, idempotency will return the existing tune object and will not create a new one. This is useful for cases where you want to make sure you don't create duplicate tunes. In this case set the tune title to a unique value such as a UUID which identifies the transaction.
 
-For prompts request with the same attributes (text, negative, seed, hires_fix, super_resolution ....), idempotency will return the existing prompt object and will not create a new one. 
+For prompts request with the same attributes, idempotency will return the existing prompt object and will not create a new one. Prompt attributes considered for the idempotency are id, text, trained_at, started_training_at, created_at, updated_at, tune_id, user_id, cfg_scale, steps, seed, process_ip, trials, callback, negative_prompt, is_api, super_resolution, face_correct, public, is_video, community, public_at, community_at, ar, num_images, controlnet, denoising_strength, use_lpw, controlnet_conditioning_scale, fail_message, failed_at, w, h, hires_fix, scheduler, prompt_likes_count, controlnet_txt2img, inpaint_faces 
+
+# Auto top-off
+
+To allow your account to work without disruption, top-off feature can be enabled to refill account each time account balance reaches zero. Auto top-off can be enabled in the [billing page](https://www.astria.ai/users/edit#billing). 
+It is recommended to set the top-off amount to at least a week worth of API calls to avoid hitting the rate limit on top-off - Frequent top-offs can cause credit card charges to fail or bank declines leading.
