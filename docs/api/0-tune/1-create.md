@@ -29,7 +29,7 @@ An array of images to train the fine-tune with. The images can be uploaded as mu
 A webhook URL to be called when the tune is finished training. The webhook will receive a POST request with the tune object.
 
 #### `branch` (optional)
-Enum: `sd15`, `sdxl1`
+Enum: `sd15`, `sdxl1`, `fast`. Use `branch=fast` for [mock testing](https://docs.astria.ai/docs/api/overview#mock-testing)
 
 #### `steps` (optional)
 Training steps. Recommended leaving blank in order to allow better defaults set by the system.
