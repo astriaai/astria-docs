@@ -30,8 +30,7 @@ Output images
 
 ## Training tips
 
-1. Default token for SDXL should be `ohwx` and will be set automatically if none is specified
-2. Training resolution is - make sure training images are at least 1024x1024px
+Default token for SDXL should be `ohwx` and will be set automatically if none is specified
 
 ## Inference tips
 
