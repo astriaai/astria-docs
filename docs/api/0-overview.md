@@ -11,7 +11,7 @@ The API uses account balance just like the web interface. See the [pricing](http
 The API allows creating a mock `Tune` object with attribute  `branch=fast`. See [Create a tune documentation](https://docs.astria.ai/docs/api/tune/create#branch-optional)]. API call for creating `fast` tune is free, and subsequent prompt calls will return mock images without incurring any charges. This is useful for testing your integration with the API. 
 Once you're ready for production, you can [purchase credits](https://www.astria.ai/users/edit#billing) and adjust the quantity on the checkout page to how much you need.
 
-# Auto top-off
+## Auto top off
 To allow your account to work without disruption, top-off feature can be enabled to refill account each time account balance reaches zero. Auto top-off can be enabled in the [billing page](https://www.astria.ai/users/edit#billing).
 It is recommended to set the top-off amount to at least a week worth of API calls to avoid hitting the rate limit on top-off - Frequent top-offs can cause credit card charges to fail or bank declines leading.
 
