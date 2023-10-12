@@ -13,7 +13,7 @@ Once you're ready for production, you can [purchase credits](https://www.astria.
 
 ## Auto top off
 To allow your account to work without disruption, top-off feature can be enabled to refill account each time account balance reaches zero. Auto top-off can be enabled in the [billing page](https://www.astria.ai/users/edit#billing).
-It is recommended to set the top-off amount to at least a week worth of API calls to avoid hitting the rate limit on top-off - Frequent top-offs can cause credit card charges to fail or bank declines leading.
+It is recommended to set the top-off amount to at least a week worth of API calls to avoid hitting the rate limit on top-off - Frequent top-offs can cause credit card charges to fail or bank declines.
 
 ## Storage
 Generated images, training pictures and models, will be automatically deleted 30 days after the training has ended. You may delete the fine-tune object including the trained model, training images, and generated images at any time before using the delete API calls. You may opt-in to automatically [extend model storage](https://www.astria.ai/users/edit#billing) 
