@@ -34,6 +34,12 @@ Boolean. Super resolution details. Available only when super_resolution is true.
 #### `face_correct` (optional) 
 Boolean. Runs another AI model on top to correct the face in the image.
 
+#### `cfg_scale` (optional) 
+Float. How strictly the diffusion process adheres to the prompt text (higher values keep your image closer to your prompt). Range 0-15
+
+#### `steps` (optional) 
+Integer. Number of diffusion steps to run . Range 0-50
+
 #### `use_lpw` (optional) 
 Boolean. Use weighted prompts.
 
@@ -64,10 +70,10 @@ Binary multi-part request with the image. Used in conjunction with controlnet pa
 URL to an image. Used in conjunction with controlnet parameter.
 
 #### `mask_image` (optional) 
-Binary multi-part request with one channel mask image. Used in conjunction with input_image parameter.
+Binary multi-part request with one channel mask image. Used in conjunction with input_image parameter for inpainting
 
 #### `mask_image_url` (optional) 
-URL to a one channel mask image. Used in conjunction with input_image_url parameter.
+URL to a one channel mask image. Used in conjunction with input_image_url parameter for inpainting.
 
 ### Returns
 
