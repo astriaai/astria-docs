@@ -49,7 +49,7 @@ width - In multiples of 8.
 #### `h` (optional) 
 height - In multiples of 8.
 
-## Controlnet parameters
+## Img2Img / ControlNet
 
 #### `controlnet` (optional) 
 BETA. Requires input_image. Possible values: lineart, canny, depth, mlsd, hed, pose, pose_with_hand, pose_with_face, pose_face_and_hand, tile, qr.
