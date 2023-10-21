@@ -52,7 +52,7 @@ nav.menu>ul>li>div>a {
 }
 .api-method>div {
   flex: 1;
-  overflow: scroll;
+  overflow: auto;
 }
 
 @media (max-width: 960px) {
