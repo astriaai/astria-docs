@@ -49,6 +49,9 @@ width - In multiples of 8.
 #### `h` (optional) 
 height - In multiples of 8.
 
+#### `scheduler` (optional) 
+enum: `euler`, `euler_a`, `dpm++2m_karras`, `dpm++sde_karras`. If not specified the default [account scheduler](https://www.astria.ai/users/edit) will be used.
+
 ## Img2Img / ControlNet
 
 #### `controlnet` (optional) 
