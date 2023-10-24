@@ -1,10 +1,10 @@
 ---
 title: Fine-tuning guide
-description: The guide for high quality avatars
+description: The guide for high quality avatars and AI photography
 ---
 
 # Fine-tuning guide
-** The guide for high quality avatars**
+** The guide for high quality avatars and AI photography**
 
 When building an app for avatars or professional AI photoshoot, you should consider two aspects
 
