@@ -28,4 +28,3 @@ Make sure to test results on a person you closely know and can judge similarity.
 3. Weighted prompts - when a prompt has multiple keywords that collide and reduce similarity - use the parenthesis syntax for emphasis to increase similarity, such as `(sks man)`
    On the flip side, try to avoid weighted prompts altogether to preserve similarity to subject.
 4. Use [Controlnet](/docs/use-cases/controlnet) with input image to preserve composition and create unique long-shots. Enable `controlnet_txt2img` if you’d like to create more variation and draw more from the prompt. Increase denoising_strength=1
-5. Enable **face-correct** - uses a specific model such as GFPGAN to correct faces. 
