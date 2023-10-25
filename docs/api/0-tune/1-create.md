@@ -78,7 +78,7 @@ curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes \
 
 # With image_urls as form-data
 curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes \
-          -F tune[callback]="https://optional-callback-url.com/to-your-service-when-ready" \
+          -F tune[callback]="https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1" \
           -F tune[title]="grumpy cat" \
           -F tune[branch]="fast" \
           -F tune[name]=cat \

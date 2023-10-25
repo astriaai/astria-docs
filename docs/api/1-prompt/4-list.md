@@ -53,7 +53,7 @@ requests.get('https://api.astria.ai/tunes/1/prompts')
 [
   {
     "id": 1,
-    "callback": "https://optional-callback-url.com/to-your-service-when-ready",
+    "callback": "https://optional-callback-url.com/to-your-service-when-ready?user_id=your_internal_user_id&transaction_id=internal_transaction_id",
     "text": "a painting of sks man in the style of Van Gogh",
     "negative_prompt": "old, blemish, wrinkles, mole",
     "cfg_scale": null,

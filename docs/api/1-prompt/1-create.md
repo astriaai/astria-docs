@@ -158,7 +158,7 @@ response = requests.post(API_URL, headers=headers, data=data)
 ```json
 {
   "id": 1,
-  "callback": "https://optional-callback-url.com/to-your-service-when-ready",
+  "callback": "https://optional-callback-url.com/to-your-service-when-ready?prompt_id=1",
   "text": "a painting of sks man in the style of Van Gogh",
   "negative_prompt": "old, blemish, wrinkles, mole",
   "cfg_scale": null,
