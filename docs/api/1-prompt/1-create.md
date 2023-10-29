@@ -34,6 +34,9 @@ Boolean. Super resolution details. Available only when super_resolution is true.
 #### `face_correct` (optional) 
 Boolean. Runs another AI model on top to correct the face in the image.
 
+#### `face_swap` (optional) 
+Boolean. Uses training images to swap face and enhance resemblance.
+
 #### `cfg_scale` (optional) 
 Float. How strictly the diffusion process adheres to the prompt text (higher values keep your image closer to your prompt). Range 0-15
 

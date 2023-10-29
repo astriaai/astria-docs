@@ -41,6 +41,9 @@ Training steps. Recommended leaving blank in order to allow better defaults set 
 #### `face_crop` (optional)
 Detects faces in training images and augments training set with cropped faces. Defaults to [account setting](https://www.astria.ai/users/edit)
 
+#### `training_face_correct` (optional)
+Enhance training images using GFPGAN. Consider enabling if input image are low quality or low resolution. May result in over-smoothing.
+
 #### `base_tune_id` (optional)
 Training on top of former fine-tune or a different baseline model from the [gallery](https://www.astria.ai/gallery/tunes) (id in the URL)
 
@@ -253,6 +256,7 @@ response.raise_for_status()
     "args": null,
     "steps": null,
     "face_crop": null,
+    "training_face_correct": false,
     "ckpt_url": "https://sdbooth2-production.s3.amazonaws.com/mock",
     "ckpt_urls": [
       "https://sdbooth2-production.s3.amazonaws.com/mock"
@@ -288,6 +292,7 @@ response.raise_for_status()
     "args": null,
     "steps": null,
     "face_crop": null,
+    "training_face_correct": null,
     "ckpt_url": "https://sdbooth2-production.s3.amazonaws.com/mock",
     "ckpt_urls": [
       "https://sdbooth2-production.s3.amazonaws.com/mock"
