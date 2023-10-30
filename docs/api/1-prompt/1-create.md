@@ -13,6 +13,12 @@ Creates a new fine-tune model from training images which in turn will be used to
 
 ### Parameters
 
+#### `text` (required) 
+Description of the image.
+
+#### `negative_prompt` (optional) 
+A comma separated list of words that should not appear in the image.
+
 #### `callback` (optional) 
 a URL that will be called when the prompt is done processing. The callback is a POST request where the body contains the prompt object.
 
