@@ -2,15 +2,23 @@
 
 <div style={{ display: "grid", 'grid-template-columns': '1fr 1fr', gap: '1.5rem' }}>
 <div>
-<figcaption>Without face-inpaint</figcaption>
+<figcaption>Entire picture</figcaption>
 
-![source.png](./img/face-inpainting-input.jpeg)
+![source.png](./img/face-inpainting-all.jpeg)
+</div>
+</div>
+
+<div style={{ display: "grid", 'grid-template-columns': '1fr 1fr', gap: '1.5rem' }}>
+<div>
+<figcaption>Before face-inpaint</figcaption>
+
+![generated.png](./img/face-inpainting-before.jpeg)
 </div>
 
 <div>
-<figcaption>With face-inpaint</figcaption>
+<figcaption>After face-inpaint</figcaption>
 
-![generated.png](./img/face-inpainting-output.jpeg)
+![generated.png](./img/face-inpainting-after.jpeg)
 </div>
 
 </div>
