@@ -261,6 +261,7 @@ response.raise_for_status()
     "ckpt_urls": [
       "https://sdbooth2-production.s3.amazonaws.com/mock"
     ],
+    "eta": "2023-10-02T14:32:40.363Z",
     "trained_at": "2023-10-02T14:32:40.363Z",
     "started_training_at": "2023-10-02T14:32:05.229Z",
     "expires_at": "2023-11-01T14:32:40.363Z",
@@ -297,6 +298,7 @@ response.raise_for_status()
     "ckpt_urls": [
       "https://sdbooth2-production.s3.amazonaws.com/mock"
     ],
+    "eta": "2023-09-23T16:07:49.137Z",
     "trained_at": "2023-09-23T16:07:49.137Z",
     "started_training_at": "2023-09-23T16:07:37.334Z",
     "expires_at": "2023-10-23T16:07:49.137Z",
