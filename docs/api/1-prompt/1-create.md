@@ -64,6 +64,9 @@ enum: `euler`, `euler_a`, `dpm++2m_karras`, `dpm++sde_karras`. If not specified 
 #### `color_grading` (optional) 
 enum: `Film Velvia`, `Film Portra`, `Ektar`.
 
+#### `film_grain` (optional)
+boolean - Adds noise to the image to make it look more realistic.
+
 ## Img2Img / ControlNet
 
 #### `controlnet` (optional) 
