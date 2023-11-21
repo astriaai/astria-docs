@@ -21,6 +21,10 @@ With SDXL you cannot combine multiple LoRAs.
 
 Use any SDXL model from [the gallery](https://www.astria.ai/gallery/tunes?branch=sdxl1) to do inference.
 
+:::warning
+If you are receiving `422` error `model_type=pti is not supported. Use a checkpoint instead` - Change the request URL to https://api.astria.ai/tunes/666678/prompts with `666678` as a hard-coded tune_id of SDXL 1.0 from the gallery. See explanation above.
+:::
+
 </div>
 <div>
 
