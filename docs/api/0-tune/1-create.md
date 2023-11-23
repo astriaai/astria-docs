@@ -45,7 +45,7 @@ Detects faces in training images and augments training set with cropped faces. D
 Enhance training images using GFPGAN. Consider enabling if input image are low quality or low resolution. May result in over-smoothing.
 
 #### `base_tune_id` (optional)
-Training on top of former fine-tune or a different baseline model from the [gallery](https://www.astria.ai/gallery/tunes) (id in the URL)
+Training on top of former fine-tune or a different baseline model from the [gallery](https://www.astria.ai/gallery/tunes) (id in the URL). e.g: `690204` - Realistic Vision v5.1
 
 #### `model_type` (optional)
 Enum: `lora`, `pti`, `null` for checkopoint.
@@ -66,11 +66,14 @@ Returns a tune object if successful which will start training immediately and ca
 
 ```bash showLineNumbers
 # With images as multipart/form-data
+# Hard coded tune id of Realistic Vision v5.1 from the gallery - https://www.astria.ai/gallery/tunes 
+# https://www.astria.ai/gallery/tunes/690204/prompts
 curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes \
-          -F tune[callback]="https://optional-callback-url.com/webhooks/astria?user_id=1&tune_id=1" \
-          -F tune[title]="my portrait" \
-          -F tune[branch]="fast" \
+          -F tune[title]="John Doe - UUID - 1234-6789-1234-56789" \
           -F tune[name]=man \
+          -F tune[branch]="fast" \
+          -F tune[callback]="https://optional-callback-url.com/webhooks/astria?user_id=1&tune_id=1" \
+          -F tune[base_tune_id]=690204 \
           -F tune[token]=sks \
           -F "tune[prompts_attributes][0][text]=sks man on space circa 1979 on cover of time magazine" \
           -F tune[prompts_attributes][0][callback]="https://optional-callback-url.com/webhooks/astria?user_id=1&prompt_id=1&tune_id=1" \
@@ -81,10 +84,11 @@ curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes \
 
 # With image_urls as form-data
 curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes \
-          -F tune[callback]="https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1" \
-          -F tune[title]="grumpy cat" \
-          -F tune[branch]="fast" \
+          -F tune[title]="Grumpy cat - UUID - 1234-6789-1234-56789" \
           -F tune[name]=cat \
+          -F tune[branch]="fast" \
+          -F tune[callback]="https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1" \
+          -F tune[base_tune_id]=690204 \
           -F tune[token]=sks \
           -F "tune[image_urls][]=https://i.imgur.com/HLHBnl9.jpeg" \
           -F "tune[image_urls][]=https://i.imgur.com/HLHBnl9.jpeg" \
@@ -95,6 +99,7 @@ curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes \
 cat > data.json <<- EOM
 {
   "tune": {
+    "title": "Grumpy Cat - UUID - 1234-6789-1234-56789",
     "name": "cat",
     "branch": "fast",
     "callback": "https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1",
@@ -104,7 +109,6 @@ cat > data.json <<- EOM
       "https://i.imgur.com/HLHBnl9.jpeg",
       "https://i.imgur.com/HLHBnl9.jpeg"
     ],
-    "title": "grumpy cat with prompts",
     "prompts_attributes": [
       {
         "text": "sks cat in space circa 1979 French illustration",
@@ -138,7 +142,10 @@ function createTune() {
     headers: { 'Authorization': 'Bearer ' + API_KEY, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       tune: {
-        "title": 'My Tune',
+        "title": 'John Doe - UUID - 1234-6789-1234-56789',
+        // Hard coded tune id of Realistic Vision v5.1 from the gallery - https://www.astria.ai/gallery/tunes 
+        // https://www.astria.ai/gallery/tunes/690204/prompts
+        "base_tune_id": 690204,
         "name": "cat",
         "branch": "fast",
         "image_urls": [
@@ -167,8 +174,11 @@ const API_KEY = 'sd_XXXX';
 const DOMAIN = 'https://api.astria.ai';
 function createTune() {
   let formData = new FormData();
-  formData.append('tune[title]', '1527');
+  formData.append('tune[title]', 'John Doe - UUID - 1234-6789-1234-56789');
   // formData.append('tune[branch]', 'fast');
+  // Hard coded tune id of Realistic Vision v5.1 from the gallery - https://www.astria.ai/gallery/tunes 
+  // https://www.astria.ai/gallery/tunes/690204/prompts
+  formData.append('tune[base_tune_id]', 690204);
   formData.append('tune[name]', 'man');
   formData.append('tune[controlnet]', 'pose');
   formData.append('tune[prompts_attributes][0][callback]', 'https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1&prompt_id=1');
@@ -214,7 +224,12 @@ def load_image(file_path):
 
 image_data = load_image("assets/image.jpeg")
 
-data = {}
+data = {
+  "title": "John Doe - UUID - 1234-6789-1234-56789",
+  "base_tune_id": 69024,
+  "branch": "fast",
+  "token": "ohwx"
+}
 files = []
 for i, prompt in enumerate(prompts):
   data.update({
