@@ -108,7 +108,7 @@ Returns a prompt object if successful which will start processing if tune is pro
 
 ```bash showLineNumbers
 curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes/1/prompts \
-          -F prompt[text]="a painting of sks man in the style of Van Gogh" \
+          -F prompt[text]="a painting of ohwx man in the style of Van Gogh" \
           -F prompt[negative_prompt]="old, blemish, wrin" \
           -F prompt[super_resolution]=true \
           -F prompt[face_correct]=true \
@@ -126,7 +126,7 @@ const API_KEY = 'YOUR_API_KEY'; // Replace with your actual API key
 const headers = { Authorization: `Bearer ${API_KEY}` }
 
 const form = new FormData();
-form.append('prompt[text]', 'a painting of sks man in the style of Van Gogh');
+form.append('prompt[text]', 'a painting of ohwx man in the style of Van Gogh');
 form.append('prompt[negative_prompt]', 'old, blemish, wrin');
 form.append('prompt[super_resolution]', true);
 form.append('prompt[face_correct]', true);
@@ -154,7 +154,7 @@ headers = {
 }
 
 data = {
-  'prompt[text]': 'a painting of sks man in the style of Van Gogh',
+  'prompt[text]': 'a painting of ohwx man in the style of Van Gogh',
   'prompt[negative_prompt]': 'old, blemish, wrin',
   'prompt[super_resolution]': True,
   'prompt[face_correct]': True,
@@ -174,7 +174,7 @@ response = requests.post(API_URL, headers=headers, data=data)
 {
   "id": 1,
   "callback": "https://optional-callback-url.com/to-your-service-when-ready?prompt_id=1",
-  "text": "a painting of sks man in the style of Van Gogh",
+  "text": "a painting of ohwx man in the style of Van Gogh",
   "negative_prompt": "old, blemish, wrinkles, mole",
   "cfg_scale": null,
   "steps": null,

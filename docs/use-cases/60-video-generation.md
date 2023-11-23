@@ -6,9 +6,9 @@ description: Generate videos using text
 To generate video use the regular prompt text box, and enter the frame number followed by a colon and the prompt to activate video generation `frame number: prompt` Don’t forget to use your model’s token. For example:
 
 ```text
-  0: portrait of sks woman with eyes closed
-  25: portrait of sks woman with eyes opened
-  50: portrait of sks woman smiling
+  0: portrait of ohwx woman with eyes closed
+  25: portrait of ohwx woman with eyes opened
+  50: portrait of ohwx woman smiling
 ```
 
 Notice that the last prompt marks the end of the video generation and will not be rendered.
@@ -31,9 +31,9 @@ You can always adjust the camera movement by adding parameters at the start of t
   rotation_3d_x=0:(0)
   rotation_3d_y=0:(1.5)
   rotation_3d_z=0:(0)
-  0: portrait of sks woman with eyes closed
-  25: portrait of sks woman with eyes opened
-  50: portrait of sks woman smiling
+  0: portrait of ohwx woman with eyes closed
+  25: portrait of ohwx woman with eyes opened
+  50: portrait of ohwx woman smiling
 ```
 
 The X-axis is a left/right translation; a positive translation shifts the camera to the right.

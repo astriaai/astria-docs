@@ -25,6 +25,6 @@ Make sure to test results on a person you closely know and can judge similarity.
 
 1. Set **width and height** to **512 x 640** - to match Instagram aspect ratio of 4:5 and also create good portraits. Avoid higher aspect ratios as you might get artifacts such as duplicate heads.
 2. Enable **face-inpainting** - This is one of Astria’s unique features and allows creating long shots while avoiding deformed faces.
-3. Weighted prompts - when a prompt has multiple keywords that collide and reduce similarity - use the parenthesis syntax for emphasis to increase similarity, such as `(sks man)`
+3. Weighted prompts - when a prompt has multiple keywords that collide and reduce similarity - use the parenthesis syntax for emphasis to increase similarity, such as `(ohwx man)`
    On the flip side, try to avoid weighted prompts altogether to preserve similarity to subject.
 4. Use [Controlnet](/docs/use-cases/controlnet) with input image to preserve composition and create unique long-shots. Enable `controlnet_txt2img` if you’d like to create more variation and draw more from the prompt. Increase denoising_strength=1

@@ -36,7 +36,7 @@ If you are receiving `422` error `model_type=pti is not supported. Use a checkpo
 ```bash showLineNumbers
 # Note the hard-coded 666678 which is the tune_id of SDXL 1.0 from the gallery
 curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes/666678/prompts \
-          -F prompt[text]="<lora:tune_id:strength> a painting of sks man in the style of Van Gogh" \
+          -F prompt[text]="<lora:tune_id:strength> a painting of ohwx man in the style of Van Gogh" \
           -F prompt[negative_prompt]="old, blemish, wrin" \
           -F prompt[super_resolution]=true \
           -F prompt[face_correct]=true \
@@ -55,7 +55,7 @@ const API_KEY = 'YOUR_API_KEY'; // Replace with your actual API key
 const headers = { Authorization: `Bearer ${API_KEY}` }
 
 const form = new FormData();
-form.append('prompt[text]', '<lora:tune_id:strength> a painting of sks man in the style of Van Gogh');
+form.append('prompt[text]', '<lora:tune_id:strength> a painting of ohwx man in the style of Van Gogh');
 form.append('prompt[negative_prompt]', 'old, blemish, wrin');
 form.append('prompt[super_resolution]', true);
 form.append('prompt[face_correct]', true);
@@ -84,7 +84,7 @@ headers = {
 }
 
 data = {
-  'prompt[text]': '<lora:tune_id:strength> a painting of sks man in the style of Van Gogh',
+  'prompt[text]': '<lora:tune_id:strength> a painting of ohwx man in the style of Van Gogh',
   'prompt[negative_prompt]': 'old, blemish, wrin',
   'prompt[super_resolution]': True,
   'prompt[face_correct]': True,

@@ -74,8 +74,8 @@ curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes \
           -F tune[branch]="fast" \
           -F tune[callback]="https://optional-callback-url.com/webhooks/astria?user_id=1&tune_id=1" \
           -F tune[base_tune_id]=690204 \
-          -F tune[token]=sks \
-          -F "tune[prompts_attributes][0][text]=sks man on space circa 1979 on cover of time magazine" \
+          -F tune[token]=ohwx \
+          -F "tune[prompts_attributes][0][text]=ohwx man on space circa 1979 on cover of time magazine" \
           -F tune[prompts_attributes][0][callback]="https://optional-callback-url.com/webhooks/astria?user_id=1&prompt_id=1&tune_id=1" \
           -F "tune[images][]=@1.jpg" \
           -F "tune[images][]=@2.jpg" \
@@ -89,7 +89,7 @@ curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes \
           -F tune[branch]="fast" \
           -F tune[callback]="https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1" \
           -F tune[base_tune_id]=690204 \
-          -F tune[token]=sks \
+          -F tune[token]=ohwx \
           -F "tune[image_urls][]=https://i.imgur.com/HLHBnl9.jpeg" \
           -F "tune[image_urls][]=https://i.imgur.com/HLHBnl9.jpeg" \
           -F "tune[image_urls][]=https://i.imgur.com/HLHBnl9.jpeg" \
@@ -111,11 +111,11 @@ cat > data.json <<- EOM
     ],
     "prompts_attributes": [
       {
-        "text": "sks cat in space circa 1979 French illustration",
+        "text": "ohwx cat in space circa 1979 French illustration",
         "callback": "https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1&prompt_id=1"
       },
       {
-        "text": "sks cat getting into trouble viral meme",
+        "text": "ohwx cat getting into trouble viral meme",
         "callback": "https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1&prompt_id=1"
       }
     ]
@@ -183,7 +183,7 @@ function createTune() {
   formData.append('tune[controlnet]', 'pose');
   formData.append('tune[prompts_attributes][0][callback]', 'https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1&prompt_id=1');
   formData.append('tune[prompts_attributes][0][input_image]', fs.createReadStream(`./samples/pose.png`));
-  formData.append('tune[prompts_attributes][0][text]',"sks man inside spacesuit in space")
+  formData.append('tune[prompts_attributes][0][text]',"ohwx man inside spacesuit in space")
   // Load all JPGs from ./samples directory and append to FormData
   let files = fs.readdirSync('./samples');
   files.forEach(file => {
