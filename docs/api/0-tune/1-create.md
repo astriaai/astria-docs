@@ -49,7 +49,7 @@ Training on top of former fine-tune or a different baseline model from the [gall
 
 #### `model_type` (optional)
 Enum: `lora`, `pti`, `null` for checkopoint.
-For SDXL1 - API will default to `pti` and will ignore `model_type parameter.
+For SDXL1 - API will default to `pti` and will ignore `model_type` parameter.
 
 ### Returns
 
