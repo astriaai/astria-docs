@@ -153,6 +153,16 @@ function createTune() {
           "https://i.imgur.com/HLHBnl9.jpeg",
           "https://i.imgur.com/HLHBnl9.jpeg",
           "https://i.imgur.com/HLHBnl9.jpeg"
+        ],
+        "prompts_attributes": [
+          {
+            "text": "ohwx cat in space circa 1979 French illustration",
+            "callback": "https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1&prompt_id=1"
+          },
+          {
+            "text": "ohwx cat getting into trouble viral meme",
+            "callback": "https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1&prompt_id=2"
+          }
         ]
       }
     })
