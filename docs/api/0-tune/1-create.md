@@ -225,10 +225,11 @@ def load_image(file_path):
 image_data = load_image("assets/image.jpeg")
 
 data = {
-  "title": "John Doe - UUID - 1234-6789-1234-56789",
-  "base_tune_id": 69024,
-  "branch": "fast",
-  "token": "ohwx"
+  "tune[title]": "John Doe - UUID - 1234-6789-1234-56789",
+  "tune[name]": "man",
+  "tune[base_tune_id]": 69024,
+  "tune[branch]": "fast",
+  "tune[token]": "ohwx"
 }
 files = []
 for i, prompt in enumerate(prompts):
