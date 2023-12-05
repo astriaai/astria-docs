@@ -1,5 +1,8 @@
 # FAQ
 
+## What image size should I upload? <br/> Is there a size limit to uploads?
+There is no hard limit on image uploads, the service does have some limits against JPEG bombs. A reasonable limit would be 3MB per image. The image size should be at least 512x512 pixels as models train on 512x512, but it's also a good idea to give some headroom for face-cropping, so possibly 1024x1024 or 2048x2048 could be a good target resize. Finally make sure compression level does not introduce artifacts to the uploaded images as the model is very sensitive to JPEG artifacts.
+
 ## Why isn't it free?
 
 For each model created using your training image, Astria creates an AI model using high-end GPU machines, and then serves those models to allow image generation. This process is expensive.
