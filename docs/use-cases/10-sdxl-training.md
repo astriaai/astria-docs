@@ -34,13 +34,12 @@ Default token for SDXL should be `ohwx` and will be set automatically if none is
 
 ## Inference tips
 
-1. Activate face-inpainting (which in turn requires super-resolution) - this is the biggest boost you can get to increase similarity to subject
-2. Use `euler_a` scheduler
-3. Do not copy and paste prompts from SD15
-4. Use clean small concise prompts - usually up to 15 words
-5. Avoid long negatives.
-6. Do not use textual-inversions such as `easynegative` or `badhands` from SD15
-7. Start with baseline SDXL 1.0 inference before going to other base models. Most custom SDXL Civit model available are very biased and may reduce similarity. Models which we noticed that work okay are `ZavyChromaXL` and `ClearChromaXL`
+1. Do not copy and paste prompts from SD15
+1. Do not use textual-inversions such as `easynegative` or `badhands` from SD15
+1. Consider activating face-swap and face-inpainting (which in turn requires super-resolution) - this is the biggest boost you can get to increase similarity to subject
+1. Use clean small concise prompts - usually up to 15 words
+1. Avoid long negatives - this will decrease similarity to subject.
+1. Start with baseline SDXL 1.0 inference before going to other base models. Most custom SDXL models are biased and may reduce similarity. Models which we noticed that work okay are `ZavyChromaXL` and `ClearChromaXL`
 
 All above tips will help increase similarity to the original subject.
 
