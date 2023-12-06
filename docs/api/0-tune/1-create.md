@@ -38,6 +38,9 @@ Use `branch=fast` for [mock testing](https://docs.astria.ai/docs/api/overview#mo
 #### `steps` (optional)
 Training steps. Recommended leaving blank in order to allow better defaults set by the system.
 
+#### `token` (optional)
+Unique short text to which the features will be embedded into. Default `ohwx` for SDXL and `sks` for SD15.
+
 #### `face_crop` (optional)
 Detects faces in training images and augments training set with cropped faces. Defaults to [account setting](https://www.astria.ai/users/edit)
 
@@ -50,6 +53,9 @@ Training on top of former fine-tune or a different baseline model from the [gall
 #### `model_type` (optional)
 Enum: `lora`, `pti`, `null` for checkopoint.
 For SDXL1 - API will default to `pti` and will ignore `model_type` parameter.
+
+#### `prompts_attributes` (optional)
+Array of prompts entities with all attributes. See [create prompt](/docs/api/prompt/create) for more information.
 
 ### Returns
 

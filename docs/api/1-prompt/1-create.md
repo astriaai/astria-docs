@@ -28,6 +28,9 @@ Apect-Ratio. `1:1`, `portrait`, `16:9`, `landscape`, `anamorphic`
 #### `num_images` (optional) 
 Number of images to generate. Range: 1-8.
 
+#### `seed` (optional) 
+Random number to create consistent results. Range: 0 to 2^32.
+
 #### `super_resolution` (optional) 
 Boolean. X4 super-resolution.
 
