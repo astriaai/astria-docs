@@ -76,7 +76,7 @@ boolean - Adds noise to the image to make it look more realistic.
 BETA. Requires input_image. Possible values: lineart, canny, depth, mlsd, hed, pose, pose_with_hand, pose_with_face, pose_face_and_hand, tile, qr.
 
 #### `denoising_strength` (optional)
-For img2img. 1.0 - Take prompt. 0.0 - Take image. Range: 0.0-1.0
+For img2img. 1.0 - Take prompt. 0.0 - Take image. Range: 0.0-1.0. Default: 0.8
 
 #### `controlnet_conditioning_scale` (optional) 
 Strength of controlnet conditioning. 0.0-1.0
