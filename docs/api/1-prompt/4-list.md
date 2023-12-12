@@ -11,7 +11,8 @@ import TabItem from '@theme/TabItem';
 
 ### Parameters
 
-No parameters
+#### `offset` (optional)
+Starting offset for the list of prompts. Default: 0. Current page size is 20.
 
 ### Returns
 
