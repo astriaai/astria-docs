@@ -3,11 +3,16 @@
 Prompt masking uses a short text to create a mask from the input image. The mask can then be used to inpaint parts of the image. Use the below parameters as part of the prompts to use auto-masking
 
 Prompt masking can be used for [product shots](/docs/use-cases/product-shots) or [Masked Portraits](/docs/use-cases/masked-portraits).
+
+### Syntax
+
+Below parameters should be used as text inside the prompt text
+
 #### `--mask_prompt`
-A short text like `foreground` or `face`, `head` or `person`
+A short text like `foreground` or `face`, `head` or `person`.
 
 #### `--mask_negative`
-A space separated list of words that should not appear in the mask.
+A space separated list of words that should not appear in the mask. e.g: `clothes hat shoes`
 
 #### `--mask_invert`
 Inverts the mask
