@@ -1,4 +1,9 @@
-# Multi-Person inference (BETA)
+---
+title: Multi-Person
+---
+
+# Multi-Person inference 
+**BETA**
 
 <div style={{ display: "grid", 'grid-template-columns': '1fr 1fr', gap: '1.5rem' }}>
 <div>
@@ -16,7 +21,8 @@
 </div>
 
 ## Overview
-Multi-person inference is a feature that allows you to generate images with multiple people in them. 
+Multi-person inference is a feature that allows you to generate images with multiple people in them.
+You can see some of the examples in the [gallery](https://www.astria.ai/gallery?is_multiperson=true) or in the [community feed](https://www.astria.ai/community?is_multiperson=true).
 
 ## Requirements
 LoRA (`model_type=lora` in the [create tune](/docs/api/tune/create) API) is required.
