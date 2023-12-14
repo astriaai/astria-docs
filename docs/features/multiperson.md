@@ -24,6 +24,8 @@ title: Multi-Person
 Multi-person inference is a feature that allows you to generate images with multiple people in them.
 You can see some of the examples in the [gallery](https://www.astria.ai/gallery?is_multiperson=true) or in the [community feed](https://www.astria.ai/community?is_multiperson=true).
 
+See [pricing](https://www.astria.ai/pricing) for the cost of this feature.
+
 ## Requirements
 LoRA (`model_type=lora` in the [create tune](/docs/api/tune/create) API) is required.
 Moreover, it's recommended to use SD15 models based on [RealisticVision V5.1](https://www.astria.ai/gallery/tunes/690204/prompts) as SD15 works better than SDXL for this use-case.

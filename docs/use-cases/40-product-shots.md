@@ -37,3 +37,6 @@
 ![generated.png](./img/product-output2.png)
 </div>
 </div>
+
+
+Use [prompt masking](/docs/features/prompt-masking) to automatically mask out the product from the background.

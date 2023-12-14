@@ -1,9 +1,6 @@
 # Masked portraits
 **BETA**
 
-Use [prompt masking](/docs/features/prompt-masking) feature to embed a person into a scene.
-This essentially allows you to create AI photogarphy or avatars without fine-tuning.
-
 <div style={{ display: "grid", 'grid-template-columns': '1fr 1fr', gap: '1.5rem' }}>
 <div>
 <figcaption>Input image</figcaption>
@@ -64,8 +61,13 @@ This essentially allows you to create AI photogarphy or avatars without fine-tun
 
 </div>
 
+Use [prompt masking](/docs/features/prompt-masking) feature to embed a person into a scene.
+This essentially allows you to create AI photogarphy or avatars without fine-tuning.
 
-Example prompt
+See [pricing](https://www.astria.ai/pricing) for the cost of this feature.
+
+
+## Example prompt
 
 ```text
 realistic digital painting, astronaut in a garden on a spring day, by martine johanna and simon stalenhag and chie yoshii and casey weldon and wlop, ornate, dynamic, particulate, rich colors, intricate, elegant, highly detailed, harpers bazaar art, fashion magazine, smooth, sharp focus, 8 k, octane rende --mask_prompt foreground --mask_negative clothes --mask_invert --mask_dilate -20 --hires_denoising_strength 0.2
