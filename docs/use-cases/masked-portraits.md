@@ -49,6 +49,21 @@ This essentially allows you to create AI photogarphy or avatars without fine-tun
 
 </div>
 
+<div style={{ display: "grid", 'grid-template-columns': '1fr 1fr', gap: '1.5rem' }}>
+<div>
+<figcaption>Input image</figcaption>
+
+![source.png](./img/masking-input-4.jpg)
+</div>
+
+<div>
+<figcaption>Masked result</figcaption>
+
+![generated.png](./img/masking-result-4.jpeg)
+</div>
+
+</div>
+
 
 Example prompt
 
