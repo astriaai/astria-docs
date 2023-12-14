@@ -1,7 +1,7 @@
 # Masked portraits
 **BETA**
 
-<div style={{ display: "grid", 'grid-template-columns': '1fr 1fr', gap: '1.5rem' }}>
+<div style={{ display: "grid", 'grid-template-columns': '1fr 1fr 1fr 1fr', gap: '1.5rem' }}>
 <div>
 <figcaption>Input image</figcaption>
 
@@ -9,14 +9,26 @@
 </div>
 
 <div>
-<figcaption>Masked result</figcaption>
+<figcaption>Masked result using RV v5.1</figcaption>
 
 ![generated.png](./img/masking-result-1.jpeg)
 </div>
 
+<div>
+<figcaption>Masked result using Cartoon</figcaption>
+
+![generated.png](./img/masking-result-art-1.jpeg)
 </div>
 
-<div style={{ display: "grid", 'grid-template-columns': '1fr 1fr', gap: '1.5rem' }}>
+<div>
+<figcaption>Masked result using Flat</figcaption>
+
+![generated.png](./img/masking-result-flat-1.jpeg)
+</div>
+
+</div>
+
+<div style={{ display: "grid", 'grid-template-columns': '1fr 1fr 1fr 1fr', gap: '1.5rem' }}>
 <div>
 <figcaption>Input image</figcaption>
 
@@ -24,14 +36,26 @@
 </div>
 
 <div>
-<figcaption>Masked result</figcaption>
+<figcaption>Masked result using RV v5.1</figcaption>
 
 ![generated.png](./img/masking-result-2.jpeg)
 </div>
 
+<div>
+<figcaption>Masked result using Cartoon</figcaption>
+
+![generated.png](./img/masking-result-art-2.jpeg)
 </div>
 
-<div style={{ display: "grid", 'grid-template-columns': '1fr 1fr', gap: '1.5rem' }}>
+<div>
+<figcaption>Masked result using Flat</figcaption>
+
+![generated.png](./img/masking-result-flat-2.jpeg)
+</div>
+
+</div>
+
+<div style={{ display: "grid", 'grid-template-columns': '1fr 1fr 1fr 1fr', gap: '1.5rem' }}>
 <div>
 <figcaption>Input image</figcaption>
 
@@ -39,14 +63,26 @@
 </div>
 
 <div>
-<figcaption>Masked result</figcaption>
+<figcaption>Masked result using RV v5.1</figcaption>
 
 ![generated.png](./img/masking-result-3.jpeg)
 </div>
 
+<div>
+<figcaption>Masked result using Cartoon</figcaption>
+
+![generated.png](./img/masking-result-art-3.jpeg)
 </div>
 
-<div style={{ display: "grid", 'grid-template-columns': '1fr 1fr', gap: '1.5rem' }}>
+<div>
+<figcaption>Masked result using Flat</figcaption>
+
+![generated.png](./img/masking-result-flat-3.jpeg)
+</div>
+
+</div>
+
+<div style={{ display: "grid", 'grid-template-columns': '1fr 1fr 1fr 1fr', gap: '1.5rem' }}>
 <div>
 <figcaption>Input image</figcaption>
 
@@ -54,9 +90,21 @@
 </div>
 
 <div>
-<figcaption>Masked result</figcaption>
+<figcaption>Masked result using RV v5.1</figcaption>
 
 ![generated.png](./img/masking-result-4.jpeg)
+</div>
+
+<div>
+<figcaption>Masked result using Cartoon</figcaption>
+
+![generated.png](./img/masking-result-art-4.jpeg)
+</div>
+
+<div>
+<figcaption>Masked result using Flat</figcaption>
+
+![generated.png](./img/masking-result-flat-4.jpeg)
 </div>
 
 </div>
