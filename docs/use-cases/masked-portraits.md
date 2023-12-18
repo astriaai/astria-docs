@@ -9,19 +9,19 @@
 </div>
 
 <div>
-<figcaption>Masked result using RV v5.1</figcaption>
+<figcaption>Result using <a href="https://www.astria.ai/gallery/tunes/690204/prompts">RV v5.1</a></figcaption>
 
 ![generated.png](./img/masking-result-1.jpeg)
 </div>
 
 <div>
-<figcaption>Masked result using Cartoon</figcaption>
+<figcaption>using <a href="https://www.astria.ai/gallery/tunes/636337/prompts">Cartoon</a></figcaption>
 
 ![generated.png](./img/masking-result-art-1.jpeg)
 </div>
 
 <div>
-<figcaption>Masked result using Flat</figcaption>
+<figcaption>Using <a href="https://www.astria.ai/gallery/tunes/623021/prompts">Flat</a></figcaption>
 
 ![generated.png](./img/masking-result-flat-1.jpeg)
 </div>
@@ -36,19 +36,19 @@
 </div>
 
 <div>
-<figcaption>Masked result using RV v5.1</figcaption>
+<figcaption>Result using <a href="https://www.astria.ai/gallery/tunes/690204/prompts">RV v5.1</a></figcaption>
 
 ![generated.png](./img/masking-result-2.jpeg)
 </div>
 
 <div>
-<figcaption>Masked result using Cartoon</figcaption>
+<figcaption>using <a href="https://www.astria.ai/gallery/tunes/636337/prompts">Cartoon</a></figcaption>
 
 ![generated.png](./img/masking-result-art-2.jpeg)
 </div>
 
 <div>
-<figcaption>Masked result using Flat</figcaption>
+<figcaption>Using <a href="https://www.astria.ai/gallery/tunes/623021/prompts">Flat</a></figcaption>
 
 ![generated.png](./img/masking-result-flat-2.jpeg)
 </div>
@@ -63,19 +63,19 @@
 </div>
 
 <div>
-<figcaption>Masked result using RV v5.1</figcaption>
+<figcaption>Result using <a href="https://www.astria.ai/gallery/tunes/690204/prompts">RV v5.1</a></figcaption>
 
 ![generated.png](./img/masking-result-3.jpeg)
 </div>
 
 <div>
-<figcaption>Masked result using Cartoon</figcaption>
+<figcaption>using <a href="https://www.astria.ai/gallery/tunes/636337/prompts">Cartoon</a></figcaption>
 
 ![generated.png](./img/masking-result-art-3.jpeg)
 </div>
 
 <div>
-<figcaption>Masked result using Flat</figcaption>
+<figcaption>Using <a href="https://www.astria.ai/gallery/tunes/623021/prompts">Flat</a></figcaption>
 
 ![generated.png](./img/masking-result-flat-3.jpeg)
 </div>
@@ -90,19 +90,19 @@
 </div>
 
 <div>
-<figcaption>Masked result using RV v5.1</figcaption>
+<figcaption>Result using <a href="https://www.astria.ai/gallery/tunes/690204/prompts">RV v5.1</a></figcaption>
 
 ![generated.png](./img/masking-result-4.jpeg)
 </div>
 
 <div>
-<figcaption>Masked result using Cartoon</figcaption>
+<figcaption>using <a href="https://www.astria.ai/gallery/tunes/636337/prompts">Cartoon</a></figcaption>
 
 ![generated.png](./img/masking-result-art-4.jpeg)
 </div>
 
 <div>
-<figcaption>Masked result using Flat</figcaption>
+<figcaption>Using <a href="https://www.astria.ai/gallery/tunes/623021/prompts">Flat</a></figcaption>
 
 ![generated.png](./img/masking-result-flat-4.jpeg)
 </div>
