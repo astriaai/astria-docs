@@ -27,11 +27,10 @@ You can see some of the examples in the [gallery](https://www.astria.ai/gallery?
 See [pricing](https://www.astria.ai/pricing) for the cost of this feature.
 
 ## Requirements
-LoRA (`model_type=lora` in the [create tune](/docs/api/tune/create) API) is required.
-Moreover, it's recommended to use SD15 models based on [RealisticVision V5.1](https://www.astria.ai/gallery/tunes/690204/prompts) as SD15 works better than SDXL for this use-case.
+It is recommended to use SD15 models based on [RealisticVision V5.1](https://www.astria.ai/gallery/tunes/690204/prompts) as SD15 works better than SDXL for this use-case.
 
 ## Step 1: Training
-[Create a fine-tune](https://www.astria.ai/tunes/new) for each person with `model_type=lora`
+[Create a fine-tune](https://www.astria.ai/tunes/new) for each person. Model can be either lora or a checkpoint.
 
 ![img.png](./img/multiperson-training.png)
 
@@ -42,7 +41,7 @@ If no `input_image` is given, a constant pose input image (with arms crossed) wi
 The prompt is divided by the `BREAK` keyword such as:
 * 1st **base prompt** used to generate the background and scene.
 * 2nd **common prompt** that's concatenated to each person prompt and the base prompt to avoid repetition.
-* 3+ each person and its LoRA reference.
+* 3+ each person and its LoRA syntax reference (even for checkpoint)
 
 Example prompt for multi-person inference
 
