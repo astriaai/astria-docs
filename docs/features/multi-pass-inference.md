@@ -69,6 +69,7 @@ Note that multi-pass works specifically well with `SD15` models, while `SDXL` mo
 * Base prompt first pass allows to use the full breadth of an unmodified model. As such image compositions, fabrics and textures and details will show much better.
 * Separating the person from the background allows to prompt in more details on clothing, accessories and colors.
 * Better similarity to the original subject.
+* Multi-pass allows mixing SDXL model for base prompt and SD15 for person prompt.
 
 Check the [gallery](https://www.astria.ai/gallery?branch=sd15&is_multiperson=true) for more examples.
 
