@@ -46,7 +46,11 @@ The prompt is divided by the `BREAK` keyword such as:
 Example prompt for multi-person inference
 
 ```text
-Glamour aristocrat party 2girl BREAK Zeiss Canon Mark D5, wallpaper, photorealistic, detailed skin BREAK (ohwx woman) <lora:849330:1> BREAK (ohwx woman) <lora:861629:1> num_images=1 negative_prompt=hat, open mouth, text, oversaturated, ugly, 3d, render, cartoon, grain, low-res, kitsch ugly, tiling, poorly drawn hands, poorly drawn feet, poorly drawn face, out of frame, mutation, mutated, extra limbs, extra legs, extra arms, disfigured, deformed, cross-eye, body out of shot 
+Glamour aristocrat party 2girl 
+BREAK Zeiss Canon Mark D5, wallpaper, photorealistic, detailed skin 
+BREAK (ohwx woman) <lora:849330:1> BREAK (ohwx woman) <lora:861629:1> 
+num_images=1 
+negative_prompt=hat, open mouth, text, oversaturated, ugly, 3d, render, cartoon, grain, low-res, kitsch ugly, tiling, poorly drawn hands, poorly drawn feet, poorly drawn face, out of frame, mutation, mutated, extra limbs, extra legs, extra arms, disfigured, deformed, cross-eye, body out of shot 
 seed= 
 steps= 
 cfg_scale= 
