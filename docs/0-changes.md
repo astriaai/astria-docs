@@ -1,5 +1,6 @@
 # Changes
 
+* 2023-01-17 [FaceID](/docs/features/faceid) Preserve identity without fine-tuning.
 * 2023-01-03 [Tiled upscale](/docs/features/tiled-upscale) improved upscaling.
 * 2023-01-03 [Multi pass inference](/docs/features/multi-pass-inference) unlocks new level of detail, image composition and similarity.
 * 2023-12-14 [Prompt masking](/docs/features/prompt-masking.md) feature added - to support [product shots](/docs/use-cases/product-shots) and [Masked Portraits](/docs/use-cases/masked-portraits)

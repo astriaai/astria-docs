@@ -29,7 +29,7 @@ An array of images to train the fine-tune with. The images can be uploaded as mu
 A webhook URL to be called when the tune is finished training. The webhook will receive a POST request with the tune object.
 
 #### `branch` (optional)
-Enum: `sd15`, `sdxl1`, `fast`.
+Enum: `sd15`, `sdxl1`, `fast`. Will default to the `base_tune` branch if not specified, or to `sd15` if `base_tune` is not specified.
 
 :::info
 Use `branch=fast` for [mock testing](https://docs.astria.ai/docs/api/overview#mock-testing)
@@ -51,7 +51,7 @@ Enhance training images using GFPGAN. Consider enabling if input image are low q
 Training on top of former fine-tune or a different baseline model from the [gallery](https://www.astria.ai/gallery/tunes) (id in the URL). e.g: `690204` - Realistic Vision v5.1
 
 #### `model_type` (optional)
-Enum: `lora`, `pti`, `null` for checkopoint.
+Enum: `lora`, `pti`, `faceid`, `null` for checkopoint.
 For SDXL1 - API will default to `pti` and will ignore `model_type` parameter.
 
 #### `prompts_attributes` (optional)
