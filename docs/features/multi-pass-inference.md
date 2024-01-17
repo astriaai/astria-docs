@@ -65,6 +65,10 @@ To load the person checkpoint or LoRA use the `<lora:ID:1>` syntax.
 Note that multi-pass works specifically well with `SD15` models, while `SDXL` models are not recommended.
 :::
 
+:::tip
+`<lora:ID:1>` syntax specifically for multi-pass inference can be used to also load a checkpoint and not just a LoRA.
+:::
+
 ## Advantages
 * Base prompt first pass allows to use the full breadth of an unmodified model. As such image compositions, fabrics and textures and details will show much better.
 * Separating the person from the background allows to prompt in more details on clothing, accessories and colors.
