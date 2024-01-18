@@ -16,7 +16,7 @@
 
 </div>
 
-FaceID is a a model adapter allowing to generate image while preserving a person identity without fine-tuning. In order to use FaceID we will need to
+FaceID is a a model adapter allowing to generate image while preserving a person identity without fine-tuning.
 
 ## Usage
 1. Generate a placeholder fine-tune dataset which will contain the person images. The fine-tune will not go through training and will be immediately ready.
