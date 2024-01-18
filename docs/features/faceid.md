@@ -17,6 +17,8 @@
 </div>
 
 FaceID is a a model adapter allowing to generate image while preserving a person identity without fine-tuning. In order to use FaceID we will need to
+
+## Usage
 1. Generate a placeholder fine-tune dataset which will contain the person images. The fine-tune will not go through training and will be immediately ready.
 ![faceid-new-fine-tune.png](./img/faceid-new-fine-tune.png)
 2. Generate the image using the FaceID adapter using a syntax similar to LoRA - `<faceid:ID:1>`` 
