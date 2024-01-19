@@ -53,8 +53,6 @@
 
 </div>
 
-See example in  [gallery](https://www.astria.ai/gallery?branch=sd15&is_multiperson=true) for more examples.
-
 See example prompts in the [gallery](https://astria.ai/gallery?is_multiperson=true).
 
 ## Overview
