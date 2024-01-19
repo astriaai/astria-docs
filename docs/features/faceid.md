@@ -21,7 +21,7 @@
 See example prompts in the [gallery](https://www.astria.ai/gallery?text=faceid)
 
 ## Overview
-FaceID is a a model adapter allowing to generate image while preserving a person identity without fine-tuning.
+FaceID is a model adapter allowing to generate image while preserving a person identity without fine-tuning. Input images can be as few as just one image.
 
 ## Usage
 1. Generate a placeholder fine-tune dataset which will contain the person images. The fine-tune will not go through training and will be immediately ready.
