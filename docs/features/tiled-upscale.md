@@ -37,7 +37,11 @@
 </div>
 </div>
 
+See example prompts in the [gallery](https://astria.ai/gallery?text=tiled_upscale).
+
+## Overview
 Tiled upscale iterate over the image and upscale each tile individually. This allows to preserve the original training resolution of the image thus allowing sharper and better details.
+See example prompts in the [gallery](https://www.astria.ai/gallery?text=tiled_upscale)
 
 To enable tiled upscale, add `--tiled_upscale` to the prompt text.
 

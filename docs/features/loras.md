@@ -14,13 +14,16 @@ LoRAs can be used to enhance the quality of the image or deepen a specific style
 
 Astria provides a [LoRA gallery](https://www.astria.ai/gallery/tunes?model_type=lora) and allows importing external LoRAs. To use a LoRA go to the [generate tab](https://www.astria.ai/prompts) and use the LoRA syntax as such: `<lora:name:weight>`. For example, a very common usage `<lora:epi_noiseoffset2:0.5>` - will load a Noise offset lora at strength 0.5 which will turn the image a bit darker and deepen the contrast.
 
+See example prompts in the [gallery](https://www.astria.ai/gallery?text=lora)
+
+
 You can also combine LoRAs as such:
 
 ```
 <lora:epi_noiseoffset2:0.5><lora:FilmVelvia2:0.5><lora:add_detail:0.5><lora:epiCRealismHelper:0.2>
 ```
 
-:::info
+:::warning
 
 Note that LoRA can reduce the similarity of trained subjects when used together. To avoid this use low-strength for the lora.
 

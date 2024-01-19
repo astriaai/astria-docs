@@ -40,3 +40,5 @@
 
 
 Use [prompt masking](/docs/features/prompt-masking) to automatically mask out the product from the background.
+
+See example prompts in the [gallery](https://www.astria.ai/gallery?text=mask_prompt).

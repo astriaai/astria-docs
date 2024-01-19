@@ -20,9 +20,11 @@ title: Multi-Person
 
 </div>
 
+See example prompts in the [gallery](https://astria.ai/gallery?is_multiperson=true)
+
 ## Overview
 Multi-person inference is a feature that allows you to generate images with multiple people in them.
-You can see some of the examples in the [gallery](https://www.astria.ai/gallery?is_multiperson=true) or in the [community feed](https://www.astria.ai/community?is_multiperson=true).
+See example prompts in the [gallery](https://www.astria.ai/gallery?is_multiperson=true) or in the [community feed](https://www.astria.ai/community?is_multiperson=true).
 
 See [pricing](https://www.astria.ai/pricing) for the cost of this feature.
 

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The term "AI Photoshoot" or "AI Headshots" or "AI Avatars" refers to the process of creating a generative AI model from around 20 images of a person. This model can then be used to create professional photography imagery of the person, without requiring high-end camera equipment, lighting, or wardrobe.
+The term "AI Photoshoot", "AI Headshots" or "AI Avatars" refers to the process of creating a generative AI model from around 16 images of a person. This model can then be used to create professional photography imagery of the person, without requiring high-end camera equipment, lighting, or wardrobe.
 
 AI headshots are particularly useful for social profile photos, such as those used on LinkedIn or Facebook, as well as on dating sites.
 

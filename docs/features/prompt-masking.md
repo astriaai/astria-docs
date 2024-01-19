@@ -4,6 +4,8 @@ Prompt masking uses a short text to create a mask from the input image. The mask
 
 Prompt masking can be used for [product shots](/docs/use-cases/product-shots) or [Masked Portraits](/docs/use-cases/masked-portraits).
 
+See example prompts in the [gallery](https://www.astria.ai/gallery?text=mask_prompt)
+
 ### Syntax
 
 Below parameters should be used as text inside the prompt text

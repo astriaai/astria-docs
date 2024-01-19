@@ -53,6 +53,21 @@
 
 </div>
 
+See example in  [gallery](https://www.astria.ai/gallery?branch=sd15&is_multiperson=true) for more examples.
+
+See example prompts in the [gallery](https://astria.ai/gallery?is_multiperson=true).
+
+## Overview
+Multi-pass feature is a unique feature to the Astria platform allowing to generate a background image separately from the person thus offering a new level of high-quality results. 
+
+## Advantages
+* Base prompt first pass allows to use the full breadth of an unmodified model. As such image compositions, fabrics and textures and details will show much better.
+* Separating the person from the background allows to prompt in more details on clothing, accessories and colors.
+* Better similarity to the original subject.
+* Multi-pass allows mixing SDXL model for base prompt and SD15 for person prompt.
+
+
+
 ## Syntax
 The prompt is divided by the `BREAK` keyword such as:
 * 1st **base prompt** used to generate the background and scene. 
@@ -68,14 +83,6 @@ Note that multi-pass works specifically well with `SD15` models, while `SDXL` mo
 :::tip
 `<lora:ID:1>` syntax specifically for multi-pass inference can be used to also load a checkpoint and not just a LoRA.
 :::
-
-## Advantages
-* Base prompt first pass allows to use the full breadth of an unmodified model. As such image compositions, fabrics and textures and details will show much better.
-* Separating the person from the background allows to prompt in more details on clothing, accessories and colors.
-* Better similarity to the original subject.
-* Multi-pass allows mixing SDXL model for base prompt and SD15 for person prompt.
-
-Check the [gallery](https://www.astria.ai/gallery?branch=sd15&is_multiperson=true) for more examples.
 
 See [pricing](https://www.astria.ai/pricing) for the cost of this feature.
 
