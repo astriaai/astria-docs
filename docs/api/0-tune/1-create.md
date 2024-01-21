@@ -196,7 +196,6 @@ function createTune() {
   // https://www.astria.ai/gallery/tunes/690204/prompts
   formData.append('tune[base_tune_id]', 690204);
   formData.append('tune[name]', 'man');
-  formData.append('tune[controlnet]', 'pose');
   formData.append('tune[prompts_attributes][0][callback]', 'https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1&prompt_id=1');
   formData.append('tune[prompts_attributes][0][input_image]', fs.createReadStream(`./samples/pose.png`));
   formData.append('tune[prompts_attributes][0][text]',"ohwx man inside spacesuit in space")
@@ -235,8 +234,7 @@ def load_image(file_path):
   with open(file_path, "rb") as f:
     return f.read()
 
-# Assuming `prompts` and `tune_request.images` are already defined in your context
-# If not, you should define them before the below code
+# Assuming `prompts` and `tune.images` are already defined in your context
 
 image_data = load_image("assets/image.jpeg")
 
