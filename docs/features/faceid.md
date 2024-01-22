@@ -33,14 +33,18 @@ import TabItem from '@theme/TabItem';
 See example prompts in the [gallery](https://www.astria.ai/gallery?text=faceid)
 
 ## Overview
-FaceID is a model adapter allowing to generate image while preserving a person identity without fine-tuning. Input images can be as few as just one image.
+FaceID is a model adapter allowing to generate image while preserving a person identity without fine-tuning. Input images can be as few as just one image. The adapter was trained on human faces and cannot be used for pets or other subjects.
 
 ## Usage
 1. Generate a placeholder fine-tune dataset which will contain the person images. The fine-tune will not go through training and will be immediately ready.
 ![faceid-new-fine-tune.png](./img/faceid-new-fine-tune.png)
 2. Generate the image using the FaceID adapter using a syntax similar to LoRA - `<faceid:ID:1>` 
 
-FaceID can work nicely together with [Face Swap](/docs/features/face-swap) to improve similarity.
+## Notes
+
+1. FaceID can work nicely together with [Face Swap](/docs/features/face-swap) to improve similarity.
+1. For fast generation use the [LCM schedulers](/docs/features/lcm).
+1. For realistic images, please consider enabling face-correct to improve facial features.
 
 </div>
 

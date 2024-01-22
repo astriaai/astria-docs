@@ -77,3 +77,6 @@ w=768
 h=512
 ```
 
+### Prompt with input image as a background
+In many cases it might be desired to keep the exact same background as the input image, and only change the people in the image. To do this, add an `input_image` and keep the base prompt empty.
+
