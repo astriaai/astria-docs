@@ -20,7 +20,7 @@ A space separated list of words that should not appear in the mask. e.g: `clothe
 Inverts the mask
 
 #### `--mask_dilate`
-Dilates the mask. Negative values will erode the mask.
+Dilates the mask. Negative values will erode the mask. Use percentage values like `-20%` or `-20` if input image size is dynamic.
 
 #### `--hires_denoising_strength`
 Denoising strength for hires-fix. Use hi-res fix with prompt-masking to smooth the colors and blending. Range 0-1. Default: 0.4.
