@@ -38,7 +38,7 @@ Astria API is built as a REST API. Main resources are `tune` and `prompt` and ea
 Pay attention to 504 error below and turn on idempotency for your account to avoid duplicate objects.
 :::
 
-`422` - Validation error - Log these errors and use an exception tracking system such as Rollbar or Sentry to get notified. Do not retry these requests.
+`422` - Validation error - Log these errors, specifically the response body, and use an exception tracking system such as Rollbar or Sentry to get notified. Do not retry these requests.
 
 `500` - Internal server error - Such requests should be retried with exponential backoff and wait start time of 30 seconds.
 
