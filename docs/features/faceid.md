@@ -49,7 +49,7 @@ FaceID is a model adapter allowing to generate image while preserving a person i
 ## API 
 
 :::warning
-If you are receiving `422` error `model_type=faceid is not supported. Use a checkpoint instead` - Change the request URL to https://api.astria.ai/tunes/666678/prompts with `666678` as a hard-coded tune_id of SDXL 1.0 from the gallery. See explanation above.
+If you are receiving `422` error `model_type=faceid is not supported. Use a checkpoint instead` - Change the request URL to https://api.astria.ai/tunes/690204/prompts with `690204` as a hard-coded tune_id of Realistic Vision v5.1 from the gallery. See explanation above.
 :::
 
 </div>
