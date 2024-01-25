@@ -46,6 +46,12 @@ FaceID is a model adapter allowing to generate image while preserving a person i
 1. For fast generation use the [LCM schedulers](/docs/features/lcm).
 1. For realistic images, please consider enabling face-correct to improve facial features.
 
+## API 
+
+:::warning
+If you are receiving `422` error `model_type=faceid is not supported. Use a checkpoint instead` - Change the request URL to https://api.astria.ai/tunes/666678/prompts with `666678` as a hard-coded tune_id of SDXL 1.0 from the gallery. See explanation above.
+:::
+
 </div>
 
 <div>
