@@ -1,5 +1,6 @@
 # Changes
 
+* 2023-01-25 [Upscale only](/docs/use-cases/upscale) Allows you to upscale an existing image.
 * 2023-01-17 [FaceID](/docs/features/faceid) Preserve identity without fine-tuning.
 * 2023-01-03 [Tiled upscale](/docs/features/tiled-upscale) improved upscaling.
 * 2023-01-03 [Multi pass inference](/docs/features/multi-pass-inference) unlocks new level of detail, image composition and similarity.
