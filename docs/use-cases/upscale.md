@@ -2,8 +2,11 @@
 hide_table_of_contents: true
 ---
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import upscaleInput from './img/upscale-input.jpg';
-import upscaleResult from './img/upscale-result.jpg';
+import upscaleInput from './img/upscale/upscale-input.jpg';
+import upscaleResult from './img/upscale/upscale-result.jpg';
+import upscaleLennaInput from './img/upscale/upscale-lenna-in.png';
+import upscaleLennaOut from './img/upscale/upscale-lenna-out.jpeg';
+import upscaleLennaOut2 from './img/upscale/upscale-lenna-out2.jpg';
 
 
 # Upscale
@@ -13,7 +16,7 @@ import upscaleResult from './img/upscale-result.jpg';
 <div>
 <figcaption>Low-res input</figcaption>
 
-![upscale-input](./img/upscale-input.jpg)
+![upscale-input](./img/upscale/upscale-input.jpg)
 </div>
 
 <div>
@@ -21,7 +24,7 @@ import upscaleResult from './img/upscale-result.jpg';
 <a href="https://www.astria.ai/gallery?text=only_upscale">Upscaled result</a>
 </figcaption>
 
-![upscale-result](./img/upscale-result.jpg)
+![upscale-result](./img/upscale/upscale-result.jpg)
 </div>
 
 </div>
@@ -42,6 +45,45 @@ import upscaleResult from './img/upscale-result.jpg';
 </div>
 
 </div>
+<div style={{ display: "grid", 'grid-template-columns': '1fr 1fr', gap: '1.5rem' }}>
+<div>
+<figcaption>Low-res input</figcaption>
+
+![upscale-input](./img/upscale/upscale-lenna-in.png)
+</div>
+
+<div>
+<figcaption>
+<a href="https://www.astria.ai/gallery?text=only_upscale">Upscaled result</a>
+</figcaption>
+
+![upscale-result](./img/upscale/upscale-lenna-out2.jpg)
+</div>
+
+</div>
+
+<div style={{ display: "grid", 'grid-template-columns': '1fr 1fr', gap: '1.5rem' }}>
+<div>
+<figcaption>Low-res input</figcaption>
+
+<div style={{backgroundImage: `url(`+upscaleLennaInput+`)`, backgroundPosition: '50% 20%', backgroundSize: 1000,  width: "100%", height: 300}}></div>
+</div>
+
+<div>
+<figcaption>
+<a href="https://www.astria.ai/gallery?text=only_upscale">Upscaled result</a>
+</figcaption>
+
+<div style={{backgroundImage: `url('`+upscaleLennaOut2+`')`, backgroundPosition: '50% 20%', backgroundSize: 1000,  width: "100%", height: 300}}></div>
+</div>
+
+</div>
+
+
+
+
+
+
 
 
 <div className="api-method">
