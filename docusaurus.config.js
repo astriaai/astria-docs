@@ -32,6 +32,9 @@ const config = {
     locales: ['en'],
   },
 
+  plugins: [
+    'docusaurus-plugin-image-zoom',
+  ],
   presets: [
     [
       'classic',
@@ -62,6 +65,16 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      zoom: {
+        selector: '.markdown img',
+        background: {
+          light: 'rgb(255, 255, 255)',
+          dark: 'rgb(50, 50, 50)'
+        },
+        config: {
+          // options you can specify via https://github.com/francoischalifour/medium-zoom#usage
+        }
+      },
       image: 'img/high-quality-finetuning.jpg',
       navbar: {
         title: 'Astria documentation',
