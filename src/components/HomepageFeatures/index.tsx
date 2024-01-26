@@ -57,7 +57,7 @@ function Feature({title, Svg, description}: FeatureItem) {
 }
 
 export default function HomepageFeatures(): JSX.Element {
-  return <Redirect to={'/docs/category/use-cases'} />
+  return <Redirect to={'/docs/changes/'} />
   return (
     <section className={styles.features}>
       <div className="container">
