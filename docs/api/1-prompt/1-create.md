@@ -166,7 +166,7 @@ data = {
 files = []
 files.append((f"tune[prompts_attributes][{i}][input_image]", load_image(prompt['input_image'])))
 
-response = requests.post(API_URL, headers=headers, data=data)
+response = requests.post(API_URL, headers=headers, files=files, data=data)
 ```
   </TabItem>
 </Tabs>
