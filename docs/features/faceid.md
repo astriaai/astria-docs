@@ -43,9 +43,11 @@ FaceID is a model adapter allowing to generate image while preserving a person i
 ## Notes
 
 1. FaceID can work nicely together with [Face Swap](/docs/features/face-swap) to improve similarity.
-1. Disable Face-Swap in case your prompt is animation style. Additionally make sure to select an animated model from the [gallery](https://www.astria.ai/gallery/tunes?title=pixar). 
+1. Disable Face-Swap in case your prompt is animation style. Additionally, make sure to select an animated model from the [gallery](https://www.astria.ai/gallery/tunes?title=pixar). 
 1. For fast generation use the [LCM schedulers](/docs/features/lcm).
 1. For realistic images, please consider enabling face-correct to improve facial features.
+1. When creating a fine-tune: Base-model is only used as a default for UI generation but does not affect FaceID.
+1. When creating a fine-tune: Steps are not used for FaceID.
 
 ## API 
 
