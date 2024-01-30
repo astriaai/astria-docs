@@ -1,5 +1,6 @@
 # Changes
 
+* 2023-01-30 Deprecated prompt expansion.
 * 2023-01-25 [Upscale only](/docs/use-cases/upscale) Allows you to upscale an existing image.
 * 2023-01-17 [FaceID](/docs/features/faceid) Preserve identity without fine-tuning.
 * 2023-01-03 [Tiled upscale](/docs/features/tiled-upscale) improved upscaling.
