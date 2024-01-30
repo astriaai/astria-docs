@@ -108,7 +108,6 @@ face_correct=false
 film_grain=true
 face_swap=true
 hires_fix=false
-prompt_expansion=false
 ar=1:1
 scheduler=dpm++sde_karras
 color_grading=
