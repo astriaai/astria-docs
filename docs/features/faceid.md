@@ -47,11 +47,12 @@ FaceID is a model adapter allowing to generate image while preserving a person i
 1. For fast generation use the [LCM schedulers](/docs/features/lcm).
 1. For realistic images, please consider enabling face-correct to improve facial features.
 1. When creating a fine-tune: Base-model is only used as a default for UI generation but does not affect FaceID.
-1. When creating a fine-tune: Steps are not used for FaceID.
+1. When creating a fine-tune: `steps` and `training_face_correct` are not used for FaceID.
 
 ## API 
 
 FaceID is an adapter loaded on top of a base model. As such the inference needs to take place on a model from the gallery.
+The fine-tune's `trained_at` is set upon creation and there is no training time. As such no callback is needed.
 
 :::warning
 If you are receiving `422` error `model_type=faceid is not supported. Use a checkpoint instead` - Change the request URL to https://api.astria.ai/tunes/690204/prompts with `690204` as a hard-coded tune_id of Realistic Vision v5.1 from the gallery. See explanation above. 
