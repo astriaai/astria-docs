@@ -43,11 +43,13 @@ See example prompts in the [gallery](https://astria.ai/gallery?text=tiled_upscal
 Tiled upscale iterate over the image and upscale each tile individually. This allows to preserve the original training resolution of the image thus allowing sharper and better details.
 See example prompts in the [gallery](https://www.astria.ai/gallery?text=tiled_upscale)
 
+## Usage
 To enable tiled upscale, add `--tiled_upscale` to the prompt text.
 
 See [pricing](https://www.astria.ai/pricing) for the cost of this feature.
 
-Example prompt for tiled upscale for the above images:
+## Example
+
 ```text
 photograph of a woman, (smiling facial expression:1.1), textured skin, goosebumps, (blonde hair:1.2), (unbuttoned white shirt:1.2), distressed boyfriend jeans, long sleeves, (candlelight,chiaroscuro:1.1), cowboy shot, dark and mysterious cave with unique rock formations and hidden wonders, perfect eyes, Porta 160 color, shot on ARRI ALEXA 65, bokeh, sharp focus on subject, shot by Don McCullin --tiled_upscale
 num_images=2
