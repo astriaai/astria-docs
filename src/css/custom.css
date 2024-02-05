@@ -43,6 +43,10 @@ nav.menu>ul>li>div>a {
   color: #000;
 }
 
+[data-theme='dark'] nav.menu>ul>li>div>a {
+  color: #fff;
+}
+
 .api-method {
   flex-wrap: wrap;
   display: flex;
