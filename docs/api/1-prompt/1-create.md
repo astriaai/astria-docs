@@ -22,9 +22,6 @@ A comma separated list of words that should not appear in the image.
 #### `callback` (optional) 
 a URL that will be called when the prompt is done processing. The callback is a POST request where the body contains the prompt object.
 
-#### `ar` (optional) 
-Apect-Ratio. `1:1`, `portrait`, `16:9`, `landscape`
-
 #### `num_images` (optional) 
 Number of images to generate. Range: 1-8.
 

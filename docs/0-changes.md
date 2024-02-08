@@ -1,5 +1,6 @@
 # Changes
 
+* 2024-02-08 Deprecate prompt aspect-ratio. Use width and height instead for better results (backward compatability available).
 * 2024-02-08 Added `--fix_bindi` to remove dot on the forehead.
 * 2024-01-30 Deprecated prompt expansion.
 * 2024-01-25 [Upscale only](/docs/use-cases/upscale) Allows you to upscale an existing image.
