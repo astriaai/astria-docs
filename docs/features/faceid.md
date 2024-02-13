@@ -219,6 +219,7 @@ data = {
   "tune[title]": "John Doe - UUID - 1234-6789-1234-56789",
   "tune[name]": "man",
   "tune[base_tune_id]": 690204,
+  "tune[model_type]": "faceid",
   "tune[branch]": "fast",
   "tune[token]": "ohwx"
 }
