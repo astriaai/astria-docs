@@ -75,7 +75,6 @@ If you are receiving `422` error `model_type=faceid is not supported. Use a chec
 curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes \
           -F tune[title]="John Doe - UUID - 1234-6789-1234-56789" \
           -F tune[name]=man \
-          -F tune[branch]="fast" \
           -F tune[model_type]="faceid" \
           -F tune[callback]="https://optional-callback-url.com/webhooks/astria?user_id=1&tune_id=1" \
           -F tune[base_tune_id]=690204 \
@@ -88,7 +87,6 @@ curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes \
 curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes \
           -F tune[title]="John Doe - UUID - 1234-6789-1234-56789" \
           -F tune[name]=man \
-          -F tune[branch]="fast" \
           -F tune[model_type]="faceid" \
           -F tune[callback]="https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1" \
           -F tune[base_tune_id]=690204 \
@@ -103,7 +101,6 @@ cat > data.json <<- EOM
   "tune": {
     "title": "John Doe - UUID - 1234-6789-1234-56789",
     "name": "man",
-    "branch": "fast",
     "model_type": "faceid",
     "callback": "https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1",
     "image_urls": [
@@ -140,7 +137,6 @@ function createTune() {
         // https://www.astria.ai/gallery/tunes/690204/prompts
         "base_tune_id": 690204,
         "name": "man",
-        "branch": "fast",
         "model_type": "faceid",
         "image_urls": [
           "https://i.imgur.com/HLHBnl9.jpeg",
@@ -169,7 +165,6 @@ const DOMAIN = 'https://api.astria.ai';
 function createTune() {
   let formData = new FormData();
   formData.append('tune[title]', 'John Doe - UUID - 1234-6789-1234-56789');
-  formData.append('tune[branch]', 'fast');
   formData.append('tune[model_type]', 'faceid');
   // Hard coded tune id of Realistic Vision v5.1 from the gallery - https://www.astria.ai/gallery/tunes 
   // https://www.astria.ai/gallery/tunes/690204/prompts
@@ -220,7 +215,6 @@ data = {
   "tune[name]": "man",
   "tune[base_tune_id]": 690204,
   "tune[model_type]": "faceid",
-  "tune[branch]": "fast",
   "tune[token]": "ohwx"
 }
 files = []
