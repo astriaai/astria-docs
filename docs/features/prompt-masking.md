@@ -7,7 +7,7 @@ Prompt masking can be used for [product shots](/docs/use-cases/product-shots) or
 See example prompts in the [gallery](https://www.astria.ai/gallery?text=mask_prompt)
 
 :::warning
-SDXL inpainting results are poor, and so we recommend using SD15 models for this use case.
+SDXL inpainting results are poor. Use SD15 models instead.
 :::
 
 ### Syntax
