@@ -116,6 +116,10 @@ See example prompts in the [gallery](https://www.astria.ai/gallery?text=mask_pro
 Use [prompt masking](/docs/features/prompt-masking) feature to embed a person into a scene.
 This essentially allows you to create AI photogarphy or avatars without fine-tuning.
 
+:::warning
+SDXL inpainting results are poor, and so we recommend using SD15 models for this use case.
+:::
+
 See [pricing](https://www.astria.ai/pricing) for the cost of this feature.
 
 
