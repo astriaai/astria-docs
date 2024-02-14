@@ -121,6 +121,7 @@ curl -X POST -H"Content-Type: application/json" -H "Authorization: Bearer $API_K
 ```javascript
 // NodeJS 16
 // With image_urls and fetch()
+// For NodeJS 18 - do NOT import the below as it is built-in
 import fetch from "node-fetch";
 
 const API_KEY = 'sd_XXXXXX';
@@ -156,9 +157,10 @@ createTune()
 
 
 /// With form-data, fetch()
+// For NodeJS 18 - do NOT import the two below as they are built-in
+import fetch from "node-fetch";
 import FormData from 'form-data';
 import fs from 'fs';
-import fetch from "node-fetch";
 
 const API_KEY = 'sd_XXXX';
 const DOMAIN = 'https://api.astria.ai';
