@@ -1,5 +1,6 @@
 # Changes
 
+* 2024-02-16 [FaceID Portrait](/docs/features/faceid) has better color balance and similarity and is well suited for portraits.
 * 2024-02-08 Deprecate prompt aspect-ratio. Use width and height instead for better results (backward compatability available).
 * 2024-02-08 Added `--fix_bindi` to remove dot on the forehead.
 * 2024-01-30 Deprecated prompt expansion.

@@ -9,26 +9,34 @@ import TabItem from '@theme/TabItem';
 # FaceID
 **BETA**
 
-<div className="api-method">
+<div style={{ display: "grid", 'grid-template-columns': '1fr 1fr 1fr', gap: '1.5rem' }}>
 <div>
-
-
-<div style={{ display: "grid", 'grid-template-columns': '1fr 1fr', gap: '1.5rem' }}>
-<div>
-<figcaption>FaceID images</figcaption>
+<figcaption>Input images</figcaption>
 
 ![source.png](../use-cases/img/ai-photoshoot-input.png)
 </div>
 
 <div>
 <figcaption>
-<a href="https://www.astria.ai/gallery?text=faceid">Generations</a>
+<a href="https://www.astria.ai/gallery?text=faceid">FaceID</a>
 </figcaption>
 
 ![faceid-output.png](./img/faceid-output.jpg)
 </div>
+<div>
+<figcaption>
+<a href="https://www.astria.ai/gallery?text=faceid_portrait">FaceID portrait</a>
+</figcaption>
+
+![faceid-output.png](./img/faceid-portrait-output.jpg)
+</div>
 
 </div>
+
+
+<div className="api-method">
+<div>
+
 
 See example prompts in the [gallery](https://www.astria.ai/gallery?text=faceid)
 
