@@ -1,5 +1,6 @@
 # Changes
 
+* 2024-03-05 [TCD](https://github.com/jabir-zheng/TCD) sampler gets better results than LCM in 4-8 steps for SDXL models and is available on the samplers dropdown in the Advanced settings of the prompt.
 * 2024-02-16 [FaceID Portrait](/docs/features/faceid) has better color balance and similarity and is well suited for portraits.
 * 2024-02-08 Deprecate prompt aspect-ratio. Use width and height instead for better results (backward compatability available).
 * 2024-02-08 Added `--fix_bindi` to remove dot on the forehead.
