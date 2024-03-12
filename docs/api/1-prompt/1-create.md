@@ -61,6 +61,9 @@ height - In multiples of 8.
 #### `scheduler` (optional) 
 enum: `euler`, `euler_a`, `dpm++2m_karras`, `dpm++sde_karras`, `lcm`. If not specified the default [account scheduler](https://www.astria.ai/users/edit) will be used.
 
+#### `backend_version` (optional) 
+enum: null, `1`, If not specified will default to the [account version](https://www.astria.ai/users/edit) will be used.
+
 #### `color_grading` (optional) 
 enum: `Film Velvia`, `Film Portra`, `Ektar`.
 
