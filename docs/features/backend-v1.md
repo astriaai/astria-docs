@@ -10,10 +10,14 @@ Backend V1 is a complete rewrite of the original image inference and processing 
 1. DPM++/Karras and DPM++SDE/Karras better results, especially with SDXL.
 1. Civit results should be easy to reproduce.
 
-As this is still in BETA stages, we encourage you to report any issues you may encounter using the support email.
+Features still pending implementation for Backend V1:
+1. Color grading
+1. Prompt masking
+1. TCD sampler
+1. FaceID with --faceid_portrait
 
 :::info
-This is still currently in BETA and is disabled for API use.
+As this is still in BETA stages, we encourage you to report any issues you may encounter using the support email.
 :::
 
 ## Usage
