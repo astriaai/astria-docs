@@ -24,6 +24,8 @@ As this is still in BETA stages, we encourage you to report any issues you may e
 You can find the "Backend version" dropdown in the **Advanced** settings of the prompt. Alternatively you may select the default account version for the account in the [user account setting](https://www.astria.ai/users/edit#profile) 
 
 For API usage provide the `backend_version` attribute in the Prompt payload. See: [Create Prompt](/docs/api/prompt/create/#backend_version-optional) for more details.
+
+
 ![Backend V1 advanced settings](./img/backend_v1_settings.jpg)
 
 
