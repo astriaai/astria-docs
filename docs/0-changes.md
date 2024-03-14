@@ -1,6 +1,6 @@
 # Changes
 
-* 2024-03-14 Multi-controlnet + Controlnet reference is available for Backend V1
+* 2024-03-14 [Multi-controlnet + Controlnet reference](/docs/features/multi-controlnet) is available for Backend V1
 * 2024-03-10 New [Backend version v1](/docs/features/backend-v1) for inference - Higher quality, better samplers, faster inference, and more features.
 * 2024-03-05 [TCD](https://github.com/jabir-zheng/TCD) sampler gets better results than LCM in 4-8 steps for SDXL models and is available on the samplers dropdown in the Advanced settings of the prompt.
 * 2024-02-16 [FaceID Portrait](/docs/features/faceid) has better color balance and similarity and is well suited for portraits.
