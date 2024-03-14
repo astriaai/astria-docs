@@ -15,6 +15,7 @@ Features still pending implementation for Backend V1:
 1. Prompt masking
 1. TCD sampler
 1. FaceID with --faceid_portrait
+1. `--fix_bindi` 
 
 :::info
 As this is still in BETA stages, we encourage you to report any issues you may encounter using the support email.
