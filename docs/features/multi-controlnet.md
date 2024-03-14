@@ -1,8 +1,6 @@
 # Multi-Controlnet 
 ** Available only for [Backend V1](/docs/features/backend-v1)**
 
-# Product shots
-
 <div style={{ display: "grid", 'grid-template-columns': '1fr 1fr 1fr', gap: '1.5rem' }}>
 <div>
 <figcaption>Input image</figcaption>
