@@ -26,7 +26,7 @@
 
 Use multiple controlnet to get better consistency and precision.
 
-See example prompts in the [gallery](https://www.astria.ai/gallery?text=controlnets).
+See example prompts in the [gallery](https://www.astria.ai/gallery?text=controlnets). More about [controlnet](/docs/use-cases/controlnet).
 
 
 ### Syntax
