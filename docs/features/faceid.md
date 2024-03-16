@@ -50,6 +50,7 @@ FaceID is a model adapter allowing to generate image while preserving a person i
 
 ## Notes
 
+1. Use `cfg_scale=3`
 1. FaceID can work nicely together with [Face Swap](/docs/features/face-swap) to improve similarity.
 1. Disable Face-Swap in case your prompt is animation style. Additionally, make sure to select an animated model from the [gallery](https://www.astria.ai/gallery/tunes?title=pixar). 
 1. For fast generation use the [LCM schedulers](/docs/features/lcm).
