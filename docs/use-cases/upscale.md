@@ -91,7 +91,7 @@ import upscaleLennaOut2 from './img/upscale/upscale-lenna-out2.jpg';
 
 
 
-See example prompts in the [gallery](https://www.astria.ai/gallery?text=only_upscale)
+See example prompts in the [gallery](https://www.astria.ai/gallery?text=only_upscale). Also check out [free upscaling tool page](https://www.astria.ai/upscale).
 
 ## Overview
 Upscaling uses model and text guidance to add details to original image. Depending on the `denoising_strength` the model can hallucinate more details shifting away from the original image. 
@@ -105,16 +105,16 @@ Upscaling uses model and text guidance to add details to original image. Dependi
 Example prompt for the result above
 
 ```text
-very detailed, masterpiece, intricate details, UHD, 8K --only_upscale <lora:add_detail:1>
+masterpiece, best quality, highres, <lora:more_details:0.5> <lora:SDXLrender_v2.0:1> --only_upscale
 num_images=1
-negative_prompt=lowres, medium quality, lack of details, bad quality, worst quality, blur, blurry, pixelated, jpeg artifacts
+negative_prompt=(worst quality, low quality, normal quality:2) JuggernautNegative-neg
 seed=
-steps=30
-cfg_scale=
+steps=16
+cfg_scale=6.0
 controlnet=
 input_image_url=https://sdbooth2-production.s3.amazonaws.com/cvrx6g5wx5tbiuz9ivoah1j19why
 mask_image_url=
-denoising_strength=0.6
+denoising_strength=0.1
 controlnet_conditioning_scale=
 controlnet_txt2img=false
 super_resolution=false
@@ -123,10 +123,12 @@ face_correct=false
 film_grain=false
 face_swap=false
 hires_fix=false
+backend_version=1
+prompt_expansion=undefined
 ar=1:1
-scheduler=dpm++sde_karras
+scheduler=euler_a
 color_grading=
-use_lpw=true
+use_lpw=false
 w=
 h=
 ```
