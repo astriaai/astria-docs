@@ -73,7 +73,7 @@ boolean - Adds noise to the image to make it look more realistic.
 ## Img2Img / ControlNet
 
 #### `controlnet` (optional) 
-BETA. Requires input_image. Possible values: composition, lineart, canny, depth, mlsd, hed, pose, pose_with_hand, pose_with_face, pose_face_and_hand, tile, qr.
+Requires input_image. Possible values: composition, reference, ipadapter, lineart, canny, depth, mlsd, hed, pose, pose_with_hand, pose_with_face, pose_face_and_hand, tile, qr.
 
 #### `denoising_strength` (optional)
 For img2img. 1.0 - Take prompt. 0.0 - Take image. Range: 0.0-1.0. Default: 0.8
