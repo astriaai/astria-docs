@@ -94,7 +94,7 @@ import upscaleLennaOut2 from './img/upscale/upscale-lenna-out2.jpg';
 See example prompts in the [gallery](https://www.astria.ai/gallery?text=only_upscale). Also check out [free upscaling tool page](https://www.astria.ai/upscale).
 
 ## Overview
-Upscaling uses model and text guidance to add details to original image. Depending on the `denoising_strength` the model can hallucinate more details shifting away from the original image. 
+Upscaling uses model and text guidance to add details to original image. Depending on the `denoising_strength` the model can hallucinate more details shifting away from the original image. For applying tiled upscaling straight after image generation see [tiled upscaling](/docs/features/tiled-upscale). 
 
 ## Usage
 1. In the [prompts](https://www.astria.ai/prompts) generate page - Set an input image in the Controlnet/img2img section.
