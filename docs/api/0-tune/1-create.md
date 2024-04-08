@@ -26,7 +26,7 @@ An array of images to train the fine-tune with. The images can be uploaded as mu
 An array of images to train the fine-tune with. The images can be uploaded as multipart/form-data or as image_urls.
 
 #### `callback` (optional)
-A webhook URL to be called when the tune is finished training. The webhook will receive a POST request with the tune object.
+A webhook URL to be called when the tune is finished training. The webhook will receive a POST request with the tune object. See [more on callbacks](/docs/api/overview#callbacks).
 
 #### `branch` (optional)
 Enum: `sd15`, `sdxl1`, `fast`. Will default to the `base_tune` branch if not specified, or to `sd15` if `base_tune` is not specified.

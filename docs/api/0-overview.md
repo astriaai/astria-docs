@@ -56,3 +56,7 @@ For tunes request with the same `title`, idempotency will return the existing tu
 For prompts request with the same attributes, idempotency will return the existing prompt object and will not create a new one. Prompt attributes considered for the idempotency are `text, tune_id, cfg_scale, steps, seed, callback, negative_prompt, super_resolution, face_correct, ar, num_images, controlnet, denoising_strength, use_lpw, controlnet_conditioning_scale, w, h, hires_fix, scheduler, controlnet_txt2img, inpaint_faces` 
 
 When retrying a 504 error, and idempotency is enabled, make sure to wait 60 seconds before retrying the request to allow the previous request to finish processing.
+
+## Callbacks
+
+Callbacks for prompts and tunes are `POST` requests containing the entity object in the request body. Callbacks work in test mode with `branch=fast`. Callbacks are currently not retried if they fail. To test your callbacks, we recommend a local tunnel tool like [ngrok](https://ngrok.com/). If you need your backend server to receive some context arguments/metadata for the callback, like internal user-id or transaction id, we recommend adding those to the callback query string.

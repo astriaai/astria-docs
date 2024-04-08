@@ -20,7 +20,7 @@ Description of the image.
 A comma separated list of words that should not appear in the image.
 
 #### `callback` (optional) 
-a URL that will be called when the prompt is done processing. The callback is a POST request where the body contains the prompt object.
+a URL that will be called when the prompt is done processing. The callback is a POST request where the body contains the prompt object. See [more](/docs/api/overview#callbacks).
 
 #### `num_images` (optional) 
 Number of images to generate. Range: 1-8.
