@@ -11,8 +11,6 @@ Backend V1 is a complete rewrite of the original image inference and processing 
 1. Civit results should be easy to reproduce.
 
 Features still pending implementation for Backend V1:
-1. Color grading
-1. Prompt masking
 1. TCD sampler
 1. FaceID with --faceid_portrait
 1. `--fix_bindi` 
