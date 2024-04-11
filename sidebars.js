@@ -22,6 +22,11 @@ const sidebars = {
       items: [
         {
           type: 'link',
+          label: 'Headshots Opens-source app',
+          href: 'https://github.com/astriaai/headshots-starter',
+        },
+        {
+          type: 'link',
           label: 'Python SDK',
           href: 'https://github.com/aronbrand/astriaclient',
         },

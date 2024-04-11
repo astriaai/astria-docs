@@ -91,6 +91,11 @@ const config = {
             label: 'Home',
             // position: 'right',
           },
+          {
+            href: 'https://github.com/astriaai/headshots-starter',
+            label: 'Headshots open-source app',
+            // position: 'right',
+          },
           // {
           //   href: 'https://github.com/facebook/docusaurus',
           //   label: 'GitHub',
