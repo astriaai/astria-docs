@@ -12,13 +12,13 @@ Another recent trend is the creation of virtual social influencers - consistent 
 <div>
 <figcaption>Training images</figcaption>
 
-![source.png](./img/ai-photoshoot-input.png)
+![Fine-tuning training images](./img/ai-photoshoot-input.png)
 </div>
 
 <div>
 <figcaption>Output images</figcaption>
 
-![generated.png](./img/ai-photoshoot-output.png)
+![Generated images](./img/ai-photoshoot-output.png)
 </div>
 </div>
 
