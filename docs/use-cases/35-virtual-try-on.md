@@ -27,6 +27,22 @@ import garmentImage from './img/virtual-try-on-jcrew-swimming-suit.webp';
 </div>
 </div>
 
+<div style={{ display: "grid", 'grid-template-columns': '1fr 1fr', gap: '1.5rem' }}>
+
+<div>
+
+<figcaption>Garment / Clothing</figcaption>
+
+![Garment / Clothing](./img/virtual-try-on-northface-parka.webp)
+</div>
+
+<div>
+<figcaption>Generated images</figcaption>
+
+![Person + Garment](./img/virtual-try-on-northface-parka-generated.jpg)
+</div>
+</div>
+
 More examples in the [gallery](https://www.astria.ai/gallery?text=faceid%3A1227460)
 
 ## Overview
