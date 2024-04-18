@@ -1,26 +1,21 @@
----
-hide_table_of_contents: true
----
-
-# Virtual Try-on
-**Backend V1 feature**
+# Inpainting and masking
 
 <div style={{ display: "grid", 'grid-template-columns': '1fr 1fr', gap: '1.5rem' }}>
 <div>
 <figcaption>Input image</figcaption>
 
-![Fine-tuning training images](./img/ai-photoshoot-input.png)
+![source.png](./img/inpaint-input.png)
 </div>
 
 <div>
-<figcaption>Garment / Clothing</figcaption>
+<figcaption>Mask</figcaption>
 
-![Virtual try on J. Crew swimming suit](./img/virtual-try-on-jcrew-swimming-suit.webp)
+![generated.png](./img/inpaint-mask.png)
 </div>
 
 <div>
-<figcaption>Generated images</figcaption>
+<figcaption>Output</figcaption>
 
-![Person + Garment](./img/virtual-try-on-swimming-suit-generated.jpg)
+![generated.png](./img/inpaint-output.png)
 </div>
 </div>
