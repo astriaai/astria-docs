@@ -5,7 +5,7 @@ import trainingImage from './img/ai-photoshoot-input.png';
 import garmentImage from './img/virtual-try-on-jcrew-swimming-suit.webp';
 
 # Virtual Try-on
-**Backend V1 feature**
+**BETA. Backend V1 feature**
 
 <div style={{ display: "grid", 'grid-template-columns': '1fr 1fr', gap: '1.5rem' }}>
 
