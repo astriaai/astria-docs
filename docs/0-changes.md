@@ -1,5 +1,6 @@
 # Changes
 
+* 2024-04-20 Added "Segment Room" controlnet for Backend V1 to be used for [interior design](/docs/use-cases/room-redesign). 
 * 2024-04-17 Showcase [virtual try-on](/docs/use-cases/virtual-try-on) - add reference clothes to a person in an image. 
 * 2024-04-04 Added support for face-inpainting, hires-fix and tiled upscale for faceid on Backend V1. 
 * 2024-04-04 Lightning schedulers for Backend V1 to support lightning models such as [RealVis XL Lightning](https://www.astria.ai/gallery/tunes/1194447/prompts) 
