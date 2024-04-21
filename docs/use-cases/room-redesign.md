@@ -59,6 +59,8 @@ You may use the [multi-controlnet](/docs/features/multi-controlnet) option to co
 
 Additionally you may decide to automatically mask out windows and doors by using the `--mask_prompt windows door --mask_invert` prompt. See more information on [prompt masking syntax](/docs/features/prompt-masking).
 
+### Example prompt
+
 ````text
 Clean scandinavian design living room, natural light, architecture magazine cover  <lora:epi_noiseoffset2:0.5><lora:FilmVelvia2:0.5><lora:add_detail:0.5><lora:epiCRealismHelper:0.2> --mask_prompt windows door --mask_invert --controlnets mlsd segroom --controlnet_weights 0.5 1
 num_images=1
