@@ -54,7 +54,9 @@ To use Astria's virtual try-on feature, you need to create:
 1. A model of the person you want to dress up ideally through [fine-tuning](/docs/use-cases/ai-photoshoot)
 1. A [faceid](/docs/features/faceid) fine-tune of the garment you want to try on. The faceid class name should be `clothing` or `garment` as it is used to identify the garment in the image and remove the original model in case a reference image with a fashion model is used.
 
-For prompting, use both the fine-tuned model of the person and the faceid reference of the garment. See below reference example prompt. Ideally you should try to describe the background/scene and type of cloth the person is wearing. In case a reference image to the garment includes a fashion model, a better alternative to this, could be to use the input image as a reference pose as well as img2img to bring some of the background features into the image. For example a swimming suit reference image might feature a background pool, while a reference parka might feature a snowy background.
+For prompting, use both the fine-tuned model of the person and the faceid reference of the garment. See below reference example prompt. Ideally you should try to describe the background/scene and type of cloth the person is wearing. In case a reference image to the garment includes a fashion model, a better alternative to this, could be to use the input image as a reference pose as well as img2img to bring some of the background features into the image. For example a swimming suit reference image might feature a background pool, while a reference parka might feature a snowy background. 
+
+It is recommended to use 3:4 aspect-ratio - `512x680` width x height for the input image.
 
 
 ````text
