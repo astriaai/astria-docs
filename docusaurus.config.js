@@ -92,6 +92,16 @@ const config = {
             // position: 'right',
           },
           {
+            href: 'https://blog.astria.ai/',
+            label: 'Blog',
+            // position: 'right',
+          },
+          {
+            href: 'https://www.astria.ai/articles',
+            label: 'Articles',
+            // position: 'right',
+          },
+          {
             href: 'https://github.com/astriaai/headshots-starter',
             label: 'Headshots open-source app',
             // position: 'right',
