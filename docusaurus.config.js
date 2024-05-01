@@ -40,6 +40,9 @@ const config = {
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
+        sitemap: {
+          trailingSlash: true,
+        },
         docs: {
           sidebarCollapsed: false,
           sidebarPath: require.resolve('./sidebars.js'),
