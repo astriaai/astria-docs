@@ -1,5 +1,6 @@
 ---
 hide_table_of_contents: true
+tags: [virtual try-on, fashion, e-commerce, clothing, garment, backend-v1, VTON]
 ---
 import trainingImage from './img/ai-photoshoot-input.png';
 import garmentImage from './img/virtual-try-on-jcrew-swimming-suit.webp';

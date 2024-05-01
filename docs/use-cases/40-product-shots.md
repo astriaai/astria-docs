@@ -1,3 +1,7 @@
+---
+tags: [ecommerce, background replacement, products, Shopify]
+---
+
 # Product shots
 
 <div style={{ display: "grid", 'grid-template-columns': '1fr 1fr 1fr', gap: '1.5rem' }}>
