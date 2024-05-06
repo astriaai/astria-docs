@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkastria_docs_2=self.webpackChunkastria_docs_2||[]).push([[1807],{4813:a=>{a.exports=JSON.parse('{"title":"Packs","slug":"/category/packs","permalink":"/docs/category/packs","navigation":{"previous":{"title":"List all prompts","permalink":"/docs/api/prompt/list"},"next":{"title":"The pack object","permalink":"/docs/api/pack/pack"}}}')}}]);
