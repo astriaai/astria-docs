@@ -2,6 +2,7 @@
 A pack represents a list of grouped prompts, as well as the fine-tune to be created from the training images. 
 
 ## Advantages
+1. Test new prompts, ideas and themes on a bulk of models quickly to assure consistent high-quality results.
 1. Move fast from the creative process of creating prompts to the deployment of new themes in production.
 2. Avoid mismatch between hard-coded JSONs and the actual prompts.
 3. Run tests for new prompts and quickly iterate.
