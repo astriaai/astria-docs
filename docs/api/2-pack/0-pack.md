@@ -5,9 +5,9 @@ A pack represents a list of grouped prompts, as well as the fine-tune to be crea
 1. Test new prompts, ideas and themes on a bulk of models quickly to assure consistent high-quality results.
 1. Move fast from the creative process of creating prompts to the deployment of new themes in production.
 2. Avoid mismatch between hard-coded JSONs and the actual prompts.
-3. Run tests for new prompts and quickly iterate.
+3. Run user tests in production for new prompts and quickly iterate.
 4. Aggregate likes for prompts to improve the quality of the generated images and tighten the feedback loop. 
-5. Packs allows sending users feedback (`likes`) information back to the API, which can be used to keep track of the user's preferences and improve the quality of the generated images over the original prompt id.
+5. Sort packs by aggregated likes to present the best packs to the user.
 
 ## Example user flow
 1. `GET /packs` Display a list of packs to the user. See [docs](/docs/api/pack/list/)
