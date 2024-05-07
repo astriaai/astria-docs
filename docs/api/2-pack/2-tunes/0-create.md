@@ -28,6 +28,9 @@ An array of images to train the fine-tune with. The images can be uploaded as mu
 #### `callback` (optional)
 A webhook URL to be called when the tune is finished training. The webhook will receive a POST request with the tune object. See [more on callbacks](/docs/api/overview#callbacks).
 
+#### `prompts_attributes.callback` (optional)
+A webhook URL to be called when each prompt is finished inference. The webhook will receive a POST request with the prompt object. See [more on callbacks](/docs/api/overview#callbacks).
+
 ### Returns
 
 Returns a tune object if successful which will start training immediately and call callback once training is complete.
@@ -48,7 +51,8 @@ Returns a tune object if successful which will start training immediately and ca
 curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/p/43/tunes \
           -F tune[title]="John Doe - UUID - 1234-6789-1234-56789" \
           -F tune[name]=man \
-          -F tune[callback]="https://optional-callback-url.com/webhooks/astria?user_id=1&tune_id=1" \
+          -F tune[callback]="https://optional-callback-url.com/webhooks/astria?user_id=1" \
+          -F tune[prompt_attributes][callback]="https://optional-callback-url.com/webhooks/astria_prompts?user_id=1" \
           -F "tune[images][]=@1.jpg" \
           -F "tune[images][]=@2.jpg" \
           -F "tune[images][]=@3.jpg" \
@@ -58,7 +62,8 @@ curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/p/43/tune
 curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/p/43/tunes \
           -F tune[title]="Grumpy cat - UUID - 1234-6789-1234-56789" \
           -F tune[name]=cat \
-          -F tune[callback]="https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1" \
+          -F tune[callback]="https://optional-callback-url.com/to-your-service-when-ready?user_id=1" \
+          -F tune[prompt_attributes][callback]="https://optional-callback-url.com/webhooks/astria_prompts?user_id=1" \
           -F "tune[image_urls][]=https://i.imgur.com/HLHBnl9.jpeg" \
           -F "tune[image_urls][]=https://i.imgur.com/HLHBnl9.jpeg" \
           -F "tune[image_urls][]=https://i.imgur.com/HLHBnl9.jpeg" \
@@ -70,7 +75,10 @@ cat > data.json <<- EOM
   "tune": {
     "title": "Grumpy Cat - UUID - 1234-6789-1234-56789",
     "name": "cat",
-    "callback": "https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1",
+    "callback": "https://optional-callback-url.com/to-your-service-when-ready?user_id=1",
+    "prompt_attributes": {
+      "callback": "https://optional-callback-url.com/webhooks/astria_prompts?user_id=1"
+    },
     "image_urls": [
       "https://i.imgur.com/HLHBnl9.jpeg",
       "https://i.imgur.com/HLHBnl9.jpeg",
@@ -104,6 +112,10 @@ function createTune() {
       tune: {
         "title": 'John Doe - UUID - 1234-6789-1234-56789',
         "name": "cat",
+        "callback": "https://optional-callback-url.com/to-your-service-when-ready?user_id=1",
+        "prompt_attributes": {
+          "callback": "https://optional-callback-url.com/webhooks/astria_prompts?user_id=1"
+        },
         "image_urls": [
           "https://i.imgur.com/HLHBnl9.jpeg",
           "https://i.imgur.com/HLHBnl9.jpeg",
@@ -134,6 +146,8 @@ function createTune() {
   let formData = new FormData();
   formData.append('tune[title]', 'John Doe - UUID - 1234-6789-1234-56789');
   formData.append('tune[name]', 'man');
+  formData.append('tune[callback]', 'https://optional-callback-url.com/webhooks/astria?user_id=1');
+  formData.append('tune[prompt_attributes][callback]', 'https://optional-callback-url.com/webhooks/astria_prompts?user_id=1');
   // Load all JPGs from ./samples directory and append to FormData
   let files = fs.readdirSync('./samples');
   files.forEach(file => {
@@ -141,7 +155,7 @@ function createTune() {
       formData.append('tune[images][]', fs.createReadStream(`./samples/${file}`), file);
     }
   });
-  formData.append('tune[callback]', 'https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1');
+  formData.append('tune[callback]', 'https://optional-callback-url.com/to-your-service-when-ready?user_id=1');
 
   let options = {
     method: 'POST',
