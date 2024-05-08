@@ -28,6 +28,9 @@ An array of images to train the fine-tune with. The images can be uploaded as mu
 #### `callback` (optional)
 A webhook URL to be called when the tune is finished training. The webhook will receive a POST request with the tune object. See [more on callbacks](/docs/api/overview#callbacks).
 
+#### `characteristics` (optional)
+A free-form object that can be used to templatize the prompts text. e.g: `{"eye_color": "blue eyes"}` would than be used in the prompt text as `ohwx woman, {{eye_color}}, holding flowers`.
+
 #### `prompts_attributes.callback` (optional)
 A webhook URL to be called when each prompt is finished inference. The webhook will receive a POST request with the prompt object. See [more on callbacks](/docs/api/overview#callbacks).
 
@@ -52,6 +55,7 @@ curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/p/43/tune
           -F tune[title]="John Doe - UUID - 1234-6789-1234-56789" \
           -F tune[name]=man \
           -F tune[callback]="https://optional-callback-url.com/webhooks/astria?user_id=1" \
+          -F tune[characteristics][eye_color]="blue eyes" \
           -F tune[prompt_attributes][callback]="https://optional-callback-url.com/webhooks/astria_prompts?user_id=1" \
           -F "tune[images][]=@1.jpg" \
           -F "tune[images][]=@2.jpg" \
@@ -76,6 +80,7 @@ cat > data.json <<- EOM
     "title": "Grumpy Cat - UUID - 1234-6789-1234-56789",
     "name": "cat",
     "callback": "https://optional-callback-url.com/to-your-service-when-ready?user_id=1",
+    "characteristics": {"eye_color": "blue eyes"},
     "prompt_attributes": {
       "callback": "https://optional-callback-url.com/webhooks/astria_prompts?user_id=1"
     },
@@ -113,6 +118,7 @@ function createTune() {
         "title": 'John Doe - UUID - 1234-6789-1234-56789',
         "name": "cat",
         "callback": "https://optional-callback-url.com/to-your-service-when-ready?user_id=1",
+        "characteristics": {"eye_color": "blue eyes"},
         "prompt_attributes": {
           "callback": "https://optional-callback-url.com/webhooks/astria_prompts?user_id=1"
         },
@@ -147,6 +153,7 @@ function createTune() {
   formData.append('tune[title]', 'John Doe - UUID - 1234-6789-1234-56789');
   formData.append('tune[name]', 'man');
   formData.append('tune[callback]', 'https://optional-callback-url.com/webhooks/astria?user_id=1');
+  formData.append('tune[characteristics][eye_color]', 'blue eyes');
   formData.append('tune[prompt_attributes][callback]', 'https://optional-callback-url.com/webhooks/astria_prompts?user_id=1');
   // Load all JPGs from ./samples directory and append to FormData
   let files = fs.readdirSync('./samples');
