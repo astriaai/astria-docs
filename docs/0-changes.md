@@ -1,5 +1,7 @@
 # Changes
 
+* 2024-05-10 Added Lineart for SDXL1 
+* 2024-05-06 [Interior design](/docs/use-cases/room-redesign) - improved "Segment Room" (`segroom`) controlnet to handle empty rooms. 
 * 2024-05-05 [Packs](/docs/api/pack/pack/) + [Likes](/docs/api/like/create/) API - Control prompts from within Astria and experiment faster. 
 * 2024-05-03 [Virtual Try-on](/docs/use-cases/virtual-try-on) - Improved quality 
 * 2024-04-20 [Interior design](/docs/use-cases/room-redesign) - Added "Segment Room" controlnet for Backend V1, and MLSD for SDXL to be used. 
