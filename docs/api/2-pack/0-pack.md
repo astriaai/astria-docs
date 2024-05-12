@@ -5,6 +5,7 @@ A pack represents a list of grouped prompts, as well as the fine-tune to be crea
 1. Test new prompts, ideas and themes on a bulk of models quickly to assure consistent high-quality results.
 1. Move fast from the creative process of creating prompts to the deployment of new themes in production.
 2. Avoid mismatch between hard-coded JSONs and the actual prompts.
+3. Decouple the creative process from your code and avoid mirroring inference API details in your codebase.
 3. Run user tests in production for new prompts and quickly iterate.
 4. Aggregate likes for prompts to improve the quality of the generated images and tighten the feedback loop. 
 5. Sort packs by aggregated likes to present the best packs to the user.
