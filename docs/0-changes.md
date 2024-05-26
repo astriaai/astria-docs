@@ -1,6 +1,9 @@
 # Changes
 
-* 2024-05-10 Added Lineart for SDXL1 
+* 2024-05-26 Added `--improve_similariy 0.5` flag for Checkpoint/LoRA models which dramatically improves similarity/identity.
+* 2024-05-22 Improved SDXL FaceID
+* 2024-05-22 Added Controlnet Style for SDXL1 
+* 2024-05-10 Added Controlnet Lineart for SDXL1 
 * 2024-05-06 [Interior design](/docs/use-cases/room-redesign) - improved "Segment Room" (`segroom`) controlnet to handle empty rooms. 
 * 2024-05-05 [Packs](/docs/api/pack/pack/) + [Likes](/docs/api/like/create/) API - Control prompts from within Astria and experiment faster. 
 * 2024-05-03 [Virtual Try-on](/docs/use-cases/virtual-try-on) - Improved quality 
