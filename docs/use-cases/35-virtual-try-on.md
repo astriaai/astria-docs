@@ -44,7 +44,7 @@ import garmentImage from './img/virtual-try-on-jcrew-swimming-suit.webp';
 </div>
 </div>
 
-More examples in the gallery - [Swimming suit](https://www.astria.ai/gallery?text=faceid%3A1227460) and [Parka](https://www.astria.ai/gallery?text=faceid%3A1228120)
+More examples in the gallery - [Swimming suit](https://www.astria.ai/gallery?text=faceid%3A1227460) and [Parka](https://www.astria.ai/gallery?text=faceid%3A1228120). See also the article walkthrough on [virtual try-on](https://www.astria.ai/articles/virtual-tryon/).
 
 ## Overview
 
