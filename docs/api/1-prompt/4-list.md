@@ -42,7 +42,7 @@ fetch('https://api.astria.ai/tunes/1/prompts', { headers: headers });
 ```python showLineNumbers
 import requests
 headers = {'Authorization': f'Bearer {API_KEY}'}
-requests.get('https://api.astria.ai/tunes/1/prompts')
+requests.get('https://api.astria.ai/tunes/1/prompts', headers=headers)
 ```
 
 </TabItem>
