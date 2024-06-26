@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkastria_docs_2=self.webpackChunkastria_docs_2||[]).push([[9558],{4531:s=>{s.exports=JSON.parse('{"title":"Use cases","slug":"/category/use-cases","permalink":"/docs/category/use-cases","navigation":{"previous":{"title":"Changes","permalink":"/docs/changes"},"next":{"title":"AI Photoshoot","permalink":"/docs/use-cases/ai-photoshoot"}}}')}}]);

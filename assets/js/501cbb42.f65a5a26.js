@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkastria_docs_2=self.webpackChunkastria_docs_2||[]).push([[4930],{9492:s=>{s.exports=JSON.parse('{"label":"Shopify","permalink":"/docs/tags/shopify","allTagsPath":"/docs/tags","count":1,"items":[{"id":"use-cases/product-shots","title":"Product placement","description":"Background replacement","permalink":"/docs/use-cases/product-shots"}]}')}}]);
