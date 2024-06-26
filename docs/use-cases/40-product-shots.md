@@ -33,19 +33,19 @@ Background replacement can be used for e-commerce product short, marketing campa
 <div>
 <figcaption>Input image</figcaption>
 
-![source.png](./img/product-input2.png)
+![Input image of a shoe](./img/product-input2.png)
 </div>
 
 <div>
 <figcaption>Output</figcaption>
 
-![generated.png](./img/product-placement-background-replacement-shoe-out1.jpeg)
+![Shoe with background replacement of a forest](./img/product-placement-background-replacement-shoe-out1.jpeg)
 </div>
 
 <div>
 <figcaption>Output</figcaption>
 
-![generated.png](./img/product-placement-background-replacement-shoe-out2.jpeg)
+![Shoe with background replacement of snow](./img/product-placement-background-replacement-shoe-out2.jpeg)
 </div>
 </div>
 
