@@ -1,10 +1,10 @@
 ---
 title: Product placement
-tags: [ecommerce, background replacement, products, Shopify]
+tags: [ecommerce, background replacement, products, Shopify, photo optimization, product photo]
 hide_table_of_contents: true
 ---
 
-# Product placement for e-commerce
+# Product placement for Ecommerce
 ## Background replacement
 
 ## Overview
