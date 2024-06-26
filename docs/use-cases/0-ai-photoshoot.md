@@ -1,3 +1,8 @@
+---
+title: AI Photoshoot - fine-tuning for professional headshots
+tags: [fine-tuning, headshots, avatars, social profiles, virtual influencers, AI photoshoot, AI headshots, AI avatars]
+---
+
 # AI Photoshoot
 
 ## Overview
