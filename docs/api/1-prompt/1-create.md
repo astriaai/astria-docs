@@ -59,7 +59,7 @@ width - In multiples of 8.
 height - In multiples of 8.
 
 #### `scheduler` (optional) 
-enum: `euler`, `euler_a`, `dpm++2m_karras`, `dpm++sde_karras`, `lcm`, `tcd`. If not specified the default [account scheduler](https://www.astria.ai/users/edit) will be used.
+enum: `euler`, `euler_a`, `dpm++2m_karras`, `dpm++sde_karras`, `dpm++2m`, `dpm++sde`, `lcm`, `tcd`. If not specified the default [account scheduler](https://www.astria.ai/users/edit) will be used.
 
 #### `backend_version` (optional) 
 enum: null, `1`, If not specified will default to the [account version](https://www.astria.ai/users/edit) will be used.
