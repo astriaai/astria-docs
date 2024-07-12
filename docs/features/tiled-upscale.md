@@ -1,5 +1,5 @@
 ---
-tags: [upscaling, super-resolution, image enhacement, creative upscaler, clarity, magnific]
+tags: [upscaling, super-resolution, image enhancement, creative upscaler, clarity, magnific]
 ---
 # Tiled upscale
 **BETA**
