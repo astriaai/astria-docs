@@ -1,5 +1,6 @@
 # Changes
 
+* 2024-06-26 [Tiled upscale V2](/docs/features/tiled-upscale) preserves identity and similarity while adding details and skin tones.
 * 2024-06-26 Added controlnet `relight` for SD15 with Backend V1 to allow better composition and blending for [background replacement](/docs/use-cases/product-shots/).
 * 2024-05-26 Added `--improve_similarity 0.5` flag for Checkpoint/LoRA models which dramatically improves similarity/identity.
 * 2024-05-22 Improved SDXL FaceID
