@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkastria_docs_2=self.webpackChunkastria_docs_2||[]).push([[8824],{4284:a=>{a.exports=JSON.parse('{"label":"oil painting","permalink":"/docs/tags/oil-painting","allTagsPath":"/docs/tags","count":1,"items":[{"id":"features/lora","title":"LoRA fine-tuning","description":"LoRA fine-tuning","permalink":"/docs/features/lora"}]}')}}]);
