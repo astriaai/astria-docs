@@ -64,6 +64,9 @@ enum: `euler`, `euler_a`, `dpm++2m_karras`, `dpm++sde_karras`, `dpm++2m`, `dpm++
 #### `backend_version` (optional) 
 enum: null, `1`, If not specified will default to the [account version](https://www.astria.ai/users/edit) will be used.
 
+#### `style` (optional) 
+enum: null, `Cinematic`, `Animated`, `Digital Art`, `Photographic`, `Fantasy art`, `Neonpunk`, `Enhance`, `Comic book`, `Lowpoly`, `Line art`. See [more](/docs/features/styles).
+
 #### `color_grading` (optional) 
 enum: `Film Velvia`, `Film Portra`, `Ektar`.
 
@@ -164,7 +167,7 @@ data = {
   'prompt[callback]': 'https://optional-callback-url.com/to-your-service-when-ready?prompt_id=1'
 }
 files = []
-files.append((f"tune[prompts_attributes][{i}][input_image]", load_image(prompt['input_image'])))
+files.append((f"prompt[input_image]", load_image(prompt['input_image'])))
 
 response = requests.post(API_URL, headers=headers, files=files, data=data)
 ```

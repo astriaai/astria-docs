@@ -1,12 +1,12 @@
-# LoRAs
+---
+title: LoRA fine-tuning
+description: LoRA fine-tuning
+tags: [LoRA, fine-tuning, style, noise offset, lineart, oil painting]
+---
 
-:::info
+# LoRA
 
-This feature is mainly relevant for SD15 models. SDXL subject fine-tuning use LoRA, and tend to collide with other style LoRAs
-
-:::
-
-LoRA (low ranking adaption) is a type of model fine-tuning which takes an additional set of model weights (or parameters) and trains those on top while not changing the existing model. For this reason LoRA training is faster comparing to full checkpoint training as it only trains a small amount of weights comparing to the full model. Additionally, the LoRA can be loaded on top of any base model, and multiple LoRA can be combined.
+LoRA (low ranking adaption) is a type of model fine-tuning which takes an additional set of model weights (or parameters) and trains those on top while not changing the existing model. For this reason LoRA training is faster comparing to full checkpoint training as it only trains a small amount of weights comparing to the full model. Additionally, LoRA can be loaded on top of any base model, and multiple LoRA can be combined.
 
 The LoRA ecosystem contains many different types of weight structures with different ranks. For this reason some LoRA might not be compatible in different UIs or platforms.
 

@@ -15,7 +15,7 @@ For general tips on SDXL training and inference, see [SDXL training](/docs/use-c
 
 Unlike SD15 checkpoint training, SDXL on Astria is trained as a LoRA+text-embedding. As such, inference is taking place a on a base line model such as SDXL 1.0 and `prompt.text` should specify the loaded lora such as `<lora:123456:0.83>` - will load lora with id=123456 and strength=0.83
 
-See [LoRA docs](/docs/features/loras) on lora syntax
+See [LoRA docs](/docs/features/lora) on lora syntax
 
 With SDXL you cannot combine multiple LoRAs.
 

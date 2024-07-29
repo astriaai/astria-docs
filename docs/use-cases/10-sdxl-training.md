@@ -4,7 +4,7 @@
 # SDXL training
 ## Overview
 
-**Stable Diffusion XL** or **SDXL** is the latest image generation model that is tailored towards more photorealistic outputs with more detailed imagery and composition. SDXL can generate realistic faces, legible text within the images, and better image composition, all while using shorter and simpler prompts.
+**Stable Diffusion XL** or **SDXL** is the 2nd gen image generation model that is tailored towards more photorealistic outputs with more detailed imagery and composition. SDXL can generate realistic faces, legible text within the images, and better image composition, all while using shorter and simpler prompts.
 
 
 :::info
