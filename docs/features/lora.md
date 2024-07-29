@@ -1,6 +1,6 @@
 ---
-title: LoRA fine-tuning
-description: LoRA fine-tuning
+title: LoRA
+description: LoRA
 tags: [LoRA, fine-tuning, style, noise offset, lineart, oil painting]
 ---
 
