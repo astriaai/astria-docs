@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkastria_docs_2=self.webpackChunkastria_docs_2||[]).push([[9694],{1700:s=>{s.exports=JSON.parse('{"label":"LoRA","permalink":"/docs/tags/lo-ra","allTagsPath":"/docs/tags","count":1,"items":[{"id":"features/lora","title":"LoRA fine-tuning","description":"LoRA fine-tuning","permalink":"/docs/features/lora"}]}')}}]);
