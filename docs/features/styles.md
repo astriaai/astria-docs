@@ -53,4 +53,4 @@ Prompt style attribute allow to easily generate an image according to a preconfi
 
 ## Usage
 
-Styles can be used in the GUI style dropdown or in the [API](/docs/api/prompt/create/#backend_version-optional) using the `style` attribute
+Styles can be used in the GUI style dropdown or in the [API](/docs/api/prompt/create/#backend_version-optional) using the `style` attribute. When using a style template, provide a short prompt text describing the main subject and scene, while leaving the generic style keywords to the template.
