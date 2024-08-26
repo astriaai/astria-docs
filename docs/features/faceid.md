@@ -257,10 +257,8 @@ response.raise_for_status()
     "steps": null,
     "face_crop": null,
     "training_face_correct": false,
-    "ckpt_url": "https://sdbooth2-production.s3.amazonaws.com/mock",
-    "ckpt_urls": [
-      "https://sdbooth2-production.s3.amazonaws.com/mock"
-    ],
+    "ckpt_url": null,
+    "ckpt_urls": [],
     "eta": "2023-10-02T14:32:40.363Z",
     "trained_at": "2023-10-02T14:32:40.363Z",
     "started_training_at": "2023-10-02T14:32:05.229Z",
