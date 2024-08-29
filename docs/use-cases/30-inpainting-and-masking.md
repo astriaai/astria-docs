@@ -16,7 +16,7 @@
 <div>
 <figcaption>Output</figcaption>
 
-![generated.png](./img/inpaint-output.png)
+![generated.png](./img/inpaint-output.jpg)
 </div>
 </div>
 
