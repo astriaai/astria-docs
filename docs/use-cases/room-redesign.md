@@ -57,8 +57,6 @@ Controlnet `mlsd` is a more general model, used with a pre-processor that produc
 
 `mlsd` is support for both SDXL and SD1.5 models while `segroom` is only available for SD1.5 models.
 
-You may use the [multi-controlnet](/docs/features/multi-controlnet) option to combine both controlnets like `--controlnets mlsd segroom --controlnet_weights 1 0.5`.
-
 Additionally you may decide to automatically mask out windows and doors by using the `--mask_prompt windows door --mask_invert` prompt. See more information on [prompt masking syntax](/docs/features/prompt-masking).
 
 ### Example prompt

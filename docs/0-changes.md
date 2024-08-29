@@ -10,7 +10,6 @@
 * 2024-05-06 [Interior design](/docs/use-cases/room-redesign) - improved "Segment Room" (`segroom`) controlnet to handle empty rooms. 
 * 2024-05-05 [Packs](/docs/api/pack/pack/) + [Likes](/docs/api/like/create/) API - Control prompts from within Astria and experiment faster. 
 * 2024-04-20 [Interior design](/docs/use-cases/room-redesign) - Added "Segment Room" controlnet for Backend V1, and MLSD for SDXL to be used. 
-* 2024-04-17 Showcase [virtual try-on](/docs/use-cases/virtual-try-on) - add reference clothes to a person in an image. 
 * 2024-04-04 Added support for face-inpainting, hires-fix and tiled upscale for faceid on Backend V1. 
 * 2024-04-04 Lightning schedulers for Backend V1 to support lightning models such as [RealVis XL Lightning](https://www.astria.ai/gallery/tunes/1194447/prompts) 
 * 2024-04-04 V1: Lightning schedulers to support lightning models such as [RealVis XL Lightning](https://www.astria.ai/gallery/tunes/1194447/prompts) 
@@ -28,6 +27,5 @@
 * 2024-01-03 [Tiled upscale](/docs/features/tiled-upscale) improved upscaling.
 * 2023-12-14 [Prompt masking](/docs/features/prompt-masking) feature added - to support [product shots](/docs/use-cases/product-shots) and [Masked Portraits](/docs/use-cases/masked-portraits)
 * 2023-11-27 [LCM](/docs/features/lcm) (Latent Consistency Models) scheduler allows inference in 6 steps 
-* 2023-11-01 [Multi-person](/docs/features/multiperson) inference using LoRA and SD15 models 
 * 2023-10-29 [Face-Swap](/docs/features/face-swap) feature added - uses training images to improve inference time similarity
 * 2023-10-22 [Themes](https://www.astria.ai/themes) - Have ChatGPT create 10 prompts for you from a short 2-4 word theme description.
