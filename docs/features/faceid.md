@@ -13,7 +13,7 @@ import TabItem from '@theme/TabItem';
 <div>
 <figcaption>Input images</figcaption>
 
-![source.png](../use-cases/img/ai-photoshoot-input.png)
+![source.png](../use-cases/img/ai-photoshoot-input.jpg)
 </div>
 
 <div>
@@ -21,15 +21,57 @@ import TabItem from '@theme/TabItem';
 <a href="https://www.astria.ai/gallery?text=faceid">FaceID</a>
 </figcaption>
 
-![faceid-output.png](./img/faceid-output.jpg)
+<div style={{ display: "grid", 'grid-template-columns': '1fr 1fr', gap: '1.5rem' }}>
+<div>
+
+![faceid-output.png](./img/faceid-output1.jpg)
+
+</div>
+<div>
+
+![faceid-output.png](./img/faceid-output2.jpg)
+
+</div>
+<div>
+
+![faceid-output.png](./img/faceid-output3.jpg)
+
+</div>
+<div>
+
+![faceid-output.png](./img/faceid-output4.jpg)
+
+</div>
+</div>
+
 </div>
 <div>
 <figcaption>
 <a href="https://www.astria.ai/gallery?text=faceid_portrait">FaceID portrait</a>
 </figcaption>
 
-![faceid-output.png](./img/faceid-portrait-output.jpg)
+<div style={{ display: "grid", 'grid-template-columns': '1fr 1fr', gap: '1.5rem' }}>
+<div>
+
+![faceid-output.png](./img/faceid-portrait-output1.jpg)
+
 </div>
+<div>
+
+![faceid-output.png](./img/faceid-portrait-output2.jpg)
+
+</div>
+<div>
+
+![faceid-output.png](./img/faceid-portrait-output3.jpg)
+
+</div>
+<div>
+
+![faceid-output.png](./img/faceid-portrait-output4.jpg)
+
+</div>
+</div></div>
 
 </div>
 

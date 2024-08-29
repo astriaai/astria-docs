@@ -1,5 +1,7 @@
 ---
 ---
+import sdxlOutput from './img/sdxl-output.jpg';
+import sdxlInput from './img/ai-photoshoot-input.jpg';
 
 # SDXL training
 ## Overview
@@ -17,14 +19,14 @@
 <div>
 Input training images
 
-![source.png](./img/ai-photoshoot-input.png)
+<img src={sdxlInput} alt="generated.png" />
 </div>
 
 <div>
-
 Output images
 
-![generated.png](./img/sdxl-output.jpeg)
+<img src={sdxlOutput} alt="generated.png" style={{height: 500}} />
+
 </div>
 </div>
 

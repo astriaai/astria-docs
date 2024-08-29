@@ -17,13 +17,13 @@ Another recent trend is the creation of virtual social influencers - consistent 
 <div>
 <figcaption>Training images</figcaption>
 
-![Fine-tuning training images](./img/ai-photoshoot-input.png)
+![Fine-tuning training images](./img/ai-photoshoot-input.jpg)
 </div>
 
 <div>
 <figcaption>Output images</figcaption>
 
-![Generated images](./img/ai-photoshoot-output.png)
+![Generated images](./img/ai-photoshoot-output.jpg)
 </div>
 </div>
 
@@ -62,4 +62,4 @@ Even before the model is ready, you can prepare a queue of prompts (texts) that 
 
 1. Use `ohwx woman/man` at the *beginning* of the sentence.
 2. Textual inversion can reduce similarity. Try to avoid it. Specifically TIs such as `ng_deepnegative_v1_75t` or `CyberRealistic`.
-3. Use of [LoRA](/docs/features/lora) can reduce similarity. Keep LoRA strength low around 0.2-0.3.
+3. Use of [LoRA](/docs/features/lora) for styles can reduce similarity. Keep LoRA strength low around 0.2-0.3.

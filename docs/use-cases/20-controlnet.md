@@ -15,7 +15,7 @@ title: Controlnet
 <div>
 <figcaption>Output with Controlnet img2img tile</figcaption>
 
-![generated.png](./img/controlnet-output.png)
+![generated.png](./img/controlnet-output.jpg)
 </div>
 
 <div>
