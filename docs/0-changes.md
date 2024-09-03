@@ -1,5 +1,6 @@
 # Changes
 
+* 2024-09-03 [Flux fine-tuning](/docs/use-cases/flux-finetuning/) docs and [Flux API usage](/docs/api/flux-api)
 * 2024-07-29 Added [Styles](/docs/features/styles) option for prompt
 * 2024-06-26 [Tiled upscale V2](/docs/features/tiled-upscale) preserves identity and similarity while adding details and skin tones.
 * 2024-06-26 Added controlnet `relight` for SD15 with Backend V1 to allow better composition and blending for [background replacement](/docs/use-cases/product-shots/).
