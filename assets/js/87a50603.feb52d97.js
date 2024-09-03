@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkastria_docs_2=self.webpackChunkastria_docs_2||[]).push([[7723],{9602:a=>{a.exports=JSON.parse('{"label":"api","permalink":"/docs/tags/api","allTagsPath":"/docs/tags","count":1,"items":[{"id":"api/flux-api","title":"Flux API usage","description":"For an overview of Flux fine-tuning, see Flux fine-tuning","permalink":"/docs/api/flux-api"}]}')}}]);
