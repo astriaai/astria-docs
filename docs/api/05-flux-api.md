@@ -1,5 +1,6 @@
 ---
 hide_table_of_contents: true
+tags: ["flux", "api", "training", "fine-tuning", "lora"]
 ---
 
 import Tabs from '@theme/Tabs';
@@ -13,7 +14,8 @@ For an overview of Flux fine-tuning, see [Flux fine-tuning](/docs/use-cases/flux
 <div className="api-method">
 <div>
 
-Unlike SD15 checkpoint training, Flux is trained as a LoRA model type. As such, inference is taking place a on a base line model such as Flux1.dev and `prompt.text` should specify the loaded lora such as `<lora:123456:1>` - will load lora with id=123456 and strength=1
+* Unlike SD15 checkpoint training, Flux is trained as a LoRA model type. As such, inference is taking place a on a base line model such as Flux1.dev and `prompt.text` should specify the loaded lora such as `<lora:123456:1>` - will load lora with id=123456 and strength=1
+* Flux requires commercial licensing which Astria provides to its customers, and as such LoRA downloading is not available for API usage.
 
 See [LoRA docs](/docs/features/lora) on lora syntax
 
