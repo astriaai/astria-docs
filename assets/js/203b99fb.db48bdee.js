@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkastria_docs_2=self.webpackChunkastria_docs_2||[]).push([[180],{2310:s=>{s.exports=JSON.parse('{"label":"training","permalink":"/docs/tags/training","allTagsPath":"/docs/tags","count":1,"items":[{"id":"use-cases/flux-finetuning","title":"Flux training","description":"Overview","permalink":"/docs/use-cases/flux-finetuning"}]}')}}]);
