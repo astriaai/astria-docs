@@ -13,7 +13,7 @@ import inputImg from './img/ai-photoshoot-input.jpg';
 
 * The model base resolution is 1024x1024 however unlike previous models, was trained on a variety of aspect ratios its neural-network architecture is able to better cope with different aspect ratios both in training and inference.  
 
-* Flux1.dev used for fine-tuning requires commercial licensing which is provided to Astria users.
+* Flux1.dev requires commercial licensing which is provided to Astria customers.
 
 
 <div style={{ display: "grid", 'grid-template-columns': '1fr 1fr', gap: '1.5rem' }}>
