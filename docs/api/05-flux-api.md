@@ -108,6 +108,7 @@ function createTune() {
         // Hard coded tune id of Flux1.dev from the gallery - https://www.astria.ai/gallery/tunes 
         // https://www.astria.ai/gallery/tunes/1504944/prompts
         "base_tune_id": 1504944,
+        "model_type": "lora",
         "name": "cat",
         "image_urls": [
           "https://i.imgur.com/HLHBnl9.jpeg",
@@ -212,9 +213,6 @@ response.raise_for_status()
 # Note the hard-coded 1504944 which is the tune_id of Flux1.dev from the gallery
 curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes/1504944/prompts \
           -F prompt[text]="<lora:tune_id:strength> a painting of ohwx man in the style of Van Gogh" \
-          -F prompt[negative_prompt]="old, blemish, wrin" \
-          -F prompt[super_resolution]=true \
-          -F prompt[face_correct]=true \
           -F prompt[callback]="https://optional-callback-url.com/to-your-service-when-ready?prompt_id=1" 
 ```
   </TabItem>
@@ -231,9 +229,6 @@ const headers = { Authorization: `Bearer ${API_KEY}` }
 
 const form = new FormData();
 form.append('prompt[text]', '<lora:tune_id:strength> a painting of ohwx man in the style of Van Gogh');
-form.append('prompt[negative_prompt]', 'old, blemish, wrin');
-form.append('prompt[super_resolution]', true);
-form.append('prompt[face_correct]', true);
 form.append('prompt[callback]', 'https://optional-callback-url.com/to-your-service-when-ready?prompt_id=1');
 
 fetch(API_URL, {
@@ -260,9 +255,6 @@ headers = {
 
 data = {
   'prompt[text]': '<lora:tune_id:strength> a painting of ohwx man in the style of Van Gogh',
-  'prompt[negative_prompt]': 'old, blemish, wrin',
-  'prompt[super_resolution]': True,
-  'prompt[face_correct]': True,
   'prompt[callback]': 'https://optional-callback-url.com/to-your-service-when-ready?prompt_id=1'
 }
 files = []
