@@ -54,6 +54,10 @@ Training on top of former fine-tune or a different baseline model from the [gall
 Enum: `lora`, `pti`, `faceid`, `null` for checkpoint.
 For SDXL1 - API will default to `pti` and will ignore `model_type` parameter.
 
+#### `preset` (optional)
+Enum: `flux-lora-fast` see details in the GUI, `null`
+
+
 #### `prompts_attributes` (optional)
 Array of prompts entities with all attributes. See [create prompt](/docs/api/prompt/create) for more information.
 
