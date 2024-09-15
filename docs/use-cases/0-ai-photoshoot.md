@@ -44,7 +44,7 @@ To begin, go to the [New tune](https://www.astria.ai/tunes/new) page.
 
 **Class Name** - Enter `man` or `woman`, or possibly `boy, girl, cat`, or `dog`. This is highly important as it is a part of the actual technical training of your model. We automatically generate images of the "class" while training, and by comparing them to your images (the training set), the model 'learns' your subject's unique features.
 
-**Base tune** - Select a baseline model on which you would like to train. For realistic generations, we recommend using *[Realistic Vision v5.1](https://www.astria.ai/gallery/tunes/690204/prompts)*, while for more artistic trainings, use *[Deliberate](https://www.astria.ai/gallery/tunes/538238/prompts)*.
+**Base tune** - Select a baseline model on which you would like to train. For best quality we recommend using [Flux1.dev](https://www.astria.ai/gallery/tunes/1504944/prompts). 
 
 Other settings are optional and can be changed to your preference.
 
