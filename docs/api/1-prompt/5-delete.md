@@ -14,7 +14,7 @@ Deletes a specific prompt associated with a tune.
 ### Parameters
 
 #### `id` (required)
-The ID of the tune to be deleted.
+The ID of the prompt to be deleted.
 
 ### Returns
 
