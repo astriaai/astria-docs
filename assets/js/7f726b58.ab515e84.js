@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkastria_docs_2=self.webpackChunkastria_docs_2||[]).push([[2656],{8578:e=>{e.exports=JSON.parse('{"title":"Prompts","slug":"/category/prompts","permalink":"/docs/category/prompts","navigation":{"previous":{"title":"Delete a tune","permalink":"/docs/api/tune/delete"},"next":{"title":"The prompt object","permalink":"/docs/api/prompt/prompt"}}}')}}]);
