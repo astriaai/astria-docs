@@ -26,7 +26,7 @@ Input training images
 <div>
 Output images
 
-<img src={outputImg} alt="generated.png" style={{height: 500}} />
+<img src={outputImg} alt="generated.png" />
 
 </div>
 </div>

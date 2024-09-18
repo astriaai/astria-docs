@@ -25,7 +25,7 @@ Input training images
 <div>
 Output images
 
-<img src={sdxlOutput} alt="generated.png" style={{height: 500}} />
+<img src={sdxlOutput} alt="generated.png" />
 
 </div>
 </div>
