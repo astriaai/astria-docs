@@ -53,9 +53,8 @@ The prompt is divided by the `BREAK` keyword such as:
 ```text
 Dramatic 1940s film noir scene. Couple standing together aiming guns, wooden paneled background.
 BREAK
-<lora:1533312:1.0> ohwx woman with determined expression, retro updo hairstyle, bright red lipstick, black and yellow color-blocked dress, aiming revolver with right hand
-BREAK
-<lora:1558021:1.0> ohwx man with serious face, grey fedora hat, brown suit with patterned tie, white shirt, aiming pistol with left hand
+BREAK <lora:1533312:1.0> ohwx woman with determined expression, retro updo hairstyle, bright red lipstick, black and yellow color-blocked dress, aiming revolver with right hand
+BREAK <lora:1558021:1.0> ohwx man with serious face, grey fedora hat, brown suit with patterned tie, white shirt, aiming pistol with left hand
 num_images=4
 negative_prompt=
 seed=
