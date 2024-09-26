@@ -34,6 +34,10 @@ A free-form object that can be used to templatize the prompts text. e.g: `{"eye_
 #### `prompts_attributes.callback` (optional)
 A webhook URL to be called when each prompt is finished inference. The webhook will receive a POST request with the prompt object. See [more on callbacks](/docs/api/overview#callbacks).
 
+#### `prompts_callback` (optional)
+A webhook URL to be called when all the prompts are finished training. The webhook will receive a POST request with an array of prompts objects.
+
+
 ### Returns
 
 Returns a tune object if successful which will start training immediately and call callback once training is complete.
