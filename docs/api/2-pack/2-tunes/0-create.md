@@ -37,6 +37,9 @@ A webhook URL to be called when each prompt is finished inference. The webhook w
 #### `prompts_callback` (optional)
 A webhook URL to be called when all the prompts are finished training. The webhook will receive a POST request with an array of prompts objects.
 
+#### `tune_ids` (optional)
+Array of tune ids. If provided, will be used instead of the above attributes to create pack prompts only. 
+
 
 ### Returns
 
