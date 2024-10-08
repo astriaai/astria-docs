@@ -1,5 +1,9 @@
 # The pack object
-A pack represents a list of grouped prompts, as well as the fine-tune to be created from the training images. 
+A pack represents a list of grouped prompts, as well as the fine-tune to be created from the training images.
+
+:::info
+The [headshot-starter](https://github.com/astriaai/headshots-starter?tab=readme-ov-file#incoming-changes) open-source project now supports packs.
+:::
 
 ## Advantages
 1. Test new prompts, ideas and themes on a bulk of models quickly to assure consistent high-quality results.
