@@ -99,6 +99,9 @@ Binary multi-part request with one channel mask image. Used in conjunction with 
 #### `mask_image_url` (optional) 
 URL to a one channel mask image. Used in conjunction with input_image_url parameter for inpainting.
 
+#### `lora_scale` (optional) 
+Available only when used as `prompts_attributes` in `POST /tunes` request to override the default scale of the LoRA model.
+
 ### Returns
 
 Returns a prompt object if successful which will start processing if tune is processed.
