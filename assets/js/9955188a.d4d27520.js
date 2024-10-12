@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkastria_docs_2=self.webpackChunkastria_docs_2||[]).push([[3543],{7716:e=>{e.exports=JSON.parse('{"title":"Images","slug":"/category/images","permalink":"/docs/category/images","navigation":{"previous":{"title":"Delete a like","permalink":"/docs/api/like/delete"},"next":{"title":"Inspect image","permalink":"/docs/api/images/inspect"}}}')}}]);
