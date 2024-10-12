@@ -24,7 +24,7 @@ The image url to inspect if `file` is not provided.
 
 
 ### Returns
-The below JSON schema is returned
+The below JSON schema is returned. It is possible that some attributes will not be returned.
 
 ```JSON
 {
