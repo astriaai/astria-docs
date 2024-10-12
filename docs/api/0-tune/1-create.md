@@ -57,6 +57,8 @@ For SDXL1 - API will default to `pti` and will ignore `model_type` parameter.
 #### `preset` (optional)
 Enum: `flux-lora-fast` see details in the GUI, `null`
 
+#### `characteristics` (optional)
+A free-form object that can be used to templatize the prompts text. e.g: `{"eye_color": "blue eyes"}` would than be used in the prompt text as `ohwx woman, {{eye_color}}, holding flowers`.
 
 #### `prompts_attributes` (optional)
 Array of prompts entities with all attributes. See [create prompt](/docs/api/prompt/create) for more information.
