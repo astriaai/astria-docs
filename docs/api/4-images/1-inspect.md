@@ -106,7 +106,7 @@ The below JSON schema is returned. It is possible that some attributes will not 
 
 ```bash showLineNumbers
 
-curl -X POST "https://api.example.com/images/inspect" \
+curl -X POST "https://api.astria.ai/images/inspect" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -F "name=man" \
   -F "file=@/path/to/your/image.jpg"
@@ -118,7 +118,7 @@ curl -X POST "https://api.example.com/images/inspect" \
 ```python
 import requests
 
-url = "https://api.example.com/images/inspect"
+url = "https://api.astria.ai/images/inspect"
 headers = {
     "Authorization": "Bearer YOUR_API_KEY"
 }
@@ -141,7 +141,7 @@ const axios = require('axios');
 const FormData = require('form-data');
 const fs = require('fs');
 
-const url = "https://api.example.com/images/inspect";
+const url = "https://api.astria.ai/images/inspect";
 const form = new FormData();
 form.append("name", "man");
 form.append("file", fs.createReadStream("/path/to/your/image.jpg"));
