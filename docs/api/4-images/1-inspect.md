@@ -243,7 +243,7 @@ The example below implements two behaviors
     // use only the characeteristics that are string
     this.characteristics.forEach((characteristic) => {
       Object.keys(characteristic).forEach((key) => {
-        if (typeof characteristic[key] === 'string' && characteristic[key] !== '') {
+        if (typeof characteristic[key] === 'string') {
           if (aggregated[key]) {
             aggregated[key].push(characteristic[key]);
           } else {
