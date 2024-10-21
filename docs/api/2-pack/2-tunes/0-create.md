@@ -31,7 +31,7 @@ A webhook URL to be called when the tune is finished training. The webhook will 
 #### `characteristics` (optional)
 A free-form object that can be used to templatize the prompts text. e.g: `{"eye_color": "blue eyes"}` would than be used in the prompt text as `ohwx woman, {{eye_color}}, holding flowers`.
 
-#### `prompts_attributes.callback` (optional)
+#### `prompt_attributes.callback` (optional)
 A webhook URL to be called when each prompt is finished inference. The webhook will receive a POST request with the prompt object. See [more on callbacks](/docs/api/overview#callbacks).
 
 #### `prompts_callback` (optional)
