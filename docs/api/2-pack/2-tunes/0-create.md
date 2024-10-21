@@ -56,9 +56,9 @@ Returns a tune object if successful which will start training immediately and ca
 
 ```bash showLineNumbers
 # With images as multipart/form-data
-# Hard coded pack id 43 for corporate headshots from the gallery - https://www.astria.ai/gallery/packs 
+# Hard coded pack id 260 for corporate headshots from the gallery - https://www.astria.ai/gallery/packs.json 
 # https://www.astria.ai/gallery/tunes/690204/prompts
-curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/p/43/tunes \
+curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/p/260/tunes \
           -F tune[title]="John Doe - UUID - 1234-6789-1234-56789" \
           -F tune[name]=man \
           -F tune[callback]="https://optional-callback-url.com/webhooks/astria?user_id=1" \
@@ -70,7 +70,7 @@ curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/p/43/tune
           -F "tune[images][]=@4.jpg"
 
 # With image_urls as form-data
-curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/p/43/tunes \
+curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/p/260/tunes \
           -F tune[title]="Grumpy cat - UUID - 1234-6789-1234-56789" \
           -F tune[name]=cat \
           -F tune[callback]="https://optional-callback-url.com/to-your-service-when-ready?user_id=1" \
@@ -101,8 +101,8 @@ cat > data.json <<- EOM
 }
 EOM
 
-# Hard coded pack id 43 for corporate headshots from the gallery - https://www.astria.ai/gallery/packs
-curl -X POST -H"Content-Type: application/json" -H "Authorization: Bearer $API_KEY" --data @data.json  https://api.astria.ai/p/43/tunes          
+# Hard coded pack id 260 for corporate headshots from the gallery - https://www.astria.ai/gallery/packs.json
+curl -X POST -H"Content-Type: application/json" -H "Authorization: Bearer $API_KEY" --data @data.json  https://api.astria.ai/p/260/tunes          
 ```
   </TabItem>
   <TabItem value="javascript" label="Node.js">
@@ -138,8 +138,8 @@ function createTune() {
       }
     })
   };
-  // Hard coded pack id 43 for corporate headshots from the gallery - https://www.astria.ai/gallery/packs
-  return fetch(DOMAIN + '/p/43/tunes', options)
+  // Hard coded pack id 260 for corporate headshots from the gallery - https://www.astria.ai/gallery/packs.json
+  return fetch(DOMAIN + '/p/260/tunes', options)
     .then(r => r.json())
     .then(r => console.log(r))
 }
@@ -178,13 +178,32 @@ function createTune() {
     },
     body: formData
   };
-  // Hard coded pack id 43 for corporate headshots from the gallery - https://www.astria.ai/gallery/packs
-  return fetch(DOMAIN + '/p/43/tunes', options)
+  // Hard coded pack id 260 for corporate headshots from the gallery - https://www.astria.ai/gallery/packs.json
+  return fetch(DOMAIN + '/p/260/tunes', options)
     .then(r => r.json())
     .then(r => console.log(r));
 }
 
 createTune();
+
+// Create prompts from pack  with tune_ids
+function createTune(tuneIds) {
+  let options = {
+    method: 'POST',
+    headers: { 'Authorization': 'Bearer ' + API_KEY, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      tune: {
+        tune_ids: tuneIds,
+      }
+    })
+  };
+  // Hard coded pack id 260 for corporate headshots from the gallery - https://www.astria.ai/gallery/packs.json
+  return fetch(DOMAIN + '/p/260/tunes', options)
+    .then(r => r.json())
+    .then(r => console.log(r))
+}
+
+createTune([89])
 
 ```
   </TabItem>
@@ -210,10 +229,19 @@ for image in tune.images:
   image_data = load_image(image)  # Assuming image is a file path
   files.append(("tune[images][]", image_data))
 
-API_URL = 'https://api.astria.ai/p/43/tunes'
+API_URL = 'https://api.astria.ai/p/260/tunes'
 response = requests.post(API_URL, data=data, files=files, headers=headers)
 response.raise_for_status()
 
+
+
+## Alternatively - create prompts from pack with tune_ids
+data = {
+  "tune": {
+    "tune_ids": [89]
+  }
+}
+response = requests.post(API_URL, json=data, headers=headers)
 ```
   </TabItem>
 </Tabs>
