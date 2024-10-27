@@ -57,7 +57,7 @@ headers = {
 }
 data = {
     "theme": "Corporate headshots",
-    "tune_ids": ["123"],
+    "tune_ids": [123],
     "prompt_attributes": {
         "num_images": 123
     }
@@ -78,14 +78,11 @@ const fs = require('fs');
 const url = "https://api.astria.ai/themes";
 axios.post(url, {
   theme: "Corporate headshots",
-  tune_ids: ["123"],
+  tune_ids: [123],
   prompt_attributes: {
     num_images: 123
   }
 }, {
-  headers: {
-    "Authorization
-  }, {
   headers: {
     "Authorization": `Bearer YOUR_API_KEY`,
       "Content-Type": "application/json",
