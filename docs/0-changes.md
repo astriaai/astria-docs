@@ -1,5 +1,6 @@
 # Changes
 
+* 2024-10-27 Added [Theme API](/docs/api/themes/create/) to allow users to easily create variation and write their own ideas while augmenting them and adding variation.
 * 2024-10-12 Added [Image inspect](/docs/api/images/inspect/) API to 1) filter/warn about bad training images 2) detect characteristics of the training images for templating with `characteristics`.
 * 2024-10-09 Flux controlnet pose is available with Backend V0 but is still not recommended for production use.
 * 2024-09-26 Added `prompts_callback` for [creating a tune with a pack](/docs/api/pack/tunes/create/)
