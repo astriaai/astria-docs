@@ -36,8 +36,7 @@ Output images
 Default token for SDXL should be `ohwx` and will be set automatically if none is specified
 
 1. As with other models, a good training set is critical to getting great results. See [AI photoshoot guide](/docs/use-cases/ai-photoshoot/)
-1. Flux training is expensive comparing to previous (see [pricing](https://www.astria.ai/pricing)) and slow. 
-1. Astria currently defaults to 100 steps per image for training a Flux lora. 
+1. Astria currently defaults to 100 steps per image for training a Flux lora for the high preset, and 27 steps per image for the fast preset. Fast preset is recommended when training on people or headshots. 
 1. You may opt to override the number of training steps in order to reduce costs and processing time. Reducing the steps can produce good results when the target inference images are similar to the input training images (like headshots). Example lower steps could be 600, 1000 or 1200 (roughly 50-70 * number of training images )
 
 ## Inference tips
