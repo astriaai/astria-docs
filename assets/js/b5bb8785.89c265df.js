@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkastria_docs_2=self.webpackChunkastria_docs_2||[]).push([[3597],{1025:e=>{e.exports=JSON.parse('{"title":"Themes","slug":"/category/themes","permalink":"/docs/category/themes","navigation":{"previous":{"title":"Flux API usage","permalink":"/docs/api/flux-api"},"next":{"title":"Create a theme","permalink":"/docs/api/themes/create"}}}')}}]);
