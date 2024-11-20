@@ -12,6 +12,33 @@ Face inpainting is a feature that maintains facial similarity mainly in long-sho
 </div>
 </div>
 
+<div style={{ display: "grid", 'grid-template-columns': '1fr 1fr', gap: '1.5rem' }}>
+<div>
+<figcaption>Zoom on face - Before</figcaption>
+
+![source.png](./img/flux-face-inpainting-cropped-before.jpg)
+</div>
+<div>
+<figcaption>Zoom on face - After</figcaption>
+
+![source.png](./img/flux-face-inpainting-cropped-after.jpg)
+</div>
+</div>
+
+<div style={{ display: "grid", 'grid-template-columns': '1fr 1fr', gap: '1.5rem' }}>
+<div>
+<figcaption>Full body longshot - before face inpainting</figcaption>
+
+![source.png](./img/flux-face-inpainting-before.jpg)
+
+</div>
+<div>
+<figcaption>Full body longshot - after face inpainting</figcaption>
+
+![source.png](./img/flux-face-inpainting-after.jpg)
+</div>
+</div>
+
 See examples in our [gallery](https://www.astria.ai/gallery?inpaint_faces=true)
 
 ## Enabling Face Inpainting
