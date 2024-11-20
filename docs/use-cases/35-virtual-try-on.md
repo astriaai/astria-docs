@@ -66,6 +66,7 @@ When creating a `faceid` of the garment, two types of images are possible for us
 3. Use 9:16 aspect-ratio i.e: 768x1280 width x height for generating the image.
 4. Use controlnet pose, preferably preprocessed stick figure. Set `controlnet conditioning scale` to a low 0.3-0.5 and
 5. Turn on super resolution, super resolution details and inpaint faces for better results.
+6. Avoid occlusions covering the garment in the generated image such as hands or a bag - The garment should be clearly visible.
 
 It is recommended to use 9:16 aspect-ratio - `512x680` width x height for the input image.
 
