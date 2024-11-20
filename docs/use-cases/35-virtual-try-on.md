@@ -49,8 +49,8 @@ See [pricing](https://www.astria.ai/pricing) for the cost of this feature.
 ## Usage
 To use Astria's virtual try-on feature, you need to create:
 
-1. A model of the person you want to dress up ideally through [fine-tuning](/docs/use-cases/flux-finetuning/)
 1. A [faceid](/docs/features/faceid) fine-tune of the garment you want to try on. The faceid class name should be `clothing`, `shirt` or `pants`, `coat` or `swimming suit`. Class name  is used to identify the garment in the image and remove the original model in case a reference image with a fashion model is used.
+1. Optional: A model of the person you want to dress up ideally through [fine-tuning](/docs/use-cases/flux-finetuning/)
 
 ## Garment reference image
 When creating a `faceid` of the garment, two types of images are possible for use:
