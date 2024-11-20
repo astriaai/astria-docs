@@ -204,36 +204,102 @@ The example below implements two behaviors
     const form = document.getElementById('new_tune');
     const formValues = Object.fromEntries(new FormData(form));
     const name = formValues['tune[name]'];
-
+    const csrfToken = document.querySelector("[name='csrf-token']").content;
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append('authenticity_token', csrfToken);
     formData.append('name', name);
-    // Proxy the request to avoid exposing the API key
+  
+    // Check if file is an image and readable
+    if (file.type.startsWith('image/')) {
+      try {
+        const resizedFile = await this.resizeImage(file);
+        formData.append('file', resizedFile || file);
+      } catch (error) {
+        console.warn('Image resizing failed, uploading original file:', error);
+        formData.append('file', file);
+      }
+    } else {
+      formData.append('file', file);
+    }
+  
     const response = await fetch('/images/inspect', {
       method: 'POST',
-      body: formData
-    })
+      body: formData,
+    });
     const data = await response.json();
-    if(!data['name']) {
+    if (!data['name']) {
       this.createWarning(previewEl, `Could not detect image`);
     }
-    // iterate over hash and if value is true, add a warning message
+  
+    // Iterate over hash and add warning messages for each true value
     Object.keys(data).forEach((key) => {
-      if(key === 'name') {
+      if (key === 'name') {
         if (data[key] === '') {
-          this.createWarning(previewEl, `Could not detect ${name} in the image`)
-        } else if(data[key] && data[key] !== name) {
-          this.createWarning(previewEl, `Could not detect ${name} in the image (2)`)
+          this.createWarning(previewEl, `Could not detect ${name} in the image`);
+        } else if (data[key] && data[key] !== name) {
+          this.createWarning(previewEl, `Could not detect ${name} in the image (2)`);
         }
-      } else  if(data[key] === true) {
+      } else if (data[key] === true) {
         const warning = capitalizeFirstLetter(key.replace(/_/g, " "));
         this.createWarning(previewEl, warning);
       }
     });
+  
     this.characteristics.push(data);
     this.aggregateCharacteristics();
     previewEl.querySelector('.loading').classList.add('d-none');
     previewEl.querySelector('.remove-btn').classList.remove('d-none');
+  }
+  
+  // Helper function to resize the image
+  async resizeImage(file) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const reader = new FileReader();
+  
+      reader.onload = (e) => {
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const maxDimension = 512; // Set max dimension for resizing
+          let width = img.width;
+          let height = img.height;
+  
+          if (width <= maxDimension && height <= maxDimension) {
+            console.log(`Image is already smaller than ${maxDimension}x${maxDimension}`)
+            resolve(file);
+            return;
+          }
+          // Calculate new dimensions while maintaining aspect ratio
+          if (width > height) {
+            if (width > maxDimension) {
+              height = Math.round(height * maxDimension / width);
+              width = maxDimension;
+            }
+          } else {
+            if (height > maxDimension) {
+              width = Math.round(width * maxDimension / height);
+              height = maxDimension;
+            }
+          }
+          console.log(`Resizing image to ${width}x${height} from ${img.width}x${img.height}`)
+  
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+  
+          canvas.toBlob((blob) => {
+            resolve(blob ? new File([blob], file.name, { type: file.type }) : null);
+          }, file.type, 0.9); // Adjust quality if needed
+        };
+  
+        img.onerror = reject;
+        img.src = e.target.result;
+      };
+  
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
   }
 
 
