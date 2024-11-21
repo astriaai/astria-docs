@@ -26,6 +26,22 @@ tags: [virtual try-on, fashion, e-commerce, clothing, garment, backend-v0, VTON]
 
 <div>
 
+<figcaption>Garment / Clothing - with a model - Recommended</figcaption>
+
+![Person + Garment](./img/virtual-try-on-swimming-suit-input.jpg)
+</div>
+
+<div>
+<figcaption>Generated images</figcaption>
+
+![Person + Garment](./img/virtual-try-on-swimming-suit-out.jpg)
+</div>
+</div>
+
+<div style={{ display: "grid", 'grid-template-columns': '1fr 1fr', gap: '1.5rem' }}>
+
+<div>
+
 <figcaption>Garment / Clothing - Flat lay - must indicate "flat lay" in title - not recommended</figcaption>
 
 ![Garment / Clothing](./img/virtual-try-on-flux-input.webp)
