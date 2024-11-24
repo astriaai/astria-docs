@@ -1,5 +1,6 @@
 # Changes
 
+* 2024-11-24 Added film grain and color grading support for Flux Backend V0.
 * 2024-11-20 [Virtual try-on](/docs/use-cases/virtual-try-on/) with Flux is now in BETA.
 * 2024-11-15 [Face inpainting](/docs/features/face-inpainting) with Flux and improved super-resolution
 * 2024-10-27 Added [Theme API](/docs/api/themes/create/) to allow users to easily create variation and write their own ideas while augmenting them and adding variation.
