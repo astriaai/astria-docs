@@ -39,6 +39,21 @@ tags: [virtual try-on, fashion, e-commerce, clothing, garment, backend-v0, VTON]
 </div>
 
 <div style={{ display: "grid", 'grid-template-columns': '1fr 1fr', gap: '1.5rem' }}>
+<div>
+
+<figcaption>Sports virtual try-on</figcaption>
+
+![Person + Garment](./img/virtual-try-on-flux-lakers-input.jpg)
+</div>
+
+<div>
+<figcaption>Generated images</figcaption>
+
+![Person + Garment](./img/virtual-try-on-flux-lakers-out.jpg)
+</div>
+</div>
+
+<div style={{ display: "grid", 'grid-template-columns': '1fr 1fr', gap: '1.5rem' }}>
 
 <div>
 
