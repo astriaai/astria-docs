@@ -102,26 +102,7 @@ axios.post(url, {
 
 #### Response
 
-```json
-{
-  "age": "20 yo",
-  "blurry": false,
-  "ethnicity": "caucasian",
-  "eye_color": "brown eyes",
-  "facial_hair": "",
-  "full_body_image_or_longshot": false,
-  "funny_face": false,
-  "glasses": "",
-  "hair_color": "brunette",
-  "hair_length": "medium hair",
-  "hair_style": "wavy hair",
-  "includes_multiple_people": false,
-  "is_bald": "",
-  "name": "woman",
-  "selfie": true,
-  "wearing_hat": false,
-  "wearing_sunglasses": false
-}
-```
+200 OK - empty body response
+
 </div>
 </div>
