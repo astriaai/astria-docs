@@ -1,5 +1,6 @@
 # Changes
 
+* 2024-11-27 FaceID for Flux is now available.
 * 2024-11-27 Flux fine-tuning allows uploading .TXT file captions for multi concept fine-tuning.
 * 2024-11-24 Added film grain and color grading support for Flux Backend V0.
 * 2024-11-20 [Virtual try-on](/docs/use-cases/virtual-try-on/) with Flux is now in BETA.
