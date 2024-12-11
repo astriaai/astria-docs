@@ -101,6 +101,7 @@ When creating a `faceid` of the garment, two types of images are possible for us
 
 ## Tips for inference
 
+1. For the virtual try-on to work, generated image or input image must show elbows or lower part body. Use `waist up` or `long shot` in your prompt.
 1. To reference the garment use the `<faceid:xxxxxx:1>` syntax, where `xxxxxx` is the faceid of the garment.
 2. If a face of a specific model is desired, use a fine-tuned [LoRA fine-tuned](/docs/use-cases/flux-finetuning/).
 1. Use a short prompt to describe the background, pose and composition. For example `woman wearing a black shirt and jeans, fashion editorial plain white background`.
