@@ -1,6 +1,7 @@
 # Changes
 
-* 2024-12-30 New `portrait` flux training preset is available for [fine-tuning](/docs/use-cases/flux-finetuning/#training-presets) for better portrait results.
+* 2024-12-20 [Outpainting](/docs/features/outpainting) syntax for extending image, creating more cinematic images or longer portraits with high quality faces.
+* 2024-12-15 `portrait` flux training preset is available for [fine-tuning](/docs/use-cases/flux-finetuning/#training-presets) for better portrait results.
 * 2024-11-27 [FaceID](/docs/features/faceid-flux) for Flux is now available.
 * 2024-11-27 Flux fine-tuning allows uploading .TXT file captions for multi concept fine-tuning.
 * 2024-11-24 Added film grain and color grading support for Flux Backend V0.
