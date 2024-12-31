@@ -58,10 +58,14 @@ const config = {
       }),
     ],
   ],
-
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      algolia: {
+        appId: '8J5F8RTXVT',
+        apiKey: 'e8ca16895d1d73027fce30cb8ac3976f',
+        indexName: 'docs_astria_ai_8j5f8rtxvt_pages',
+      },
       zoom: {
         selector: '.markdown img',
         background: {
