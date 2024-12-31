@@ -11,7 +11,6 @@ import upscaleLennaOut2 from './img/upscale/upscale-lenna-out2.jpg';
 
 
 # Upscale
-**BETA**
 
 <div style={{ display: "grid", 'grid-template-columns': '1fr 1fr', gap: '1.5rem' }}>
 <div>
