@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkastria_docs_2=self.webpackChunkastria_docs_2||[]).push([[8683],{8157:t=>{t.exports=JSON.parse('{"label":"Outpainting","permalink":"/docs/tags/outpainting","allTagsPath":"/docs/tags","count":1,"items":[{"id":"features/outpainting","title":"Flux Outpainting","description":"LoRA","permalink":"/docs/features/outpainting"}]}')}}]);
