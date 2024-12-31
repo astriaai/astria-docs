@@ -1,5 +1,6 @@
 ---
 title: Controlnet
+image: ./img/controlnet-output.jpg
 ---
 
 # ControlNet 

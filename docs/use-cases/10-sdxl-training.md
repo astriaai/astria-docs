@@ -1,4 +1,5 @@
 ---
+image: ./img/sdxl-output.jpg
 ---
 import sdxlOutput from './img/sdxl-output.jpg';
 import sdxlInput from './img/ai-photoshoot-input.jpg';

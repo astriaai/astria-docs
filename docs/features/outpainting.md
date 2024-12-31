@@ -3,6 +3,7 @@ title: Flux Outpainting
 description: LoRA
 tags: [Outpainting, cinematic, virtual try-on]
 hide_table_of_contents: true
+image: ./img/outpaint/outpaint2-out-16-9.jpg
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';

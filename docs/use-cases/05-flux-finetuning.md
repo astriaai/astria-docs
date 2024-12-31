@@ -1,5 +1,6 @@
 ---
 tags: ["flux", "training", "fine-tuning", "lora"]
+image: ./img/ai-photoshoot-output.jpg
 ---
 import outputImg from './img/ai-photoshoot-output.jpg';
 import inputImg from './img/ai-photoshoot-input.jpg';

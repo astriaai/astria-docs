@@ -1,5 +1,6 @@
 ---
 hide_table_of_contents: true
+image: ../use-cases/img/sdxl-output.jpg
 ---
 
 import Tabs from '@theme/Tabs';

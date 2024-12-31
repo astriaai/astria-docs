@@ -1,6 +1,7 @@
 ---
 hide_table_of_contents: true
 tags: [prompt styles, templates, style, animated, comic book, line art, enhance, fantasy art, lowpoly, neonpunk, photographic]
+image: ./img/styles/line-art.jpg
 ---
 # Styles
 

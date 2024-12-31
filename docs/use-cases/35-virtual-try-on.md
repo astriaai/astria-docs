@@ -1,6 +1,7 @@
 ---
 hide_table_of_contents: true
 tags: [virtual try-on, fashion, e-commerce, clothing, garment, backend-v0, VTON]
+image: ./img/virtual-try-on-swimming-suit-out.jpg
 ---
 
 # Virtual Try-on for Flux

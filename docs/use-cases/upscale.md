@@ -1,5 +1,6 @@
 ---
 hide_table_of_contents: true
+image: ./img/upscale/upscale-lenna-out2.jpg
 ---
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import upscaleInput from './img/upscale/upscale-input.jpg';

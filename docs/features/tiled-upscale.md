@@ -1,5 +1,6 @@
 ---
 tags: [upscaling, super-resolution, image enhancement, creative upscaler, clarity, magnific]
+image: ./img/tiled-upscale/tiledupscale_v2-1.jpeg
 ---
 # Tiled upscale
 **BETA**

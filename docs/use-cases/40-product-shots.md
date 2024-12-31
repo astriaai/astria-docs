@@ -2,6 +2,7 @@
 title: Product placement
 tags: [ecommerce, background replacement, products, Shopify, photo optimization, product photo]
 hide_table_of_contents: true
+image: ./img/product-placement-background-replacement-shoe-out1.jpeg
 ---
 
 # Product placement for Ecommerce

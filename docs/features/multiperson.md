@@ -1,5 +1,6 @@
 ---
 title: Multi-Person
+image: ./img/multiperson.jpg
 ---
 
 # Multi-Person inference 

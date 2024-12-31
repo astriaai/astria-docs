@@ -1,5 +1,8 @@
+---
+image: ./img/masking-result-flat-2.jpeg
+---
+
 # Masked portraits
-**BETA**
 
 <div style={{ display: "grid", 'grid-template-columns': '1fr 1fr 1fr 1fr', gap: '1.5rem' }}>
 <div>

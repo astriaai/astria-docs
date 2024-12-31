@@ -1,6 +1,7 @@
 ---
 title: AI Photoshoot - fine-tuning for professional headshots
 tags: [fine-tuning, headshots, avatars, social profiles, virtual influencers, AI photoshoot, AI headshots, AI avatars]
+image: ../use-cases/img/ai-photoshoot-output.jpg
 ---
 
 import podcastSrc from './Astria - AI headshots.m4a';

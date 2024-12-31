@@ -1,3 +1,7 @@
+---
+image: ./img/face_inpainting_w_flux.png
+---
+
 # Face Inpainting
 
 ## Overview

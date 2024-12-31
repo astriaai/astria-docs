@@ -1,6 +1,7 @@
 ---
 hide_table_of_contents: true
 tags: ["flux", "api", "training", "fine-tuning", "lora"]
+image: ../use-cases/img/ai-photoshoot-output.jpg
 ---
 
 import Tabs from '@theme/Tabs';

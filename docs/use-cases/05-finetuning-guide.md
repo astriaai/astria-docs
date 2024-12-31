@@ -1,6 +1,7 @@
 ---
 title: Fine-tuning guide
 description: The guide for high quality avatars and AI photography
+image: ./img/ai-photoshoot-output.jpg
 ---
 
 # Fine-tuning guide

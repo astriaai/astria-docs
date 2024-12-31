@@ -1,3 +1,7 @@
+---
+image: ./img/face-swap-after.png
+---
+
 # Face Swap
 
 <div style={{ display: "grid", 'grid-template-columns': '1fr 1fr', gap: '1.5rem' }}>

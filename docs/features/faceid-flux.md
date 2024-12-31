@@ -1,5 +1,6 @@
 ---
 hide_table_of_contents: true
+image: ./img/faceid-flux/faceid-flux-1.jpg
 ---
 
 import Tabs from '@theme/Tabs';

@@ -1,3 +1,7 @@
+---
+image: ./img/ai-interrior-redesign-segroom.jpeg
+---
+
 # AI Interior Design
 **Backend V1**
 

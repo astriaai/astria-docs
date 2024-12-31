@@ -1,3 +1,7 @@
+---
+image: ./img/toonify-output.png
+---
+
 # Toonify
 
 <div style={{ display: "grid", 'grid-template-columns': '1fr 1fr', gap: '1.5rem' }}>
