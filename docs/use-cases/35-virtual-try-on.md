@@ -5,7 +5,6 @@ image: ./img/virtual-try-on-swimming-suit-out.jpg
 ---
 
 # Virtual Try-on for Flux
-**BETA. Flux + Backend V0 only feature.**
 
 <div style={{ display: "grid", 'grid-template-columns': '1fr 1fr', gap: '1.5rem' }}>
 
