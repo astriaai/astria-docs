@@ -61,11 +61,11 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      algolia: {
-        appId: '8J5F8RTXVT',
-        apiKey: 'e8ca16895d1d73027fce30cb8ac3976f',
-        indexName: 'docs_astria_ai_8j5f8rtxvt_pages',
-      },
+      // algolia: {
+      //   appId: 'QYIZW7J3JD',
+      //   apiKey: 'b081f0839bafa96db0c0070a017204fb',
+      //   indexName: 'docs_astria_ai_qyizw7j3jd_pages',
+      // },
       zoom: {
         selector: '.markdown img',
         background: {
