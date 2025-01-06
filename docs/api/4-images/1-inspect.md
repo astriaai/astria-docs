@@ -14,7 +14,7 @@ Inspects an image to extract attributes both for filtering/warning about bad tra
 ### Parameters
 
 #### `name` (required)
-Class name of the object to be inspected in the image. Currently only `man`, `woman` are supported. 
+Class name of the object to be inspected in the image. Currently only `man`, `woman` or `person` are supported. 
 
 #### `file` (required)
 The image to inspect.
