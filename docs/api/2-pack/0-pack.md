@@ -1,5 +1,5 @@
 # The pack object
-A pack represents a list of grouped prompts, as well as the fine-tune to be created from the training images.
+A pack is a collection of prompts. A pack also contains the configuration for fine-tuning such as using LoRA/FaceID/Checkpoint, base model and preset.
 
 :::info
 The [headshot-starter](https://github.com/astriaai/headshots-starter?tab=readme-ov-file#incoming-changes) open-source project now supports packs.
@@ -24,6 +24,6 @@ The [headshot-starter](https://github.com/astriaai/headshots-starter?tab=readme-
 7. Present packs sorted by aggregated likes
 
 ## Getting started
-1. Create your first pack from the GUI [packs](https://www.astria.ai/packs) page.
-2. Assign prompts to the pack from the [prompts tab](https://www.astria.ai/prompts).
-
+1. Click your email in the header to access [my packs](https://www.astria.ai/packs), and create your first pack. ![create_pack.png](create_pack.png)
+2. Assign prompts to the pack from the [prompts tab](https://www.astria.ai/prompts).![assign_prompts.png](assign_prompts.png)
+3. Once a pack is assigned a new tag shows next to the prompt indicating that it is assigned to the pack. 
