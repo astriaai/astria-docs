@@ -55,7 +55,7 @@ Enum: `lora`, `pti`, `faceid`, `null` for checkpoint.
 For SDXL1 - API will default to `pti` and will ignore `model_type` parameter.
 
 #### `preset` (optional)
-Enum: `flux-lora-portrait`, `flux-lora-fast` see details in the GUI, `null`. See [Flux lora training](/docs/use-cases/flux-finetuning/) for more information.
+Enum: `flux-lora-focus`, `flux-lora-portrait`, `flux-lora-fast` see details in the GUI, `null`. See [Flux lora training](/docs/use-cases/flux-finetuning/) for more information.
 
 #### `characteristics` (optional)
 A free-form object that can be used to templatize the prompts text. e.g: `{"eye_color": "blue eyes"}` would than be used in the prompt text as `ohwx woman, {{eye_color}}, holding flowers`.

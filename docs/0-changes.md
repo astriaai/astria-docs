@@ -1,6 +1,7 @@
 # Changes
 
 * 2025-01-20 [Flux Pro 1.1 + Ultra](https://www.astria.ai/gallery/tunes?branch=flux-pro1) with fine-tuning support. 
+* 2025-01-17 `focus` [preset](/docs/use-cases/flux-finetuning/#training-presets) for training faces, products, and objects with Flux.
 * 2025-01-13 Added `--remove_background` for output images. 
 * 2024-12-20 [Outpainting](/docs/features/outpainting) syntax for extending image, creating more cinematic images or longer portraits with high quality faces.
 * 2024-12-15 `portrait` flux training preset is available for [fine-tuning](/docs/use-cases/flux-finetuning/#training-presets) for better portrait results.

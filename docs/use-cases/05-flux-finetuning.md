@@ -40,6 +40,7 @@ Astria uses training presets to evolve its training strategies and provide bette
 Our current recommendation is to use the `portrait` preset for training Flux models.
 :::
 
+1. **Focus** - API `flux-lora-focus` - Focus preset automatically balances different types of training, allowing it to focus on faces, products as well as styles.
 1. **Portrait** - API `flux-lora-portrait` - This preset is generally recommended for any kind of training including non portraits, except for `style` training. With the latest `portrait` we now use more precise hyper-parameters for training, improved pre-processing, better handling of blurred/low-res images, face-cropping and focusing on learning face features, less overfitting to clothing and background. You will get more diverse images with better prompt alignment while better preserving identity and face. For this preset we default to 27 steps per image for training, with minimum steps of 300. You may override the number of steps depending on price and quality requirements.
 2. **Fast** API `flux-lora-fast` - Legacy preset. Provides an alternative for the high preset, with faster training and lower cost. Similarly to the `portrait` preset, it uses 27 steps per image for training, with minimum steps of 300. 
 3. **High** API `null` - High steps, low-learning rate. Should be used for `style` training or training sets with 20+ images. With the high preset, we default to 100 steps per image for training, with minimum steps of 300. You may override the number of steps depending on price and quality requirements.
