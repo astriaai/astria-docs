@@ -43,6 +43,8 @@ Pay attention to 504 error below and turn on idempotency for your account to avo
 
 `422` - Validation error - Log these errors, specifically the response body, and use an exception tracking system such as Rollbar or Sentry to get notified. Do not retry these requests.
 
+`429` - Rate limiting - This error might show when using polling. Use callbacks to avoid this.
+
 `500` - Internal server error - Such requests should be retried with exponential backoff and wait start time of 30 seconds.
 
 `504` - Gateway timeout - This error indicates that the request processing took more than the 30 seconds which is set as the max request timeout. In most cases the request would probably have been processed and you should avoid retrying it. In order to get the response see Idempotency section
