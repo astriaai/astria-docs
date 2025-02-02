@@ -1,5 +1,6 @@
 # Changes
 
+* 2025-02-01 [Multiperson](/docs/features/multiperson) for Flux in BETA 
 * 2025-01-20 [Flux Pro 1.1 + Ultra](https://www.astria.ai/gallery/tunes?branch=flux-pro1) with fine-tuning support. 
 * 2025-01-17 `focus` [preset](/docs/use-cases/flux-finetuning/#training-presets) for training faces, products, and objects with Flux.
 * 2025-01-13 Added `--remove_background` for output images. 
