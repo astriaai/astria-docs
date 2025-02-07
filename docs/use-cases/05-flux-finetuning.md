@@ -45,6 +45,8 @@ Our current recommendation is to use the `portrait` preset for training Flux mod
 2. **Fast** API `flux-lora-fast` - Legacy preset. Provides an alternative for the high preset, with faster training and lower cost. Similarly to the `portrait` preset, it uses 27 steps per image for training, with minimum steps of 300. 
 3. **High** API `null` - High steps, low-learning rate. Should be used for `style` training or training sets with 20+ images. With the high preset, we default to 100 steps per image for training, with minimum steps of 300. You may override the number of steps depending on price and quality requirements.
 
+![Training preset screenshot in new fine-tune](img/new-finetune-presets.png)
+
 ## Training tips
 
 Default token for SDXL should be `ohwx` and will be set automatically if none is specified
