@@ -56,8 +56,8 @@ Even before the model is ready, you can prepare a queue of prompts (texts) that 
 ## Tips for training images
 
 1. Upload both portrait and full body shots of the person
-2. Use 26 pictures of your subject. Preferably cropped to 1:1 aspect ratio.
-3. Use 6 photos of full body or entire object + 10 medium shot photos from the chest up + 10 close-ups.
+2. Use 4-8 pictures of your subject, portrait shoulders up or waist up.
+3. Optional: Use 4 photos of full body or entire object. Make sure these are high quality.
 4. Variation is key - Change body pose for every picture, use pictures from different days backgrounds and lighting. Every picture of your subject should introduce new info about your subject.
 5. Avoid pictures taken at the same hour/day. For example few pictures with the same shirt will make the model learn the shirt as well as part of the subject.
 6. Always pick a new background.
