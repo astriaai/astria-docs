@@ -1,6 +1,6 @@
 # Changes
 
-* 2025-02-18 Added [Youtube tutorial](/docs/api/pack/pack/) on how to create a pack and [how to fine-tune](/docs/use-cases/ai-photoshoot/) 
+* 2025-02-18 Added video tutorial on how to [create a pack](/docs/api/pack/pack/) and [how to fine-tune](/docs/use-cases/ai-photoshoot/) 
 * 2025-02-01 [Multiperson](/docs/features/multiperson) for Flux in BETA 
 * 2025-01-20 [Flux Pro 1.1 + Ultra](https://www.astria.ai/gallery/tunes?branch=flux-pro1) with fine-tuning support. 
 * 2025-01-17 `focus` [preset](/docs/use-cases/flux-finetuning/#training-presets) for training faces, products, and objects with Flux.
