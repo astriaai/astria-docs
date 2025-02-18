@@ -23,6 +23,8 @@ The [headshot-starter](https://github.com/astriaai/headshots-starter?tab=readme-
 6. Sort prompts by likes
 7. Present packs sorted by aggregated likes
 
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/1rgJtn0n8qU?ab_channel=Astria_AI" title="How to fine tune explainer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen />
+
 ## Getting started
 1. Click your email in the header to access [my packs](https://www.astria.ai/packs), and create your first pack. ![create_pack.png](create_pack.png)
 2. Assign prompts to the pack from the [prompts tab](https://www.astria.ai/prompts).![assign_prompts.png](assign_prompts.png)
