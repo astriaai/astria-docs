@@ -9,7 +9,9 @@ import podcastSrc from './Astria - AI headshots.m4a';
 # AI Photoshoot
 
 <audio controls src={podcastSrc} alt="AI Photoshoot podcast - Generative image model finetuning" />
-  
+
+
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/1rgJtn0n8qU?ab_channel=Astria_AI" title="How to fine tune explainer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen />
 
 ## Overview
 
