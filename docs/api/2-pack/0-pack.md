@@ -1,4 +1,7 @@
 # The pack object
+
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/IUI6F5zVaAM?ab_channel=Astria_AI" title="How to fine tune explainer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen />
+
 A pack is a collection of prompts. A pack also contains the configuration for fine-tuning such as using LoRA/FaceID/Checkpoint, base model and preset.
 
 :::info
@@ -22,8 +25,6 @@ The [headshot-starter](https://github.com/astriaai/headshots-starter?tab=readme-
 5. `POST /prompts/:id/likes` to send feedback to the API. See [docs](/docs/api/like/create/)
 6. Sort prompts by likes
 7. Present packs sorted by aggregated likes
-
-<iframe width="100%" height="500" src="https://www.youtube.com/embed/IUI6F5zVaAM?ab_channel=Astria_AI" title="How to fine tune explainer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen />
 
 ## Getting started
 1. Click your email in the header to access [my packs](https://www.astria.ai/packs), and create your first pack. ![create_pack.png](create_pack.png)
