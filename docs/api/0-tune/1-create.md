@@ -54,6 +54,9 @@ Training on top of former fine-tune or a different baseline model from the [gall
 Enum: `lora`, `pti`, `faceid`, `null` for checkpoint.
 For SDXL1 - API will default to `pti` and will ignore `model_type` parameter.
 
+#### `auto_extend` (optional)
+Boolean: `true`, `false`. If `true`, the tune will be automatically extended when it expires. Default is `false`. See [pricing](https://www.astria.ai/pricing). 
+
 #### `preset` (optional)
 Enum: `flux-lora-focus`, `flux-lora-portrait`, `flux-lora-fast` see details in the GUI, `null`. See [Flux lora training](/docs/use-cases/flux-finetuning/) for more information.
 
