@@ -14,7 +14,7 @@ Inspects an image to extract attributes both for filtering/warning about bad tra
 ### Parameters
 
 #### `name` (required)
-Class name of the object to be inspected in the image. Currently only `man`, `woman` or `person` are supported. 
+Class name of the object to be inspected in the image. This should be the same class name that will be used to create the tune object. 
 
 #### `file` (required)
 The image to inspect.
