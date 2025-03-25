@@ -1,5 +1,6 @@
 # Changes
 
+* 2025-03-20 [Image2Video](/features/video) available in BETA
 * 2025-03-02 Added `auto_extend` for [tune](/docs/api/tune/create/) so that only specific tunes can be extended.
 * 2025-02-18 Added video tutorial on how to [create a pack](/docs/api/pack/pack/) and [how to fine-tune](/docs/use-cases/ai-photoshoot/) 
 * 2025-02-01 [Multiperson](/docs/features/multiperson) for Flux in BETA 
