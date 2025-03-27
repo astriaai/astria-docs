@@ -31,12 +31,22 @@ Below parameters should be used as text inside the prompt text
 #### `--video`
 Enables video generation after generating an image. If input image is provided with denoising_strength=0, the input image will be used as the first frame of the video.
 
+Example: `<lora:1533312:1.0> ohwx woman hiking in the alps --video`
+
 #### `--video_prompt`
 A prompt for the video model which describes camera movement, scene, and object interactions. If not provided, the image prompt will be used for the video. The video_prompt must be surrounded by double quotes, and should not include the token or Flux LoRA that were used for the image prompt.
+
+Example: `<lora:1533312:1.0>  ohwx woman hiking in the alps --video_prompt "Woman looking at the camera, smiling, puts hands on her hips, confident"`
 
 #### `--video_model`
 enum: `720p`, `480p`
 `720p` is used by default.
+
+## Example
+
+Here is an example prompt
+
+`<lora:1533312:1.0> A highly detailed image of thoughtful ohwx woman exploring a hidden urban garden, her J. Crew khaki midi skirt and linen blouse complementing the peaceful surroundings --video --video_prompt "Woman looking at the camera, smiling, puts hands on her hips, confident"`
 
 ```text
 <lora:1533312:1.0> A highly detailed image of thoughtful ohwx woman exploring a hidden urban garden, her J. Crew khaki midi skirt and linen blouse complementing the peaceful surroundings --video --video_prompt "Woman looking at the camera, smiling, puts hands on her hips, confident"
