@@ -11,6 +11,11 @@ import TabItem from '@theme/TabItem';
 
 ### Parameters
 
+#### `public=true` (optional)
+Filters only public packs that are not disabled. By default, no filtering is applied.
+
+#### `listed=true` (optional)
+Filters packs that unlisted_at is set to null.
 
 ### Returns
 
