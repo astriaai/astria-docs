@@ -1,3 +1,11 @@
+---
+title: Changes
+---
+
+**Getting started?**
+
+Check out the [API overview](/docs/api/overview/) and then consider starting from the [Packs API](/docs/api/pack/pack/) or reviewing the reference implementation on [Headshot starter](https://github.com/astriaai/headshots-starter)
+
 # Changes
 
 * 2025-03-20 [Image2Video](/docs/features/video/) available in BETA
