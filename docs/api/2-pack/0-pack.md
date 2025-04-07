@@ -20,11 +20,17 @@ The [headshot-starter](https://github.com/astriaai/headshots-starter?tab=readme-
 ## Example user flow
 1. `GET /packs` Display a list of packs to the user. See [docs](/docs/api/pack/list/)
 2. User selects a pack, a class name (man/woman) and training images
-3. Call `POST /p/:id/tunes` with title, (training) images, and class name -  to create a new fine-tune model using a pack. See [docs](/docs/api/pack/tunes/create/)
-4. `GET /tunes/:id/prompts` to get a list of prompts and their status
-5. `POST /prompts/:id/likes` to send feedback to the API. See [docs](/docs/api/like/create/)
-6. Sort prompts by likes
-7. Present packs sorted by aggregated likes
+3. User selects image to upload. Images are inspected using the [Image Inspect API](/docs/api/images/inspect/) to warn against bad quality images and detect characteristics of the training images for templating with `characteristics`.
+4. Call `POST /p/:id/tunes` with title, (training) images, class name and `characteristics` - to create a new fine-tune model using a pack. See [docs](/docs/api/pack/tunes/create/)
+5. `GET /tunes/:id/prompts` to get a list of prompts and their status
+6. `POST /prompts/:id/likes` to send feedback to the API. See [docs](/docs/api/like/create/)
+7. Sort prompts by likes
+8. Present packs sorted by aggregated likes
+
+## Tips
+1. Packs should include multiple classes, like `man` and `woman` or `cat` and `dog`. Astria will use the relevant filters when a new tune is created according to the tune class
+2. Pack cover image is taken from the last prompt added to the pack. If you'd like to change the pack cover image, you can do so by removing the last prompt from the pack and adding it again. The pack cover image will be updated to the last prompt added to the pack.
+
 
 ## Getting started
 1. Click your email in the header to access [my packs](https://www.astria.ai/packs), and create your first pack. ![create_pack.png](create_pack.png)
