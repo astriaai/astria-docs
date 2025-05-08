@@ -319,11 +319,20 @@ The example below implements two behaviors
       });
     });
     console.log('aggregated', aggregated);
-  
+
     const commonValues = {};
     // find most common value for each key and set aggregatedCharacteristics to that value
     Object.keys(aggregated).forEach((key) => {
       const values = aggregated[key];
+
+      // only set the value if a high enough percentage was detected for a value
+      // console.log(key, 'values.length', values.length, this.characteristics.length, aggregated[key]);
+      if (values.length < this.characteristics.length / 2) {
+        console.log('Not enough values for', key);
+        return
+      }
+
+      // Now aggregate and find the most common value
       const mostCommonValue = values.sort((a, b) =>
         values.filter(v => v === a).length - values.filter(v => v === b).length
       ).pop();
