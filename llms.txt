@@ -864,7 +864,7 @@
 108 |         "base_tune_id": 1504944,
 109 |         "model_type": "lora",
 110 |         "name": "cat",
-111 |         "preet": "flux-lora-portrait",
+111 |         "preset": "flux-lora-portrait",
 112 |         "image_urls": [
 113 |           "https://i.imgur.com/HLHBnl9.jpeg",
 114 |           "https://i.imgur.com/HLHBnl9.jpeg",
