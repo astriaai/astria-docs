@@ -108,7 +108,7 @@ function createTune() {
         "base_tune_id": 1504944,
         "model_type": "lora",
         "name": "cat",
-        "preet": "flux-lora-portrait",
+        "preset": "flux-lora-portrait",
         "image_urls": [
           "https://i.imgur.com/HLHBnl9.jpeg",
           "https://i.imgur.com/HLHBnl9.jpeg",
