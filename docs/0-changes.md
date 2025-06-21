@@ -8,6 +8,8 @@ Check out the [API overview](/docs/api/overview/) and then consider starting fro
 
 # Changes
 
+* 2025-06-22 Seedance video model added - higher quality than VEO3, and easier UX using the new video button.
+* 2025-06-09 Flux Kontext added
 * 2025-04-28 Updated Flux controlnets to the latest and added better default conditioning scales and end conditioning.
 * 2025-03-20 [Image2Video](/docs/features/video/) available in BETA
 * 2025-03-02 Added `auto_extend` for [tune](/docs/api/tune/create/) so that only specific tunes can be extended.
