@@ -22,7 +22,7 @@ See example prompts in the [gallery](https://www.astria.ai/gallery?branch=flux1&
 
 ### Overview
 
-Astria Image2Video uses the open-source [WAN 2.1](https://huggingface.co/Wan-AI/Wan2.1-I2V-14B-720P-Diffusers) image2video model which provides high-quality video generation from images. The model uses the diffusion process to generate high-quality videos from images. The model is trained on a large dataset of images and videos to generate high-quality videos from images. The model can generate videos in 720p and 480p resolutions.
+Astria Image2Video uses a multitude of image2video model which provides high-quality video generation from images. 
 
 ### Syntax
 
@@ -39,8 +39,8 @@ A prompt for the video model which describes camera movement, scene, and object 
 Example: `<lora:1533312:1.0>  ohwx woman hiking in the alps --video_prompt "Woman looking at the camera, smiling, puts hands on her hips, confident"`
 
 #### `--video_model`
-enum: `720p`, `480p`
-`720p` is used by default.
+enum: `seedance_480p`, `seedance_720p`, `seedance_pro_1080p`, `hailuo02_1080p`
+`seedance_720p` is used by default.
 
 ## Example
 
