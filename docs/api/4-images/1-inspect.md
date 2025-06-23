@@ -28,73 +28,181 @@ The below JSON schema is returned. It is possible that some attributes will not 
 
 ```JSON
 {
-    "type": "object",
-    "properties": {
-      # Templating
-      "name": {
-        "type": "string",
-        "enum": ["man", "woman", "boy", "girl", "baby", "cat", "dog", "NONE"],
-      },
-      "ethnicity": {
-        "type": "string",
-        "enum": ["caucasian", "black", "hispanic", "korean", "japanese", "chinese", "philippine"]
-      },
-      "age": {
-        "type": "string",
-        "enum": ["20 yo", "30 yo", "40 yo", "50 yo", "60 yo", "70 yo"]
-      },
-      "glasses": {
-        "type": "string",
-        "enum": ["glasses", "NONE"]
-      },
-      "eye_color": {
-        "type": "string",
-        "enum": ["blue eyes", "brown eyes", "green eyes", "gray eyes", "black eyes", "NONE"],
-      },
-      "hair_color": {
-        "type": "string",
-        "enum": ["blonde", "brunette", "red hair", "black hair", "NONE"]
-      },
-      "hair_length": {
-        "type": "string",
-        "enum": ["short hair", "medium hair", "long hair", "NONE"]
-      },
-      "hair_style": {
-        "type": "string",
-        "enum": ["dreadlocks", "bald", "cornrows", "straight hair", "curly hair", "wavy hair", "NONE"]
-      },
-      "facial_hair": {
-        "type": "string",
-        "enum": ["mustache", "beard", "goatee", "NONE"]
-      },
-      "is_bald": {
-        "type": "string",
-        "enum": ["bald", "NONE"]
-      },
-      # Filtering helpers
-      "funny_face": {
-        "type": "boolean",
-      },
-      "wearing_sunglasses": {
-        "type": "boolean",
-      },
-      "wearing_hat": {
-        "type": "boolean",
-      },
-      "blurry": {
-        "type": "boolean",
-      },
-      "includes_multiple_people": {
-        "type": "boolean",
-      },
-      "full_body_image_or_longshot": {
-        "type": "boolean",
-      },
-      "selfie": {
-        "type": "boolean",
-      },
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "enum": [
+        "man",
+        "woman",
+        "boy",
+        "girl",
+        "baby",
+        "cat",
+        "dog",
+        "NONE"
+      ]
+    },
+    "body_type": {
+      "type": "string",
+      "enum": [
+        "slim body",
+        "average body",
+        "muscular body",
+        "plussize body",
+        "NONE"
+      ]
+    },
+    "ethnicity": {
+      "type": "string",
+      "enum": [
+        "caucasian",
+        "black",
+        "hispanic",
+        "korean",
+        "japanese",
+        "chinese",
+        "philippine",
+        "asian",
+        "indian",
+        "arabic",
+        "caribbean",
+        "african",
+        "NONE"
+      ]
+    },
+    "age": {
+      "type": "string",
+      "enum": [
+        "20 yo",
+        "30 yo",
+        "40 yo",
+        "50 yo",
+        "60 yo",
+        "70 yo"
+      ]
+    },
+    "glasses": {
+      "type": "string",
+      "enum": [
+        "glasses",
+        "NONE"
+      ]
+    },
+    "eye_color": {
+      "type": "string",
+      "enum": [
+        "blue eyes",
+        "brown eyes",
+        "green eyes",
+        "gray eyes",
+        "black eyes",
+        "NONE"
+      ]
+    },
+    "hair_color": {
+      "type": "string",
+      "enum": [
+        "black hair",
+        "brown hair",
+        "blonde hair",
+        "red hair",
+        "grey hair",
+        "white hair",
+        "purple hair",
+        "blue hair",
+        "green hair",
+        "pink hair",
+        "dyed hair",
+        "NONE"
+      ]
+    },
+    "hair_length": {
+      "type": "string",
+      "enum": [
+        "bald",
+        "short hair",
+        "medium hair",
+        "long hair",
+        "very long hair",
+        "NONE"
+      ]
+    },
+    "hair_style": {
+      "type": "string",
+      "enum": [
+        "bald head",
+        "balding top",
+        "straight hair",
+        "wavy hair",
+        "curly hair",
+        "afro",
+        "dreadlocks",
+        "cornrows",
+        "slicked back",
+        "comb over",
+        "receding hairline",
+        "undercut",
+        "man bun",
+        "mohawk",
+        "crew cut",
+        "faux hawk",
+        "buzzcut",
+        "NONE"
+      ]
+    },
+    "facial_hair": {
+      "type": "string",
+      "enum": [
+        "mustache",
+        "beard",
+        "goatee",
+        "NONE"
+      ]
+    },
+    "is_bald": {
+      "type": "string",
+      "enum": [
+        "bald",
+        "NONE"
+      ]
+    },
+    "headcover": {
+      "type": "string",
+      "enum": [
+        "with head cover",
+        "NONE"
+      ]
+    },
+    "funny_face": {
+      "type": "boolean"
+    },
+    "wearing_sunglasses": {
+      "type": "boolean"
+    },
+    "wearing_hat": {
+      "type": "boolean"
+    },
+    "blurry": {
+      "type": "boolean"
+    },
+    "includes_multiple_people": {
+      "type": "boolean"
+    },
+    "full_body_image_or_longshot": {
+      "type": "boolean"
+    },
+    "selfie": {
+      "type": "boolean"
+    },
+    "low_resolution": {
+      "type": "boolean"
+    },
+    "low_quality": {
+      "type": "boolean"
     }
   }
+}
 
 ```
 </div>
