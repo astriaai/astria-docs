@@ -1,6 +1,7 @@
 ---
 image: ./img/image-to-video.jpeg
 ---
+import poster from './img/image-to-video.jpeg';
 
 # Image2Video
 
@@ -10,7 +11,7 @@ image: ./img/image-to-video.jpeg
 <div>
 <figcaption>Image2Video</figcaption>
 
-<video height="360" alt="Image2Video" autoPlay muted loop playsInline src="https://sdbooth2-production.s3.amazonaws.com/9yj0fs3otgli7w388u10152t2phh" poster={require('./img/image-to-video.jpeg')}></video>
+<video height="360" alt="Image2Video" autoPlay muted loop playsInline src="https://mp.astria.ai/fw8jm61tk4u6dat7z5sunqp47vys" poster={poster}></video>
 </div>
 </div>
 
