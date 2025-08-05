@@ -8,6 +8,7 @@ Check out the [API overview](/docs/api/overview/) and then consider starting fro
 
 # Changes
 
+* 2025-08-05 [Krea Flux1.dev](https://www.astria.ai/gallery/tunes/3063697/prompts) added as an option for fine-tuning and inference, however, ee do currently do not recommend this.
 * 2025-06-22 Seedance video model added - higher quality than VEO3, and easier UX using the new video button.
 * 2025-06-09 Flux Kontext added
 * 2025-04-28 Updated Flux controlnets to the latest and added better default conditioning scales and end conditioning.
