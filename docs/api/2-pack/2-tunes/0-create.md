@@ -11,6 +11,11 @@ import TabItem from '@theme/TabItem';
 
 Creates a new fine-tune model from training images according to the pack base tune id, model type and adds prompts to generate images.
 
+:::info
+Please make sure to go over the [overview](/docs/api/pack/pack/) for why using packs and how to create your first pack.
+:::
+
+
 ### Parameters
 
 #### `name` (required)
