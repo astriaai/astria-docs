@@ -11,6 +11,11 @@ import TabItem from '@theme/TabItem';
 
 Creates a new fine-tune model from training images which in turn will be used to create prompts and generate images.
 
+:::info
+To avoid cloning inference details of different model types such as Flux LoRA vs SD1.5 checkpoint, please consider using the [Packs API](/docs/api/pack/pack/). Packs will help you abstract the inference logic so that you do not have to hard-code prompts and parameters such as `w,h, cfg_scale` in your backend. Moreover this will allow the creative department to launch packs, make modifications and even track likes, without needing to touch the backend code.
+:::
+
+
 ### Parameters
 
 #### `name` (required)
