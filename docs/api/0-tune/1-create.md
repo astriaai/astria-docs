@@ -29,7 +29,7 @@ An array of images to train the fine-tune with. The images can be uploaded as mu
 A webhook URL to be called when the tune is finished training. The webhook will receive a POST request with the tune object. See [more on callbacks](/docs/api/overview#callbacks).
 
 #### `branch` (optional)
-Enum: `sd15`, `sdxl1`, `fast`. Will default to the `base_tune` branch if not specified, or to `sd15` if `base_tune` is not specified.
+Enum: `flux1`,`sd15`, `sdxl1`, `fast`. Will default to the `base_tune` branch if not specified, or to `sd15` if `base_tune` is not specified.
 
 :::info
 Use `branch=fast` for [mock testing](https://docs.astria.ai/docs/api/overview#mock-testing)
@@ -48,7 +48,7 @@ Detects faces in training images and augments training set with cropped faces. D
 Enhance training images using GFPGAN. Consider enabling if input image are low quality or low resolution. May result in over-smoothing.
 
 #### `base_tune_id` (optional)
-Training on top of former fine-tune or a different baseline model from the [gallery](https://www.astria.ai/gallery/tunes) (id in the URL). e.g: `690204` - Realistic Vision v5.1
+Training on top of former fine-tune or a different baseline model from the [gallery](https://www.astria.ai/gallery/tunes) (id in the URL). e.g: `1504944` - Flux1.dev
 
 #### `model_type` (optional)
 Enum: `lora`, `pti`, `faceid`, `null` for checkpoint.
@@ -80,41 +80,43 @@ Returns a tune object if successful which will start training immediately and ca
   <TabItem value="curl" label="cURL" default>
 
 ```bash showLineNumbers
-# With images as multipart/form-data
-# Hard coded tune id of Realistic Vision v5.1 from the gallery - https://www.astria.ai/gallery/tunes 
-# https://www.astria.ai/gallery/tunes/690204/prompts
-curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes \
-          -F tune[title]="John Doe - UUID - 1234-6789-1234-56789" \
-          -F tune[name]=man \
-          -F tune[branch]="fast" \
-          -F tune[callback]="https://optional-callback-url.com/webhooks/astria?user_id=1&tune_id=1" \
-          -F tune[base_tune_id]=690204 \
-          -F tune[token]=ohwx \
-          -F "tune[prompts_attributes][0][text]=ohwx man on space circa 1979 on cover of time magazine" \
-          -F tune[prompts_attributes][0][callback]="https://optional-callback-url.com/webhooks/astria?user_id=1&prompt_id=1&tune_id=1" \
+# With imags as multipart/form-data
+# Hard coded tune id of Flux1.dev - https://www.astria.ai/gallery/tunes 
+curl -X POST -H "Authorization: Bearer $API_KEY" http://localhost:3000/tunes \
+          -F "tune[title]=Jane Doe - UUID - 1234-6789-1234-56789" \
+          -F "tune[name]=woman" \
+          -F "tune[base_tune_id]=1504944" \
+          -F "tune[model_type]=lora" \
+          -F "tune[token]=ohwx" \
           -F "tune[images][]=@1.jpg" \
           -F "tune[images][]=@2.jpg" \
           -F "tune[images][]=@3.jpg" \
-          -F "tune[images][]=@4.jpg"
+          -F "tune[images][]=@4.jpg" \
+          -F "tune[prompts_attributes][][text]=ohwx woman holding flowers" \
+          -F "tune[prompts_attributes][][inpaint_faces]=true" \
+          -F "tune[prompts_attributes][][super_resolution]=true"
 
 # With image_urls as form-data
-curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes \
-          -F tune[title]="Grumpy cat - UUID - 1234-6789-1234-56789" \
-          -F tune[name]=cat \
-          -F tune[branch]="fast" \
-          -F tune[callback]="https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1" \
-          -F tune[base_tune_id]=690204 \
-          -F tune[token]=ohwx \
+# Hard coded tune id of Flux1.dev - https://www.astria.ai/gallery/tunes 
+curl -X POST -H "Authorization: Bearer $API_KEY" http://localhost:3000/tunes \
+          -F "tune[title]=Jane Doe - UUID - 1234-6789-1234-56789" \
+          -F "tune[name]=woman" \
+          -F "tune[base_tune_id]=1504944" \
+          -F "tune[model_type]=lora" \
+          -F "tune[token]=ohwx" \
           -F "tune[image_urls][]=https://i.imgur.com/HLHBnl9.jpeg" \
           -F "tune[image_urls][]=https://i.imgur.com/HLHBnl9.jpeg" \
           -F "tune[image_urls][]=https://i.imgur.com/HLHBnl9.jpeg" \
-          -F "tune[image_urls][]=https://i.imgur.com/HLHBnl9.jpeg"
+          -F "tune[image_urls][]=https://i.imgur.com/HLHBnl9.jpeg" \
+          -F "tune[prompts_attributes][][text]=ohwx woman holding flowers" \
+          -F "tune[prompts_attributes][][inpaint_faces]=true" \
+          -F "tune[prompts_attributes][][super_resolution]=true"
           
 # As JSON
 cat > data.json <<- EOM
 {
   "tune": {
-    "title": "Grumpy Cat - UUID - 1234-6789-1234-56789",
+    "title": "Jane Doe - UUID - 1234-6789-1234-56789",
     "name": "cat",
     "branch": "fast",
     "callback": "https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1",
@@ -126,11 +128,7 @@ cat > data.json <<- EOM
     ],
     "prompts_attributes": [
       {
-        "text": "ohwx cat in space circa 1979 French illustration",
-        "callback": "https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1&prompt_id=1"
-      },
-      {
-        "text": "ohwx cat getting into trouble viral meme",
+        "text": "<lora...> ohwx woman holding flowers",
         "callback": "https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1&prompt_id=1"
       }
     ]
@@ -158,12 +156,12 @@ function createTune() {
     headers: { 'Authorization': 'Bearer ' + API_KEY, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       tune: {
-        "title": 'John Doe - UUID - 1234-6789-1234-56789',
-        // Hard coded tune id of Realistic Vision v5.1 from the gallery - https://www.astria.ai/gallery/tunes 
-        // https://www.astria.ai/gallery/tunes/690204/prompts
-        "base_tune_id": 690204,
-        "name": "cat",
-        "branch": "fast",
+        "title": 'Jane Doe - UUID - 1234-6789-1234-56789',
+        // Hard coded tune id of Flux1.dev - https://www.astria.ai/gallery/tunes 
+        "base_tune_id": 1504944,
+        "name": "woman",
+        "model_type": "lora",
+        "token": "ohwx",
         "image_urls": [
           "https://i.imgur.com/HLHBnl9.jpeg",
           "https://i.imgur.com/HLHBnl9.jpeg",
@@ -172,12 +170,9 @@ function createTune() {
         ],
         "prompts_attributes": [
           {
-            "text": "ohwx cat in space circa 1979 French illustration",
-            "callback": "https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1&prompt_id=1"
-          },
-          {
-            "text": "ohwx cat getting into trouble viral meme",
-            "callback": "https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1&prompt_id=2"
+            "text": "ohwx woman holding flowers",
+            "inpaint_faces": true,
+            "super_resolution": true
           }
         ]
       }
@@ -189,96 +184,47 @@ function createTune() {
 }
 
 createTune()
-
-
-/// With form-data, fetch() and nested prompts
-// For NodeJS 18 - do NOT import the two below as they are built-in
-import fetch from "node-fetch";
-import FormData from 'form-data';
-import fs from 'fs';
-
-const API_KEY = 'sd_XXXX';
-const DOMAIN = 'https://api.astria.ai';
-function createTune() {
-  let formData = new FormData();
-  formData.append('tune[title]', 'John Doe - UUID - 1234-6789-1234-56789');
-  // formData.append('tune[branch]', 'fast');
-  // Hard coded tune id of Realistic Vision v5.1 from the gallery - https://www.astria.ai/gallery/tunes 
-  // https://www.astria.ai/gallery/tunes/690204/prompts
-  formData.append('tune[base_tune_id]', 690204);
-  formData.append('tune[name]', 'man');
-  formData.append('tune[prompts_attributes][0][callback]', 'https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1&prompt_id=1');
-  formData.append('tune[prompts_attributes][0][input_image]', fs.createReadStream(`./samples/pose.png`));
-  formData.append('tune[prompts_attributes][0][text]',"ohwx man inside spacesuit in space")
-  // Load all JPGs from ./samples directory and append to FormData
-  let files = fs.readdirSync('./samples');
-  files.forEach(file => {
-    if(file.endsWith('.jpg')) {
-      formData.append('tune[images][]', fs.createReadStream(`./samples/${file}`), file);
-    }
-  });
-  formData.append('tune[callback]', 'https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1');
-
-  let options = {
-    method: 'POST',
-    headers: {
-      'Authorization': 'Bearer ' + API_KEY
-    },
-    body: formData
-  };
-  return fetch(DOMAIN + '/tunes', options)
-    .then(r => r.json())
-    .then(r => console.log(r));
-}
-
-createTune();
-
 ```
   </TabItem>
   <TabItem value="python" label="Python">
 
 ```python
 import requests
+
+API_KEY = 'sd_XXXXXX'
 headers = {'Authorization': f'Bearer {API_KEY}'}
 
 def load_image(file_path):
   with open(file_path, "rb") as f:
     return f.read()
 
-# Assuming `prompts` and `tune.images` are already defined in your context
-
-image_data = load_image("assets/image.jpeg")
-
+# With image_urls as JSON
 data = {
-  "tune[title]": "John Doe - UUID - 1234-6789-1234-56789",
-  "tune[name]": "man",
-  "tune[base_tune_id]": 690204,
-  "tune[branch]": "fast",
-  "tune[token]": "ohwx"
+  "tune": {
+    "title": "Jane Doe - UUID - 1234-6789-1234-56789",
+    "name": "woman",
+    "base_tune_id": 1504944,  # Hard coded tune id of Flux1.dev
+    "model_type": "lora",
+    "token": "ohwx",
+    "image_urls": [
+      "https://i.imgur.com/HLHBnl9.jpeg",
+      "https://i.imgur.com/HLHBnl9.jpeg",
+      "https://i.imgur.com/HLHBnl9.jpeg",
+      "https://i.imgur.com/HLHBnl9.jpeg"
+    ],
+    "prompts_attributes": [
+      {
+        "text": "ohwx woman holding flowers",
+        "inpaint_faces": True,
+        "super_resolution": True
+      }
+    ]
+  }
 }
-files = []
-for i, prompt in enumerate(prompts):
-  data.update({
-    f"tune[prompts_attributes][{i}][text]": prompt['text'],
-    f"tune[prompts_attributes][{i}][negative_prompt]": prompt['negative_prompt'],
-    f"tune[prompts_attributes][{i}][face_correct]": "true",
-    f"tune[prompts_attributes][{i}][inpaint_faces]": "true",
-    f"tune[prompts_attributes][{i}][super_resolution]": "true",
-  })
-  if prompt['image_data']:
-    data.update({
-      f"tune[prompts_attributes][{i}][controlnet]" : prompt['controlnet'],
-    })
-    files.append((f"tune[prompts_attributes][{i}][input_image]", load_image(prompt['input_image'])))
-
-for image in tune.images:
-  image_data = load_image(image)  # Assuming image is a file path
-  files.append(("tune[images][]", image_data))
 
 API_URL = 'https://api.astria.ai/tunes'
-response = requests.post(API_URL, data=data, files=files, headers=headers)
+response = requests.post(API_URL, json=data, headers=headers)
 response.raise_for_status()
-
 ```
   </TabItem>
 </Tabs>
