@@ -66,6 +66,7 @@ Returns a tune object if successful which will start training immediately and ca
 curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/p/260/tunes \
           -F tune[title]="John Doe - UUID - 1234-6789-1234-56789" \
           -F tune[name]=man \
+          -f tune[preset]=flux-lora-portrait \
           -F tune[callback]="https://optional-callback-url.com/webhooks/astria?user_id=1" \
           -F tune[characteristics][eye_color]="blue eyes" \
           -F tune[prompt_attributes][callback]="https://optional-callback-url.com/webhooks/astria_prompts?user_id=1" \
@@ -164,6 +165,7 @@ function createTune() {
   let formData = new FormData();
   formData.append('tune[title]', 'John Doe - UUID - 1234-6789-1234-56789');
   formData.append('tune[name]', 'man');
+  formData.append('tune[preset]', 'flux-lora-portrait');
   formData.append('tune[callback]', 'https://optional-callback-url.com/webhooks/astria?user_id=1');
   formData.append('tune[characteristics][eye_color]', 'blue eyes');
   formData.append('tune[prompt_attributes][callback]', 'https://optional-callback-url.com/webhooks/astria_prompts?user_id=1');
@@ -227,6 +229,7 @@ def load_image(file_path):
 data = {
   "tune[title]": "John Doe - UUID - 1234-6789-1234-56789",
   "tune[name]": "man",
+  "tune[preset]": "flux-lora-portrait",
 }
 files = []
 
