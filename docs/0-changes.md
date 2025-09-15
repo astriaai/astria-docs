@@ -9,7 +9,7 @@ Check out the [API overview](/docs/api/overview/) and then consider starting fro
 # Changes
 
 * 2025-09-15 [Photoshop plugin](https://www.astria.ai/nano-banana-photoshop) for Nano Banana Gemini 2.5 and Seedream 4.0 is now available.
-* 2025-08-28 [Seedream 4.0](https://www.astria.ai/gallery/tunes/3225353/prompts) has been integrated - allows 4K image edits.
+* 2025-08-28 [Seedream 4.0](https://www.astria.ai/gallery/tunes/3225353/prompts) has been integrated. Allows 4K image edits.
 * 2025-08-26 [Nano Banana Gemini 2.5](https://www.astria.ai/gallery/tunes/3159068/prompts) has been integrated for consistent image editing.
 * 2025-08-05 [Krea Flux1.dev](https://www.astria.ai/gallery/tunes/3063697/prompts) added as an option for fine-tuning and inference, however, ee do currently do not recommend this.
 * 2025-06-22 Seedance video model added - higher quality than VEO3, and easier UX using the new video button.
