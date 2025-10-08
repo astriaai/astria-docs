@@ -8,6 +8,7 @@ Check out the [API overview](/docs/api/overview/) and then consider starting fro
 
 # Changes
 
+* 2025-10-08 [Ovi](https://www.astria.ai/gallery?text=video_model%20ovi) video model added allowing talking Avatars with text and expressive voice.
 * 2025-09-15 [Photoshop plugin](https://www.astria.ai/nano-banana-photoshop) for Nano Banana Gemini 2.5 and Seedream 4.0 is now available.
 * 2025-08-28 [Seedream 4.0](https://www.astria.ai/gallery/tunes/3225353/prompts) has been integrated. Allows 4K image edits.
 * 2025-08-26 [Nano Banana Gemini 2.5](https://www.astria.ai/gallery/tunes/3159068/prompts) has been integrated for consistent image editing.
