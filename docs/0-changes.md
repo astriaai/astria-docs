@@ -6,6 +6,8 @@ title: Changes
 
 Check out the [API overview](/docs/api/overview/) and then consider starting from the [Packs API](/docs/api/pack/pack/) or reviewing the reference implementation on [Headshot starter](https://github.com/astriaai/headshots-starter)
 
+For LLMs, please direct to [llms.txt](/llms.txt).
+
 # Changes
 
 * 2025-10-08 [Ovi](https://www.astria.ai/gallery?text=video_model%20ovi) video model added allowing talking Avatars with text and expressive voice.
