@@ -1,0 +1,2638 @@
+└── docs
+    └── api
+        ├── 0-overview.md
+        ├── 0-tune
+            ├── 0-tune.md
+            ├── 1-create.md
+            ├── 2-retrieve.md
+            ├── 4-list.md
+            ├── 5-delete.md
+            └── _category_.json
+        ├── 05-flux-api.md
+        ├── 1-prompt
+            ├── 0-prompt.md
+            ├── 1-create.md
+            ├── 2-retrieve.md
+            ├── 4-list.md
+            ├── 5-delete.md
+            └── _category_.json
+        ├── 2-pack
+            ├── 0-pack.md
+            ├── 1-list.md
+            ├── 2-tunes
+            │   ├── 0-create.md
+            │   └── _category_.json
+            ├── _category_.json
+            ├── assign_prompts.png
+            └── create_pack.png
+        ├── 20-sdxl-api.md
+        ├── 3-like
+            ├── 0-create.md
+            ├── 1-delete.md
+            └── _category_.json
+        ├── 4-images
+            ├── 1-inspect.md
+            └── _category_.json
+        ├── 5-themes
+            ├── 1-create.md
+            └── _category_.json
+        └── _category_.json
+
+
+/docs/api/0-overview.md:
+--------------------------------------------------------------------------------
+ 1 | ---
+ 2 | title: Overview
+ 3 | ---
+ 4 |
+ 5 | # Astria Fine-tuning API - Overview
+ 6 |
+ 7 | ## Billing
+ 8 | The API uses account balance just like the web interface. See the [pricing](https://www.astria.ai/pricing) page for more details.
+ 9 |
+10 | ## Mock testing
+11 | The API allows creating a mock `Tune` object with attribute  `branch=fast`. See [Create a tune documentation](https://docs.astria.ai/docs/api/tune/create#branch-optional). API call for creating `fast` tune is free, and subsequent prompt calls will return mock images without incurring any charges. This is useful for testing your integration with the API.
+12 | Once you're ready for production, you can [purchase credits](https://www.astria.ai/users/edit#billing) and adjust the quantity on the checkout page to how much you need.
+13 |
+14 | ## Beta features
+15 | Astria maintains backward compatability and avoid making changes that could alter the behavior of the API. However, features marked as BETA are subject to change as we try to improve the product.
+16 |
+17 | ## Auto top off
+18 | To allow your account to work without disruption, top-off feature can be enabled to refill account each time account balance reaches zero. Auto top-off can be enabled in the [billing page](https://www.astria.ai/users/edit#billing).
+19 | It is recommended to set the top-off amount to at least a week worth of API calls to avoid hitting the rate limit on top-off - Frequent top-offs can cause credit card charges to fail or bank declines.
+20 |
+21 | ## Storage
+22 | Generated images, training pictures and models, will be automatically deleted 30 days after the training has ended. You may delete the fine-tune object including the trained model, training images, and generated images at any time before using the delete API calls. You may opt-in to automatically [extend model storage](https://www.astria.ai/users/edit#billing) or set the `auto_extend` for [tune](/docs/api/tune/create/).
+23 |
+24 |
+25 | ## Authorization
+26 | The API uses bearer `Authorization` headers scheme. API calls should include the header:
+27 |
+28 | ```text
+29 | Authorization: Bearer sd_XXXXXX
+30 | ```
+31 |
+32 | Find your API key on the [API settings](https://www.astria.ai/users/edit#api) under your account settings.
+33 |
+34 |
+35 | ## REST API
+36 | Astria API is built as a REST API. Main resources are `tune` and `prompt` and each one has all the CRUD operations. Prompts are usually used as a nested resource on top of tunes (i.e: `/tunes/:id/prompts`).
+37 |
+38 | ## Error Codes
+39 |
+40 | :::tip
+41 | Pay attention to 504 error below and turn on idempotency for your account to avoid duplicate objects.
+42 | :::
+43 |
+44 | `422` - Validation error - Log these errors, specifically the response body, and use an exception tracking system such as Rollbar or Sentry to get notified. Do not retry these requests.
+45 |
+46 | `429` - Rate limiting - This error might show when using polling. Use callbacks to avoid this.
+47 |
+48 | `500` - Internal server error - Such requests should be retried with exponential backoff and wait start time of 30 seconds.
+49 |
+50 | `504` - Gateway timeout - This error indicates that the request processing took more than the 30 seconds which is set as the max request timeout. In most cases the request would probably have been processed and you should avoid retrying it. In order to get the response see Idempotency section
+51 |
+52 |
+53 | ## Idempotency
+54 |
+55 | Idempotency is a principle in programming which means that the same operation (a request in our case) can be made multiple times without changing the result. This can be useful when a request is interrupted and you want to make sure it is processed only once, and avoid duplicate objects.
+56 |
+57 | Idempotency can be enabled for the account in the [API settings](https://www.astria.ai/users/edit#api).
+58 |
+59 | For tunes request with the same `title`, idempotency will return the existing tune object and will not create a new one. This is useful for cases where you want to make sure you don't create duplicate tunes. In this case set the tune title to a unique value such as a UUID which identifies the transaction.
+60 |
+61 | For prompts request with the same attributes, idempotency will return the existing prompt object and will not create a new one. Prompt attributes considered for the idempotency are `text, tune_id, cfg_scale, steps, seed, callback, negative_prompt, super_resolution, face_correct, ar, num_images, controlnet, denoising_strength, use_lpw, controlnet_conditioning_scale, w, h, hires_fix, scheduler, controlnet_txt2img, inpaint_faces`
+62 |
+63 | When retrying a 504 error, and idempotency is enabled, make sure to wait 60 seconds before retrying the request to allow the previous request to finish processing.
+64 |
+65 | ## Callbacks
+66 |
+67 | Callbacks for prompts and tunes are `POST` requests containing the entity object in the request body. Callbacks work in test mode with `branch=fast`. Callbacks are currently not retried if they fail. To test your callbacks, we recommend a local tunnel tool like [ngrok](https://ngrok.com/). If you need your backend server to receive some context arguments/metadata for the callback, like internal user-id or transaction id, we recommend adding those to the callback query string.
+68 |
+
+
+--------------------------------------------------------------------------------
+/docs/api/0-tune/0-tune.md:
+--------------------------------------------------------------------------------
+1 | # The tune object
+2 | Tune (or Fine-tune) represents a model that is created using training images to learn a new concept or subject. At its core a fine-tune is a neural-network weights file (usually weights 2GB) and contains the information of the trained images.
+3 | A fine-tune model can be of various types (checkpoint or lora) and can be used to create prompts which will in turn generate images.
+4 |
+
+
+--------------------------------------------------------------------------------
+/docs/api/0-tune/1-create.md:
+--------------------------------------------------------------------------------
+  1 | ---
+  2 | title: Create a tune
+  3 | hide_table_of_contents: true
+  4 | ---
+  5 |
+  6 | import Tabs from '@theme/Tabs';
+  7 | import TabItem from '@theme/TabItem';
+  8 |
+  9 | <div className="api-method">
+ 10 | <div>
+ 11 |
+ 12 | Creates a new fine-tune model from training images which in turn will be used to create prompts and generate images.
+ 13 |
+ 14 | ### Parameters
+ 15 |
+ 16 | #### `name` (required)
+ 17 | A class name the describes the fine-tune. e.g: `man`, `woman`, `cat`, `dog`, `boy`, `girl`, `style`
+ 18 |
+ 19 | #### `title` (required)
+ 20 | Describes the fine-tune. Ideally a UUID related to the transaction. See [idempotency](/docs/api/overview) for more information.
+ 21 |
+ 22 | #### `images` (required)
+ 23 | An array of images to train the fine-tune with. The images can be uploaded as multipart/form-data or as image_urls.
+ 24 |
+ 25 | #### `image_urls` (required)
+ 26 | An array of images to train the fine-tune with. The images can be uploaded as multipart/form-data or as image_urls.
+ 27 |
+ 28 | #### `callback` (optional)
+ 29 | A webhook URL to be called when the tune is finished training. The webhook will receive a POST request with the tune object. See [more on callbacks](/docs/api/overview#callbacks).
+ 30 |
+ 31 | #### `branch` (optional)
+ 32 | Enum: `sd15`, `sdxl1`, `fast`. Will default to the `base_tune` branch if not specified, or to `sd15` if `base_tune` is not specified.
+ 33 |
+ 34 | :::info
+ 35 | Use `branch=fast` for [mock testing](https://docs.astria.ai/docs/api/overview#mock-testing)
+ 36 | :::
+ 37 |
+ 38 | #### `steps` (optional)
+ 39 | Training steps. Recommended leaving blank in order to allow better defaults set by the system.
+ 40 |
+ 41 | #### `token` (optional)
+ 42 | Unique short text to which the features will be embedded into. Default `ohwx` for SDXL and `sks` for SD15.
+ 43 |
+ 44 | #### `face_crop` (optional)
+ 45 | Detects faces in training images and augments training set with cropped faces. Defaults to [account setting](https://www.astria.ai/users/edit)
+ 46 |
+ 47 | #### `training_face_correct` (optional)
+ 48 | Enhance training images using GFPGAN. Consider enabling if input image are low quality or low resolution. May result in over-smoothing.
+ 49 |
+ 50 | #### `base_tune_id` (optional)
+ 51 | Training on top of former fine-tune or a different baseline model from the [gallery](https://www.astria.ai/gallery/tunes) (id in the URL). e.g: `690204` - Realistic Vision v5.1
+ 52 |
+ 53 | #### `model_type` (optional)
+ 54 | Enum: `lora`, `pti`, `faceid`, `null` for checkpoint.
+ 55 | For SDXL1 - API will default to `pti` and will ignore `model_type` parameter.
+ 56 |
+ 57 | #### `auto_extend` (optional)
+ 58 | Boolean: `true`, `false`. If `true`, the tune will be automatically extended when it expires. Default is `false`. See [pricing](https://www.astria.ai/pricing).
+ 59 |
+ 60 | #### `preset` (optional)
+ 61 | Enum: `flux-lora-focus`, `flux-lora-portrait`, `flux-lora-fast` see details in the GUI, `null`. See [Flux lora training](/docs/use-cases/flux-finetuning/) for more information.
+ 62 |
+ 63 | #### `characteristics` (optional)
+ 64 | A free-form object that can be used to templatize the prompts text. e.g: `{"eye_color": "blue eyes"}` would than be used in the prompt text as `ohwx woman, {{eye_color}}, holding flowers`.
+ 65 |
+ 66 | #### `prompts_attributes` (optional)
+ 67 | Array of prompts entities with all attributes. See [create prompt](/docs/api/prompt/create) for more information.
+ 68 |
+ 69 | ### Returns
+ 70 |
+ 71 | Returns a tune object if successful which will start training immediately and call callback once training is complete.
+ 72 |
+ 73 | </div>
+ 74 |
+ 75 | <div>
+ 76 |
+ 77 | #### POST /tunes
+ 78 |
+ 79 | <Tabs groupId="lang">
+ 80 |   <TabItem value="curl" label="cURL" default>
+ 81 |
+ 82 | ```bash showLineNumbers
+ 83 | # With images as multipart/form-data
+ 84 | # Hard coded tune id of Realistic Vision v5.1 from the gallery - https://www.astria.ai/gallery/tunes
+ 85 | # https://www.astria.ai/gallery/tunes/690204/prompts
+ 86 | curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes \
+ 87 |           -F tune[title]="John Doe - UUID - 1234-6789-1234-56789" \
+ 88 |           -F tune[name]=man \
+ 89 |           -F tune[branch]="fast" \
+ 90 |           -F tune[callback]="https://optional-callback-url.com/webhooks/astria?user_id=1&tune_id=1" \
+ 91 |           -F tune[base_tune_id]=690204 \
+ 92 |           -F tune[token]=ohwx \
+ 93 |           -F "tune[prompts_attributes][0][text]=ohwx man on space circa 1979 on cover of time magazine" \
+ 94 |           -F tune[prompts_attributes][0][callback]="https://optional-callback-url.com/webhooks/astria?user_id=1&prompt_id=1&tune_id=1" \
+ 95 |           -F "tune[images][]=@1.jpg" \
+ 96 |           -F "tune[images][]=@2.jpg" \
+ 97 |           -F "tune[images][]=@3.jpg" \
+ 98 |           -F "tune[images][]=@4.jpg"
+ 99 |
+100 | # With image_urls as form-data
+101 | curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes \
+102 |           -F tune[title]="Grumpy cat - UUID - 1234-6789-1234-56789" \
+103 |           -F tune[name]=cat \
+104 |           -F tune[branch]="fast" \
+105 |           -F tune[callback]="https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1" \
+106 |           -F tune[base_tune_id]=690204 \
+107 |           -F tune[token]=ohwx \
+108 |           -F "tune[image_urls][]=https://i.imgur.com/HLHBnl9.jpeg" \
+109 |           -F "tune[image_urls][]=https://i.imgur.com/HLHBnl9.jpeg" \
+110 |           -F "tune[image_urls][]=https://i.imgur.com/HLHBnl9.jpeg" \
+111 |           -F "tune[image_urls][]=https://i.imgur.com/HLHBnl9.jpeg"
+112 |
+113 | # As JSON
+114 | cat > data.json <<- EOM
+115 | {
+116 |   "tune": {
+117 |     "title": "Grumpy Cat - UUID - 1234-6789-1234-56789",
+118 |     "name": "cat",
+119 |     "branch": "fast",
+120 |     "callback": "https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1",
+121 |     "image_urls": [
+122 |       "https://i.imgur.com/HLHBnl9.jpeg",
+123 |       "https://i.imgur.com/HLHBnl9.jpeg",
+124 |       "https://i.imgur.com/HLHBnl9.jpeg",
+125 |       "https://i.imgur.com/HLHBnl9.jpeg"
+126 |     ],
+127 |     "prompts_attributes": [
+128 |       {
+129 |         "text": "ohwx cat in space circa 1979 French illustration",
+130 |         "callback": "https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1&prompt_id=1"
+131 |       },
+132 |       {
+133 |         "text": "ohwx cat getting into trouble viral meme",
+134 |         "callback": "https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1&prompt_id=1"
+135 |       }
+136 |     ]
+137 |   }
+138 | }
+139 | EOM
+140 |
+141 | curl -X POST -H"Content-Type: application/json" -H "Authorization: Bearer $API_KEY" --data @data.json  https://api.astria.ai/tunes
+142 | ```
+143 |   </TabItem>
+144 |   <TabItem value="javascript" label="Node.js">
+145 |
+146 | ```javascript
+147 | // NodeJS 16
+148 | // With image_urls and fetch()
+149 | // For NodeJS 18 - do NOT import the below as it is built-in
+150 | import fetch from "node-fetch";
+151 |
+152 | const API_KEY = 'sd_XXXXXX';
+153 | const DOMAIN = 'https://api.astria.ai';
+154 |
+155 | function createTune() {
+156 |   let options = {
+157 |     method: 'POST',
+158 |     headers: { 'Authorization': 'Bearer ' + API_KEY, 'Content-Type': 'application/json' },
+159 |     body: JSON.stringify({
+160 |       tune: {
+161 |         "title": 'John Doe - UUID - 1234-6789-1234-56789',
+162 |         // Hard coded tune id of Realistic Vision v5.1 from the gallery - https://www.astria.ai/gallery/tunes
+163 |         // https://www.astria.ai/gallery/tunes/690204/prompts
+164 |         "base_tune_id": 690204,
+165 |         "name": "cat",
+166 |         "branch": "fast",
+167 |         "image_urls": [
+168 |           "https://i.imgur.com/HLHBnl9.jpeg",
+169 |           "https://i.imgur.com/HLHBnl9.jpeg",
+170 |           "https://i.imgur.com/HLHBnl9.jpeg",
+171 |           "https://i.imgur.com/HLHBnl9.jpeg"
+172 |         ],
+173 |         "prompts_attributes": [
+174 |           {
+175 |             "text": "ohwx cat in space circa 1979 French illustration",
+176 |             "callback": "https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1&prompt_id=1"
+177 |           },
+178 |           {
+179 |             "text": "ohwx cat getting into trouble viral meme",
+180 |             "callback": "https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1&prompt_id=2"
+181 |           }
+182 |         ]
+183 |       }
+184 |     })
+185 |   };
+186 |   return fetch(DOMAIN + '/tunes', options)
+187 |     .then(r => r.json())
+188 |     .then(r => console.log(r))
+189 | }
+190 |
+191 | createTune()
+192 |
+193 |
+194 | /// With form-data, fetch() and nested prompts
+195 | // For NodeJS 18 - do NOT import the two below as they are built-in
+196 | import fetch from "node-fetch";
+197 | import FormData from 'form-data';
+198 | import fs from 'fs';
+199 |
+200 | const API_KEY = 'sd_XXXX';
+201 | const DOMAIN = 'https://api.astria.ai';
+202 | function createTune() {
+203 |   let formData = new FormData();
+204 |   formData.append('tune[title]', 'John Doe - UUID - 1234-6789-1234-56789');
+205 |   // formData.append('tune[branch]', 'fast');
+206 |   // Hard coded tune id of Realistic Vision v5.1 from the gallery - https://www.astria.ai/gallery/tunes
+207 |   // https://www.astria.ai/gallery/tunes/690204/prompts
+208 |   formData.append('tune[base_tune_id]', 690204);
+209 |   formData.append('tune[name]', 'man');
+210 |   formData.append('tune[prompts_attributes][0][callback]', 'https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1&prompt_id=1');
+211 |   formData.append('tune[prompts_attributes][0][input_image]', fs.createReadStream(`./samples/pose.png`));
+212 |   formData.append('tune[prompts_attributes][0][text]',"ohwx man inside spacesuit in space")
+213 |   // Load all JPGs from ./samples directory and append to FormData
+214 |   let files = fs.readdirSync('./samples');
+215 |   files.forEach(file => {
+216 |     if(file.endsWith('.jpg')) {
+217 |       formData.append('tune[images][]', fs.createReadStream(`./samples/${file}`), file);
+218 |     }
+219 |   });
+220 |   formData.append('tune[callback]', 'https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1');
+221 |
+222 |   let options = {
+223 |     method: 'POST',
+224 |     headers: {
+225 |       'Authorization': 'Bearer ' + API_KEY
+226 |     },
+227 |     body: formData
+228 |   };
+229 |   return fetch(DOMAIN + '/tunes', options)
+230 |     .then(r => r.json())
+231 |     .then(r => console.log(r));
+232 | }
+233 |
+234 | createTune();
+235 |
+236 | ```
+237 |   </TabItem>
+238 |   <TabItem value="python" label="Python">
+239 |
+240 | ```python
+241 | import requests
+242 | headers = {'Authorization': f'Bearer {API_KEY}'}
+243 |
+244 | def load_image(file_path):
+245 |   with open(file_path, "rb") as f:
+246 |     return f.read()
+247 |
+248 | # Assuming `prompts` and `tune.images` are already defined in your context
+249 |
+250 | image_data = load_image("assets/image.jpeg")
+251 |
+252 | data = {
+253 |   "tune[title]": "John Doe - UUID - 1234-6789-1234-56789",
+254 |   "tune[name]": "man",
+255 |   "tune[base_tune_id]": 690204,
+256 |   "tune[branch]": "fast",
+257 |   "tune[token]": "ohwx"
+258 | }
+259 | files = []
+260 | for i, prompt in enumerate(prompts):
+261 |   data.update({
+262 |     f"tune[prompts_attributes][{i}][text]": prompt['text'],
+263 |     f"tune[prompts_attributes][{i}][negative_prompt]": prompt['negative_prompt'],
+264 |     f"tune[prompts_attributes][{i}][face_correct]": "true",
+265 |     f"tune[prompts_attributes][{i}][inpaint_faces]": "true",
+266 |     f"tune[prompts_attributes][{i}][super_resolution]": "true",
+267 |   })
+268 |   if prompt['image_data']:
+269 |     data.update({
+270 |       f"tune[prompts_attributes][{i}][controlnet]" : prompt['controlnet'],
+271 |     })
+272 |     files.append((f"tune[prompts_attributes][{i}][input_image]", load_image(prompt['input_image'])))
+273 |
+274 | for image in tune.images:
+275 |   image_data = load_image(image)  # Assuming image is a file path
+276 |   files.append(("tune[images][]", image_data))
+277 |
+278 | API_URL = 'https://api.astria.ai/tunes'
+279 | response = requests.post(API_URL, data=data, files=files, headers=headers)
+280 | response.raise_for_status()
+281 |
+282 | ```
+283 |   </TabItem>
+284 | </Tabs>
+285 |
+286 | #### Response
+287 |
+288 | ```json
+289 |
+290 | {
+291 |   "id": 1,
+292 |   "title": "John Doe - UUID - 1234-6789-1234-56789",
+293 |   "name": "woman",
+294 |   "token": "ohwx",
+295 |   "base_tune_id": null,
+296 |   "args": null,
+297 |   "steps": null,
+298 |   "face_crop": null,
+299 |   "training_face_correct": false,
+300 |   "ckpt_url": "https://sdbooth2-production.s3.amazonaws.com/mock",
+301 |   "ckpt_urls": [
+302 |     "https://sdbooth2-production.s3.amazonaws.com/mock"
+303 |   ],
+304 |   "eta": "2023-10-02T14:32:40.363Z",
+305 |   "trained_at": "2023-10-02T14:32:40.363Z",
+306 |   "started_training_at": "2023-10-02T14:32:05.229Z",
+307 |   "expires_at": "2023-11-01T14:32:40.363Z",
+308 |   "created_at": "2023-10-02T14:32:05.067Z",
+309 |   "branch": "sdxl1",
+310 |   "model_type": "lora",
+311 |   "updated_at": "2023-10-02T14:32:40.363Z",
+312 |   "url": "https://www.astria.ai/tunes/788416.json",
+313 |   "orig_images": [
+314 |     "https://sdbooth2-production.s3.amazonaws.com/mock",
+315 |     "https://sdbooth2-production.s3.amazonaws.com/mock",
+316 |     "https://sdbooth2-production.s3.amazonaws.com/mock",
+317 |     "https://sdbooth2-production.s3.amazonaws.com/mock",
+318 |     "https://sdbooth2-production.s3.amazonaws.com/mock",
+319 |     "https://sdbooth2-production.s3.amazonaws.com/mock",
+320 |     "https://sdbooth2-production.s3.amazonaws.com/mock",
+321 |     "https://sdbooth2-production.s3.amazonaws.com/mock",
+322 |     "https://sdbooth2-production.s3.amazonaws.com/mock",
+323 |     "https://sdbooth2-production.s3.amazonaws.com/mock"
+324 |   ]
+325 | }
+326 | ```
+327 | </div>
+328 | </div>
+329 |
+330 |
+
+
+--------------------------------------------------------------------------------
+/docs/api/0-tune/2-retrieve.md:
+--------------------------------------------------------------------------------
+ 1 | ---
+ 2 | title: Retrieve a tune
+ 3 | hide_table_of_contents: true
+ 4 | ---
+ 5 |
+ 6 | import Tabs from '@theme/Tabs';
+ 7 | import TabItem from '@theme/TabItem';
+ 8 |
+ 9 | <div className="api-method">
+10 | <div>
+11 |
+12 | ### Parameters
+13 |
+14 | No parameters
+15 |
+16 | ### Returns
+17 |
+18 | Returns the Tune object.
+19 |
+20 | </div>
+21 |
+22 | <div>
+23 |
+24 | #### GET /tunes/:id
+25 | <Tabs groupId="lang">
+26 |   <TabItem value="curl" label="cURL" default>
+27 |
+28 | ```bash showLineNumbers
+29 | curl -X GET -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes/1
+30 | ```
+31 |
+32 | </TabItem>
+33 |   <TabItem value="nodejs" label="Node.js">
+34 |
+35 | ```javascript showLineNumbers
+36 | const headers = { Authorization: `Bearer ${API_KEY}` }
+37 | fetch('https://api.astria.ai/tunes/1', { headers: headers });
+38 | ```
+39 |
+40 | </TabItem>
+41 |   <TabItem value="python" label="Python">
+42 |
+43 | ```python showLineNumbers
+44 | import requests
+45 | headers = {'Authorization': f'Bearer {API_KEY}'}
+46 | requests.get('https://api.astria.ai/tunes/1')
+47 | ```
+48 |
+49 |   </TabItem>
+50 | </Tabs>
+51 |
+52 | #### Response
+53 | ```json
+54 | {
+55 |   "id": 1,
+56 |   "title": "John Doe",
+57 |   "name": "woman",
+58 |   "token": "ohwx",
+59 |   "base_tune_id": null,
+60 |   "args": null,
+61 |   "steps": null,
+62 |   "face_crop": null,
+63 |   "ckpt_url": "https://sdbooth2-production.s3.amazonaws.com/mock",
+64 |   "ckpt_urls": [
+65 |     "https://sdbooth2-production.s3.amazonaws.com/mock"
+66 |   ],
+67 |   "trained_at": "2023-10-02T14:32:40.363Z",
+68 |   "started_training_at": "2023-10-02T14:32:05.229Z",
+69 |   "expires_at": "2023-11-01T14:32:40.363Z",
+70 |   "created_at": "2023-10-02T14:32:05.067Z",
+71 |   "branch": "sdxl1",
+72 |   "model_type": "lora",
+73 |   "updated_at": "2023-10-02T14:32:40.363Z",
+74 |   "url": "https://www.astria.ai/tunes/788416.json",
+75 |   "orig_images": [
+76 |     "https://sdbooth2-production.s3.amazonaws.com/mock",
+77 |     "https://sdbooth2-production.s3.amazonaws.com/mock",
+78 |     "https://sdbooth2-production.s3.amazonaws.com/mock",
+79 |     "https://sdbooth2-production.s3.amazonaws.com/mock",
+80 |     "https://sdbooth2-production.s3.amazonaws.com/mock",
+81 |     "https://sdbooth2-production.s3.amazonaws.com/mock",
+82 |     "https://sdbooth2-production.s3.amazonaws.com/mock",
+83 |     "https://sdbooth2-production.s3.amazonaws.com/mock",
+84 |     "https://sdbooth2-production.s3.amazonaws.com/mock",
+85 |     "https://sdbooth2-production.s3.amazonaws.com/mock"
+86 |   ]
+87 | }
+88 | ```
+89 | </div>
+90 | </div>
+91 |
+92 |
+
+
+--------------------------------------------------------------------------------
+/docs/api/0-tune/4-list.md:
+--------------------------------------------------------------------------------
+  1 | ---
+  2 | title: List all tunes
+  3 | hide_table_of_contents: true
+  4 | ---
+  5 |
+  6 | import Tabs from '@theme/Tabs';
+  7 | import TabItem from '@theme/TabItem';
+  8 |
+  9 | <div className="api-method">
+ 10 | <div>
+ 11 |
+ 12 | ### Parameters
+ 13 |
+ 14 | #### `offset` (optional)
+ 15 | Starting offset for the list of prompts. Default: 0. Current page size is 20.
+ 16 |
+ 17 | ### Returns
+ 18 |
+ 19 | An array of all fine-tunes owned by the authenticated user
+ 20 | </div>
+ 21 |
+ 22 | <div>
+ 23 |
+ 24 | #### GET /tunes
+ 25 | <Tabs groupId="lang">
+ 26 |   <TabItem value="curl" label="cURL" default>
+ 27 |
+ 28 | ```bash showLineNumbers
+ 29 | curl -X GET -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes
+ 30 | ```
+ 31 |
+ 32 | </TabItem>
+ 33 |   <TabItem value="nodejs" label="Node.js">
+ 34 |
+ 35 | ```javascript showLineNumbers
+ 36 | const headers = { Authorization: `Bearer ${API_KEY}` }
+ 37 | fetch('https://api.astria.ai/tunes', { headers: headers });
+ 38 | ```
+ 39 |   </TabItem>
+ 40 |   <TabItem value="python" label="Python">
+ 41 |
+ 42 | ```python showLineNumbers
+ 43 | import requests
+ 44 | headers={'Authorization': f'Bearer {API_KEY}'}
+ 45 | requests.get('https://api.astria.ai/tunes', headers=headers)
+ 46 | ```
+ 47 |
+ 48 |   </TabItem>
+ 49 | </Tabs>
+ 50 |
+ 51 | #### Response
+ 52 | ```json
+ 53 |
+ 54 | [
+ 55 |   {
+ 56 |     "id": 1,
+ 57 |     "title": "John Doe",
+ 58 |     "name": "woman",
+ 59 |     "token": "ohwx",
+ 60 |     "base_tune_id": null,
+ 61 |     "args": null,
+ 62 |     "steps": null,
+ 63 |     "face_crop": null,
+ 64 |     "ckpt_url": "https://sdbooth2-production.s3.amazonaws.com/mock",
+ 65 |     "ckpt_urls": [
+ 66 |       "https://sdbooth2-production.s3.amazonaws.com/mock"
+ 67 |     ],
+ 68 |     "trained_at": "2023-10-02T14:32:40.363Z",
+ 69 |     "started_training_at": "2023-10-02T14:32:05.229Z",
+ 70 |     "expires_at": "2023-11-01T14:32:40.363Z",
+ 71 |     "created_at": "2023-10-02T14:32:05.067Z",
+ 72 |     "branch": "sdxl1",
+ 73 |     "model_type": "lora",
+ 74 |     "updated_at": "2023-10-02T14:32:40.363Z",
+ 75 |     "url": "https://www.astria.ai/tunes/788416.json",
+ 76 |     "orig_images": [
+ 77 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+ 78 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+ 79 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+ 80 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+ 81 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+ 82 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+ 83 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+ 84 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+ 85 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+ 86 |       "https://sdbooth2-production.s3.amazonaws.com/mock"
+ 87 |     ]
+ 88 |   },
+ 89 |   {
+ 90 |     "id": 775459,
+ 91 |     "title": "Marry Jane",
+ 92 |     "name": null,
+ 93 |     "is_api": false,
+ 94 |     "token": "ohwx",
+ 95 |     "base_tune_id": null,
+ 96 |     "args": null,
+ 97 |     "steps": null,
+ 98 |     "face_crop": null,
+ 99 |     "ckpt_url": "https://sdbooth2-production.s3.amazonaws.com/mock",
+100 |     "ckpt_urls": [
+101 |       "https://sdbooth2-production.s3.amazonaws.com/mock"
+102 |     ],
+103 |     "trained_at": "2023-09-23T16:07:49.137Z",
+104 |     "started_training_at": "2023-09-23T16:07:37.334Z",
+105 |     "expires_at": "2023-10-23T16:07:49.137Z",
+106 |     "created_at": "2023-09-23T16:07:36.606Z",
+107 |     "branch": "sdxl1",
+108 |     "model_type": "lora",
+109 |     "updated_at": "2023-09-23T16:07:49.138Z",
+110 |     "url": "https://www.astria.ai/tunes/775459.json",
+111 |     "orig_images": [
+112 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+113 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+114 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+115 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+116 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+117 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+118 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+119 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+120 |       "https://sdbooth2-production.s3.amazonaws.com/mock"
+121 |     ]
+122 |   }
+123 |  ]
+124 | ```
+125 | </div>
+126 | </div>
+127 |
+
+
+--------------------------------------------------------------------------------
+/docs/api/0-tune/5-delete.md:
+--------------------------------------------------------------------------------
+ 1 | ---
+ 2 | title: Delete a tune
+ 3 | hide_table_of_contents: true
+ 4 | ---
+ 5 |
+ 6 | import Tabs from '@theme/Tabs';
+ 7 | import TabItem from '@theme/TabItem';
+ 8 |
+ 9 | <div className="api-method">
+10 | <div>
+11 |
+12 | Deletes a specific tune by its ID, and associated prompts in case of a checkpoint.
+13 |
+14 | ### Parameters
+15 |
+16 | #### `id` (required)
+17 | The ID of the tune to be deleted.
+18 |
+19 | ### Returns
+20 |
+21 | Returns 200 OK if the prompt was successfully deleted.
+22 |
+23 | </div>
+24 |
+25 | <div>
+26 |
+27 | #### DELETE /tunes/:id
+28 | <Tabs groupId="lang">
+29 |   <TabItem value="curl" label="cURL" default>
+30 |
+31 | ```bash showLineNumbers
+32 | curl -X DELETE -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes/1
+33 | ```
+34 |
+35 |   </TabItem>
+36 |   <TabItem value="nodejs" label="Node.js">
+37 |
+38 | ```javascript showLineNumbers
+39 | const headers = { Authorization: `Bearer ${API_KEY}` }
+40 | fetch('https://api.astria.ai/tunes/1', {
+41 |   method: 'DELETE',
+42 |   headers: headers
+43 | });
+44 | ```
+45 |
+46 |   </TabItem>
+47 |   <TabItem value="python" label="Python">
+48 |
+49 | ```python showLineNumbers
+50 | import requests
+51 | headers = {'Authorization': f'Bearer {API_KEY}'}
+52 | requests.delete('https://api.astria.ai/tunes/1', headers=headers)
+53 | ```
+54 |
+55 |   </TabItem>
+56 | </Tabs>
+57 |
+58 | #### Response
+59 | `200 OK`
+60 | </div>
+61 | </div>
+62 |
+
+
+--------------------------------------------------------------------------------
+/docs/api/05-flux-api.md:
+--------------------------------------------------------------------------------
+  1 | ---
+  2 | hide_table_of_contents: true
+  3 | tags: ["flux", "api", "training", "fine-tuning", "lora"]
+  4 | image: ../use-cases/img/ai-photoshoot-output.jpg
+  5 | ---
+  6 |
+  7 | import Tabs from '@theme/Tabs';
+  8 | import TabItem from '@theme/TabItem';
+  9 |
+ 10 |
+ 11 | # Flux API usage
+ 12 |
+ 13 | For an overview of Flux fine-tuning, see [Flux fine-tuning](/docs/use-cases/flux-finetuning/)
+ 14 |
+ 15 | <div className="api-method">
+ 16 | <div>
+ 17 |
+ 18 | * Unlike SD15 checkpoint training, Flux is trained as a LoRA model type. As such, inference is taking place on a base model such as Flux1.dev and `prompt.text` should specify the loaded lora such as `<lora:123456:1>` - will load lora with id=123456 and strength=1
+ 19 | * Flux1.Dev requires commercial license which Astria provides to its customers, and as such LoRA downloading is not available for API usage.
+ 20 |
+ 21 | See [LoRA docs](/docs/features/lora) on lora syntax
+ 22 |
+ 23 |
+ 24 | :::info
+ 25 | To avoid cloning inference details of different model types such as Flux LoRA vs SD1.5 checkpoint, please consider using the [Packs API](/docs/api/pack/pack/). Packs will help you abstract the inference logic so that you do not have to hard-code prompts and parameters such as `w,h, cfg_scale` in your backend. Moreover this will allow the creative department to launch packs, make modifications and even track likes, without needing to touch the backend code.
+ 26 | :::
+ 27 |
+ 28 | </div>
+ 29 | <div>
+ 30 |
+ 31 | ### Step 1: Fine-tune a lora model
+ 32 | #### POST /tunes
+ 33 |
+ 34 | <Tabs groupId="lang">
+ 35 |   <TabItem value="curl" label="cURL" default>
+ 36 |
+ 37 | ```bash showLineNumbers
+ 38 | # With images as multipart/form-data
+ 39 | # Hard coded tune id of Flux1.dev from the gallery - https://www.astria.ai/gallery/tunes
+ 40 | # https://www.astria.ai/gallery/tunes/1504944/prompts
+ 41 | curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes \
+ 42 |           -F tune[title]="John Doe - UUID - 1234-6789-1234-56789" \
+ 43 |           -F tune[name]=man \
+ 44 |           -F tune[preset]=flux-lora-portrait \
+ 45 |           -F tune[callback]="https://optional-callback-url.com/webhooks/astria?user_id=1&tune_id=1" \
+ 46 |           -F tune[base_tune_id]=1504944 \
+ 47 |           -F tune[model_type]="lora" \
+ 48 |           -F "tune[images][]=@1.jpg" \
+ 49 |           -F "tune[images][]=@2.jpg" \
+ 50 |           -F "tune[images][]=@3.jpg" \
+ 51 |           -F "tune[images][]=@4.jpg"
+ 52 |
+ 53 | # With image_urls as form-data
+ 54 | curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes \
+ 55 |           -F tune[title]="Grumpy cat - UUID - 1234-6789-1234-56789" \
+ 56 |           -F tune[name]=cat \
+ 57 |           -F tune[preset]=flux-lora-portrait \
+ 58 |           -F tune[callback]="https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1" \
+ 59 |           -F tune[base_tune_id]=1504944 \
+ 60 |           -F tune[model_type]="lora" \
+ 61 |           -F "tune[image_urls][]=https://i.imgur.com/HLHBnl9.jpeg" \
+ 62 |           -F "tune[image_urls][]=https://i.imgur.com/HLHBnl9.jpeg" \
+ 63 |           -F "tune[image_urls][]=https://i.imgur.com/HLHBnl9.jpeg" \
+ 64 |           -F "tune[image_urls][]=https://i.imgur.com/HLHBnl9.jpeg"
+ 65 |
+ 66 | # As JSON
+ 67 | cat > data.json <<- EOM
+ 68 | {
+ 69 |   "tune": {
+ 70 |     "title": "Grumpy Cat - UUID - 1234-6789-1234-56789",
+ 71 |     "name": "cat",
+ 72 |     "base_tune_id": 1504944,
+ 73 |     "model_type": "lora",
+ 74 |     "callback": "https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1",
+ 75 |     "image_urls": [
+ 76 |       "https://i.imgur.com/HLHBnl9.jpeg",
+ 77 |       "https://i.imgur.com/HLHBnl9.jpeg",
+ 78 |       "https://i.imgur.com/HLHBnl9.jpeg",
+ 79 |       "https://i.imgur.com/HLHBnl9.jpeg"
+ 80 |     ]
+ 81 |   }
+ 82 | }
+ 83 | EOM
+ 84 |
+ 85 | curl -X POST -H"Content-Type: application/json" -H "Authorization: Bearer $API_KEY" --data @data.json  https://api.astria.ai/tunes
+ 86 | ```
+ 87 |   </TabItem>
+ 88 |   <TabItem value="javascript" label="Node.js">
+ 89 |
+ 90 | ```javascript
+ 91 | // NodeJS 16
+ 92 | // With image_urls and fetch()
+ 93 | // For NodeJS 18 - do NOT import the below as it is built-in
+ 94 | import fetch from "node-fetch";
+ 95 |
+ 96 | const API_KEY = 'sd_XXXXXX';
+ 97 | const DOMAIN = 'https://api.astria.ai';
+ 98 |
+ 99 | function createTune() {
+100 |   let options = {
+101 |     method: 'POST',
+102 |     headers: { 'Authorization': 'Bearer ' + API_KEY, 'Content-Type': 'application/json' },
+103 |     body: JSON.stringify({
+104 |       tune: {
+105 |         "title": 'John Doe - UUID - 1234-6789-1234-56789',
+106 |         // Hard coded tune id of Flux1.dev from the gallery - https://www.astria.ai/gallery/tunes
+107 |         // https://www.astria.ai/gallery/tunes/1504944/prompts
+108 |         "base_tune_id": 1504944,
+109 |         "model_type": "lora",
+110 |         "name": "cat",
+111 |         "preset": "flux-lora-portrait",
+112 |         "image_urls": [
+113 |           "https://i.imgur.com/HLHBnl9.jpeg",
+114 |           "https://i.imgur.com/HLHBnl9.jpeg",
+115 |           "https://i.imgur.com/HLHBnl9.jpeg",
+116 |           "https://i.imgur.com/HLHBnl9.jpeg"
+117 |         ],
+118 |       }
+119 |     })
+120 |   };
+121 |   return fetch(DOMAIN + '/tunes', options)
+122 |     .then(r => r.json())
+123 |     .then(r => console.log(r))
+124 | }
+125 |
+126 | createTune()
+127 |
+128 |
+129 | /// With form-data, fetch() and nested prompts
+130 | // For NodeJS 18 - do NOT import the two below as they are built-in
+131 | import fetch from "node-fetch";
+132 | import FormData from 'form-data';
+133 | import fs from 'fs';
+134 |
+135 | const API_KEY = 'sd_XXXX';
+136 | const DOMAIN = 'https://api.astria.ai';
+137 | function createTune() {
+138 |   let formData = new FormData();
+139 |   formData.append('tune[title]', 'John Doe - UUID - 1234-6789-1234-56789');
+140 |   // Hard coded tune id of Flux1.dev from the gallery - https://www.astria.ai/gallery/tunes
+141 |   // https://www.astria.ai/gallery/tunes/1504944/prompts
+142 |   formData.append('tune[base_tune_id]', 1504944);
+143 |   formData.append('tune[model_type]', 'lora');
+144 |   formData.append('tune[name]', 'man');
+145 |   formData.append('tune[preset]', 'flux-lora-portrait');
+146 |   // Load all JPGs from ./samples directory and append to FormData
+147 |   let files = fs.readdirSync('./samples');
+148 |   files.forEach(file => {
+149 |     if(file.endsWith('.jpg')) {
+150 |       formData.append('tune[images][]', fs.createReadStream(`./samples/${file}`), file);
+151 |     }
+152 |   });
+153 |   formData.append('tune[callback]', 'https://optional-callback-url.com/to-your-service-when-ready?user_id=1&tune_id=1');
+154 |
+155 |   let options = {
+156 |     method: 'POST',
+157 |     headers: {
+158 |       'Authorization': 'Bearer ' + API_KEY
+159 |     },
+160 |     body: formData
+161 |   };
+162 |   return fetch(DOMAIN + '/tunes', options)
+163 |     .then(r => r.json())
+164 |     .then(r => console.log(r));
+165 | }
+166 |
+167 | createTune();
+168 |
+169 | ```
+170 |   </TabItem>
+171 |   <TabItem value="python" label="Python">
+172 |
+173 | ```python
+174 | import requests
+175 | headers = {'Authorization': f'Bearer {API_KEY}'}
+176 |
+177 | def load_image(file_path):
+178 |   with open(file_path, "rb") as f:
+179 |     return f.read()
+180 |
+181 | # Assuming `prompts` and `tune.images` are already defined in your context
+182 |
+183 | image_data = load_image("assets/image.jpeg")
+184 |
+185 | data = {
+186 |   "tune[title]": "John Doe - UUID - 1234-6789-1234-56789",
+187 |   "tune[name]": "man",
+188 |   "tune[preset]": "flux-lora-portrait",
+189 |   "tune[base_tune_id]": 1504944,
+190 |   "tune[model_type]": "lora",
+191 | }
+192 | files = []
+193 |
+194 | for image in tune.images:
+195 |   image_data = load_image(image)  # Assuming image is a file path
+196 |   files.append(("tune[images][]", image_data))
+197 |
+198 | API_URL = 'https://api.astria.ai/tunes'
+199 | response = requests.post(API_URL, data=data, files=files, headers=headers)
+200 | response.raise_for_status()
+201 |
+202 | ```
+203 |   </TabItem>
+204 | </Tabs>
+205 |
+206 |
+207 | ### Step 2: Generate images using the fine-tuned model
+208 | #### POST /tunes/:id/prompts
+209 |
+210 | <Tabs groupId="lang">
+211 |   <TabItem value="curl" label="cURL" default>
+212 |
+213 | ```bash showLineNumbers
+214 | # Note the hard-coded 1504944 which is the tune_id of Flux1.dev from the gallery
+215 | curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes/1504944/prompts \
+216 |           -F prompt[text]="<lora:tune_id:strength> a painting of ohwx man in the style of Van Gogh" \
+217 |           -F prompt[callback]="https://optional-callback-url.com/to-your-service-when-ready?prompt_id=1"
+218 | ```
+219 |   </TabItem>
+220 |   <TabItem value="javascript" label="Node.js">
+221 |
+222 | ```javascript
+223 | const fetch = require('node-fetch');
+224 | const FormData = require('form-data');
+225 |
+226 | // Note the hard-coded 1504944 which is the tune_id of Flux1.dev from the gallery
+227 | const API_URL = 'https://api.astria.ai/tunes/1504944/prompts';
+228 | const API_KEY = 'YOUR_API_KEY'; // Replace with your actual API key
+229 | const headers = { Authorization: `Bearer ${API_KEY}` }
+230 |
+231 | const form = new FormData();
+232 | form.append('prompt[text]', '<lora:tune_id:strength> a painting of ohwx man in the style of Van Gogh');
+233 | form.append('prompt[callback]', 'https://optional-callback-url.com/to-your-service-when-ready?prompt_id=1');
+234 |
+235 | fetch(API_URL, {
+236 |   method: 'POST',
+237 |   headers: headers,
+238 |   body: form
+239 | }).then(response => response.json())
+240 |
+241 |
+242 | ```
+243 |   </TabItem>
+244 |   <TabItem value="python" label="Python">
+245 |
+246 | ```python
+247 | import requests
+248 |
+249 | # Note the hard-coded 1504944 which is the tune_id of Flux1.dev from the gallery
+250 | API_URL = 'https://api.astria.ai/tunes/1504944/prompts'
+251 | API_KEY = 'YOUR_API_KEY'  # Replace with your actual API key
+252 |
+253 | headers = {
+254 |     'Authorization': f'Bearer {API_KEY}'
+255 | }
+256 |
+257 | data = {
+258 |   'prompt[text]': '<lora:tune_id:strength> a painting of ohwx man in the style of Van Gogh',
+259 |   'prompt[callback]': 'https://optional-callback-url.com/to-your-service-when-ready?prompt_id=1'
+260 | }
+261 | files = []
+262 |
+263 | response = requests.post(API_URL, headers=headers, data=data)
+264 | ```
+265 |   </TabItem>
+266 | </Tabs>
+267 |
+268 | </div>
+269 | </div>
+270 |
+
+
+--------------------------------------------------------------------------------
+/docs/api/1-prompt/0-prompt.md:
+--------------------------------------------------------------------------------
+1 | # The prompt object
+2 | The prompt object is usually used as a nested resource of tune as prompts are generated using a fine-tune model. A prompt is a text that is used to generate images using a fine-tune model. The prompt object contains the generated images.
+3 |
+
+
+--------------------------------------------------------------------------------
+/docs/api/1-prompt/1-create.md:
+--------------------------------------------------------------------------------
+  1 | ---
+  2 | title: Create a prompt
+  3 | hide_table_of_contents: true
+  4 | ---
+  5 |
+  6 | import Tabs from '@theme/Tabs';
+  7 | import TabItem from '@theme/TabItem';
+  8 |
+  9 | <div className="api-method">
+ 10 | <div>
+ 11 |
+ 12 | Creates a new fine-tune model from training images which in turn will be used to create prompts and generate images.
+ 13 |
+ 14 | ### Parameters
+ 15 |
+ 16 | #### `text` (required)
+ 17 | Description of the image.
+ 18 |
+ 19 | #### `negative_prompt` (optional)
+ 20 | A comma separated list of words that should not appear in the image.
+ 21 |
+ 22 | #### `callback` (optional)
+ 23 | a URL that will be called when the prompt is done processing. The callback is a POST request where the body contains the prompt object. See [more](/docs/api/overview#callbacks).
+ 24 |
+ 25 | #### `num_images` (optional)
+ 26 | Number of images to generate. Range: 1-8.
+ 27 |
+ 28 | #### `seed` (optional)
+ 29 | Random number to create consistent results. Range: 0 to 2^32.
+ 30 |
+ 31 | #### `super_resolution` (optional)
+ 32 | Boolean. X4 super-resolution.
+ 33 |
+ 34 | #### `inpaint_faces` (optional)
+ 35 | Boolean. Requires super-resolution on. Inpaints faces.
+ 36 |
+ 37 | #### `hires_fix` (optional)
+ 38 | Boolean. Super resolution details. Available only when super_resolution is true. Adds details.
+ 39 |
+ 40 | #### `face_correct` (optional)
+ 41 | Boolean. Runs another AI model on top to correct the face in the image.
+ 42 |
+ 43 | #### `face_swap` (optional)
+ 44 | Boolean. Uses training images to swap face and enhance resemblance.
+ 45 |
+ 46 | #### `cfg_scale` (optional)
+ 47 | Float. How strictly the diffusion process adheres to the prompt text (higher values keep your image closer to your prompt). Range 0-15
+ 48 |
+ 49 | #### `steps` (optional)
+ 50 | Integer. Number of diffusion steps to run . Range 0-50
+ 51 |
+ 52 | #### `use_lpw` (optional)
+ 53 | Boolean. Use weighted prompts.
+ 54 |
+ 55 | #### `w` (optional)
+ 56 | width - In multiples of 8.
+ 57 |
+ 58 | #### `h` (optional)
+ 59 | height - In multiples of 8.
+ 60 |
+ 61 | #### `scheduler` (optional)
+ 62 | enum: `euler`, `euler_a`, `dpm++2m_karras`, `dpm++sde_karras`, `dpm++2m`, `dpm++sde`, `lcm`, `tcd`. If not specified the default [account scheduler](https://www.astria.ai/users/edit) will be used.
+ 63 |
+ 64 | #### `backend_version` (optional)
+ 65 | enum: null, `1`, If not specified will default to the [account version](https://www.astria.ai/users/edit) will be used.
+ 66 |
+ 67 | #### `style` (optional)
+ 68 | enum: null, `Cinematic`, `Animated`, `Digital Art`, `Photographic`, `Fantasy art`, `Neonpunk`, `Enhance`, `Comic book`, `Lowpoly`, `Line art`. See [more](/docs/features/styles).
+ 69 |
+ 70 | #### `color_grading` (optional)
+ 71 | enum: `Film Velvia`, `Film Portra`, `Ektar`.
+ 72 |
+ 73 | #### `film_grain` (optional)
+ 74 | boolean - Adds noise to the image to make it look more realistic.
+ 75 |
+ 76 | ## Img2Img / ControlNet
+ 77 |
+ 78 | #### `controlnet` (optional)
+ 79 | Requires input_image. Possible values: composition, reference, segroom, ipadapter, lineart, canny, depth, mlsd, hed, pose, tile, qr.
+ 80 |
+ 81 | #### `denoising_strength` (optional)
+ 82 | For img2img. 1.0 - Take prompt. 0.0 - Take image. Range: 0.0-1.0. Default: 0.8
+ 83 |
+ 84 | #### `controlnet_conditioning_scale` (optional)
+ 85 | Strength of controlnet conditioning. 0.0-1.0
+ 86 |
+ 87 | #### `controlnet_txt2img` (optional)
+ 88 | Boolean toggle. True for text to image controlnet. False for image to image controlnet.
+ 89 |
+ 90 | #### `input_image` (optional)
+ 91 | Binary multi-part request with the image. Used in conjunction with controlnet parameter.
+ 92 |
+ 93 | #### `input_image_url` (optional)
+ 94 | URL to an image. Used in conjunction with controlnet parameter.
+ 95 |
+ 96 | #### `mask_image` (optional)
+ 97 | Binary multi-part request with one channel mask image. Used in conjunction with input_image parameter for inpainting
+ 98 |
+ 99 | #### `mask_image_url` (optional)
+100 | URL to a one channel mask image. Used in conjunction with input_image_url parameter for inpainting.
+101 |
+102 | #### `lora_scale` (optional)
+103 | Available only when used as `prompts_attributes` in `POST /tunes` request to override the default scale of the LoRA model.
+104 |
+105 | ### Returns
+106 |
+107 | Returns a prompt object if successful which will start processing if tune is processed.
+108 |
+109 | </div>
+110 |
+111 | <div>
+112 |
+113 | #### POST /tunes/:id/prompts
+114 |
+115 | <Tabs groupId="lang">
+116 |   <TabItem value="curl" label="cURL" default>
+117 |
+118 | ```bash showLineNumbers
+119 | curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes/1/prompts \
+120 |           -F prompt[text]="a painting of ohwx man in the style of Van Gogh" \
+121 |           -F prompt[negative_prompt]="old, blemish, wrin" \
+122 |           -F prompt[super_resolution]=true \
+123 |           -F prompt[face_correct]=true \
+124 |           -F prompt[callback]="https://optional-callback-url.com/to-your-service-when-ready?prompt_id=1"
+125 | ```
+126 |   </TabItem>
+127 |   <TabItem value="javascript" label="Node.js">
+128 |
+129 | ```javascript
+130 | const fetch = require(`node-fetch');
+131 | const FormData = require('form-data');
+132 |
+133 | const API_URL = 'https://api.astria.ai/tunes/1/prompts';
+134 | const API_KEY = 'YOUR_API_KEY'; // Replace with your actual API key
+135 | const headers = { Authorization: `Bearer ${API_KEY}` }
+136 |
+137 | const form = new FormData();
+138 | form.append('prompt[text]', 'a painting of ohwx man in the style of Van Gogh');
+139 | form.append('prompt[negative_prompt]', 'old, blemish, wrin');
+140 | form.append('prompt[super_resolution]', true);
+141 | form.append('prompt[face_correct]', true);
+142 | form.append('prompt[callback]', 'https://optional-callback-url.com/to-your-service-when-ready?prompt_id=1');
+143 |
+144 | fetch(API_URL, {
+145 |   method: 'POST',
+146 |   headers: headers,
+147 |   body: form
+148 | }).then(response => response.json())
+149 |
+150 |
+151 | ```
+152 |   </TabItem>
+153 |   <TabItem value="python" label="Python">
+154 |
+155 | ```python
+156 | import requests
+157 |
+158 | API_URL = 'https://api.astria.ai/tunes/1/prompts'
+159 | API_KEY = 'YOUR_API_KEY'  # Replace with your actual API key
+160 |
+161 | headers = {
+162 |     'Authorization': f'Bearer {API_KEY}'
+163 | }
+164 |
+165 | data = {
+166 |   'prompt[text]': 'a painting of ohwx man in the style of Van Gogh',
+167 |   'prompt[negative_prompt]': 'old, blemish, wrin',
+168 |   'prompt[super_resolution]': True,
+169 |   'prompt[face_correct]': True,
+170 |   'prompt[callback]': 'https://optional-callback-url.com/to-your-service-when-ready?prompt_id=1'
+171 | }
+172 | files = []
+173 | files.append((f"prompt[input_image]", load_image(prompt['input_image'])))
+174 |
+175 | response = requests.post(API_URL, headers=headers, files=files, data=data)
+176 | ```
+177 |   </TabItem>
+178 | </Tabs>
+179 |
+180 | #### Response
+181 |
+182 | ```json
+183 | {
+184 |   "id": 1,
+185 |   "callback": "https://optional-callback-url.com/to-your-service-when-ready?prompt_id=1",
+186 |   "text": "a painting of ohwx man in the style of Van Gogh",
+187 |   "negative_prompt": "old, blemish, wrinkles, mole",
+188 |   "cfg_scale": null,
+189 |   "steps": null,
+190 |   "seed": null,
+191 |   "trained_at": null,
+192 |   "started_training_at": null,
+193 |   "created_at": "2022-10-06T16:12:54.505Z",
+194 |   "updated_at": "2022-10-06T16:12:54.505Z",
+195 |   "tune_id": 1,
+196 |   "url": "http://api.astria.ai/tunes/1/prompts/1.json"
+197 | }
+198 | ```
+199 | </div>
+200 | </div>
+201 |
+202 |
+
+
+--------------------------------------------------------------------------------
+/docs/api/1-prompt/2-retrieve.md:
+--------------------------------------------------------------------------------
+ 1 | ---
+ 2 | title: Retrieve a prompt
+ 3 | hide_table_of_contents: true
+ 4 | ---
+ 5 |
+ 6 | import Tabs from '@theme/Tabs';
+ 7 | import TabItem from '@theme/TabItem';
+ 8 |
+ 9 | <div className="api-method">
+10 | <div>
+11 |
+12 | ### Parameters
+13 |
+14 | No parameters
+15 |
+16 | ### Returns
+17 |
+18 | Returns the prompt object.
+19 |
+20 | </div>
+21 |
+22 | <div>
+23 |
+24 | #### GET /tunes/:tune_id/prompts/:id
+25 | <Tabs groupId="lang">
+26 |   <TabItem value="curl" label="cURL" default>
+27 |
+28 | ```bash showLineNumbers
+29 | curl -X GET -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes/1/prompts/1
+30 | ```
+31 |
+32 | </TabItem>
+33 |   <TabItem value="nodejs" label="Node.js">
+34 |
+35 | ```javascript showLineNumbers
+36 | const headers = { Authorization: `Bearer ${API_KEY}` }
+37 | fetch('https://api.astria.ai/tunes/1/prompts/1', { headers: headers });
+38 | ```
+39 |   </TabItem>
+40 |   <TabItem value="python" label="Python">
+41 |
+42 | ```python showLineNumbers
+43 | import requests
+44 | headers = {
+45 |   'Authorization': f'Bearer {API_KEY}'
+46 | }
+47 | requests.get('https://api.astria.ai/tunes/1/prompts/1', headers=headers)
+48 | ```
+49 |   </TabItem>
+50 | </Tabs>
+51 |
+52 | #### Response
+53 | ```json
+54 | {
+55 |   "id": 1,
+56 |   "callback": "https://optional-callback-url.com/to-your-service-when-ready",
+57 |   "text": "a painting of ohwx man in the style of Van Gogh",
+58 |   "negative_prompt": "old, blemish, wrinkles, mole",
+59 |   "cfg_scale": null,
+60 |   "steps": null,
+61 |   "seed": null,
+62 |   "trained_at": null,
+63 |   "started_training_at": null,
+64 |   "created_at": "2022-10-06T16:12:54.505Z",
+65 |   "updated_at": "2022-10-06T16:12:54.505Z",
+66 |   "tune_id": 1,
+67 |   "url": "http://api.astria.ai/tunes/1/prompts/1.json"
+68 | }
+69 | ```
+70 | </div>
+71 | </div>
+72 |
+73 |
+
+
+--------------------------------------------------------------------------------
+/docs/api/1-prompt/4-list.md:
+--------------------------------------------------------------------------------
+ 1 | ---
+ 2 | title: List all prompts
+ 3 | hide_table_of_contents: true
+ 4 | ---
+ 5 |
+ 6 | import Tabs from '@theme/Tabs';
+ 7 | import TabItem from '@theme/TabItem';
+ 8 |
+ 9 | <div className="api-method">
+10 | <div>
+11 |
+12 | ### Parameters
+13 |
+14 | #### `offset` (optional)
+15 | Starting offset for the list of prompts. Default: 0. Current page size is 20.
+16 |
+17 | ### Returns
+18 |
+19 | An array of prompts owned by the authenticated user. If used as a nested resource (in the url), will return prompts owned by the tune.
+20 | </div>
+21 |
+22 | <div>
+23 |
+24 | #### GET /tunes/:id/prompts
+25 | <Tabs groupId="lang">
+26 |   <TabItem value="curl" label="cURL" default>
+27 |
+28 | ```bash showLineNumbers
+29 | curl -X GET -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes/1/prompts
+30 | ```
+31 |
+32 | </TabItem>
+33 |   <TabItem value="nodejs" label="Node.js">
+34 |
+35 | ```javascript showLineNumbers
+36 | const headers = { Authorization: `Bearer ${API_KEY}` }
+37 | fetch('https://api.astria.ai/tunes/1/prompts', { headers: headers });
+38 | ```
+39 |   </TabItem>
+40 |   <TabItem value="python" label="Python">
+41 |
+42 | ```python showLineNumbers
+43 | import requests
+44 | headers = {'Authorization': f'Bearer {API_KEY}'}
+45 | requests.get('https://api.astria.ai/tunes/1/prompts', headers=headers)
+46 | ```
+47 |
+48 | </TabItem>
+49 | </Tabs>
+50 |
+51 | #### Response
+52 | ```json
+53 |
+54 | [
+55 |   {
+56 |     "id": 1,
+57 |     "callback": "https://optional-callback-url.com/to-your-service-when-ready?user_id=your_internal_user_id&transaction_id=internal_transaction_id",
+58 |     "text": "a painting of ohwx man in the style of Van Gogh",
+59 |     "negative_prompt": "old, blemish, wrinkles, mole",
+60 |     "cfg_scale": null,
+61 |     "steps": null,
+62 |     "seed": null,
+63 |     "trained_at": null,
+64 |     "started_training_at": null,
+65 |     "created_at": "2022-10-06T16:12:54.505Z",
+66 |     "updated_at": "2022-10-06T16:12:54.505Z",
+67 |     "tune_id": 1,
+68 |     "url": "http://api.astria.ai/tunes/1/prompts/1.json"
+69 |   }
+70 |  ]
+71 | ```
+72 | </div>
+73 | </div>
+74 |
+75 |
+
+
+--------------------------------------------------------------------------------
+/docs/api/1-prompt/5-delete.md:
+--------------------------------------------------------------------------------
+ 1 | ---
+ 2 | title: Delete a prompt
+ 3 | hide_table_of_contents: true
+ 4 | ---
+ 5 |
+ 6 | import Tabs from '@theme/Tabs';
+ 7 | import TabItem from '@theme/TabItem';
+ 8 |
+ 9 | <div className="api-method">
+10 | <div>
+11 |
+12 | Deletes a specific prompt associated with a tune.
+13 |
+14 | ### Parameters
+15 |
+16 | #### `id` (required)
+17 | The ID of the prompt to be deleted.
+18 |
+19 | ### Returns
+20 |
+21 | Returns 200 OK if the prompt was successfully deleted.
+22 |
+23 | </div>
+24 |
+25 | <div>
+26 |
+27 | #### DELETE /tunes/:tune_id/prompts/:id
+28 |
+29 | <Tabs groupId="lang">
+30 |   <TabItem value="curl" label="cURL" default>
+31 |
+32 | ```bash showLineNumbers
+33 | curl -X DELETE -H "Authorization: Bearer $API_KEY" https://api.astria.ai/prompts/1
+34 | ```
+35 |
+36 |   </TabItem>
+37 |   <TabItem value="javascript" label="Node.js">
+38 |
+39 | ```javascript showLineNumbers
+40 | const fetch = require('node-fetch');
+41 |
+42 | const API_URL = 'https://api.astria.ai/prompts/1';
+43 | const API_KEY = 'YOUR_API_KEY'; // Replace with your actual API key
+44 | const headers = { Authorization: `Bearer ${API_KEY}` }
+45 |
+46 | fetch(API_URL, {
+47 |   method: 'DELETE',
+48 |   headers: headers
+49 | }).then(response => response.json())
+50 | ```
+51 |
+52 |   </TabItem>
+53 |   <TabItem value="python" label="Python">
+54 |
+55 | ```python showLineNumbers
+56 | import requests
+57 |
+58 | API_URL = 'https://api.astria.ai/prompts/1'
+59 | API_KEY = 'YOUR_API_KEY'  # Replace with your actual API key
+60 |
+61 | headers = {
+62 |     'Authorization': f'Bearer {API_KEY}'
+63 | }
+64 |
+65 | response = requests.delete(API_URL, headers=headers)
+66 | ```
+67 |
+68 |   </TabItem>
+69 | </Tabs>
+70 |
+71 | #### Response
+72 |
+73 | ```json
+74 | {
+75 |   "message": "Prompt successfully deleted"
+76 | }
+77 | ```
+78 |
+79 | </div>
+80 | </div>
+81 |
+
+
+--------------------------------------------------------------------------------
+/docs/api/2-pack/0-pack.md:
+--------------------------------------------------------------------------------
+ 1 | # The pack object
+ 2 |
+ 3 | <iframe width="100%" height="500" src="https://www.youtube.com/embed/IUI6F5zVaAM?ab_channel=Astria_AI" title="How to fine tune explainer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen />
+ 4 |
+ 5 | A pack is a collection of prompts. A pack also contains the configuration for fine-tuning such as using LoRA/FaceID/Checkpoint, base model and preset.
+ 6 |
+ 7 | :::info
+ 8 | The [headshot-starter](https://github.com/astriaai/headshots-starter?tab=readme-ov-file#incoming-changes) open-source project now supports packs.
+ 9 | :::
+10 |
+11 | ## Advantages
+12 | 1. Test new prompts, ideas and themes on a bulk of models quickly to assure consistent high-quality results.
+13 | 1. Move fast from the creative process of creating prompts to the deployment of new themes in production.
+14 | 2. Avoid mismatch between hard-coded JSONs and the actual prompts.
+15 | 3. Decouple the creative process from your code and avoid mirroring inference API details in your codebase.
+16 | 3. Run user tests in production for new prompts and quickly iterate.
+17 | 4. Aggregate likes for prompts to improve the quality of the generated images and tighten the feedback loop.
+18 | 5. Sort packs by aggregated likes to present the best packs to the user.
+19 |
+20 | ## Example user flow
+21 | 1. `GET /packs` Display a list of packs to the user. See [docs](/docs/api/pack/list/)
+22 | 2. User selects a pack, a class name (man/woman) and training images
+23 | 3. Call `POST /p/:id/tunes` with title, (training) images, and class name -  to create a new fine-tune model using a pack. See [docs](/docs/api/pack/tunes/create/)
+24 | 4. `GET /tunes/:id/prompts` to get a list of prompts and their status
+25 | 5. `POST /prompts/:id/likes` to send feedback to the API. See [docs](/docs/api/like/create/)
+26 | 6. Sort prompts by likes
+27 | 7. Present packs sorted by aggregated likes
+28 |
+29 | ## Getting started
+30 | 1. Click your email in the header to access [my packs](https://www.astria.ai/packs), and create your first pack. ![create_pack.png](create_pack.png)
+31 | 2. Assign prompts to the pack from the [prompts tab](https://www.astria.ai/prompts).![assign_prompts.png](assign_prompts.png)
+32 | 3. Once a pack is assigned a new tag shows next to the prompt indicating that it is assigned to the pack.
+33 |
+
+
+--------------------------------------------------------------------------------
+/docs/api/2-pack/1-list.md:
+--------------------------------------------------------------------------------
+ 1 | ---
+ 2 | title: List all packs
+ 3 | hide_table_of_contents: true
+ 4 | ---
+ 5 |
+ 6 | import Tabs from '@theme/Tabs';
+ 7 | import TabItem from '@theme/TabItem';
+ 8 |
+ 9 | <div className="api-method">
+10 | <div>
+11 |
+12 | ### Parameters
+13 |
+14 |
+15 | ### Returns
+16 |
+17 | An array of packs owned by the authenticated user or gallery packs for `GET /gallery/packs`
+18 | </div>
+19 |
+20 | <div>
+21 |
+22 | #### `GET /packs` or `GET /gallery/packs`
+23 | <Tabs groupId="lang">
+24 |   <TabItem value="curl" label="cURL" default>
+25 |
+26 | ```bash showLineNumbers
+27 | curl -X GET -H "Authorization: Bearer $API_KEY" https://api.astria.ai/packs
+28 | # or
+29 | curl -X GET -H "Authorization: Bearer $API_KEY" https://api.astria.ai/gallery/packs
+30 | ```
+31 |
+32 | </TabItem>
+33 |   <TabItem value="nodejs" label="Node.js">
+34 |
+35 | ```javascript showLineNumbers
+36 | const headers = { Authorization: `Bearer ${API_KEY}` }
+37 | fetch('https://api.astria.ai/packs', { headers: headers });
+38 | // or
+39 | fetch('https://api.astria.ai/gallery/packs', { headers: headers });
+40 | ```
+41 |   </TabItem>
+42 |   <TabItem value="python" label="Python">
+43 |
+44 | ```python showLineNumbers
+45 | import requests
+46 | headers = {'Authorization': f'Bearer {API_KEY}'}
+47 | requests.get('https://api.astria.ai/packs')
+48 | # or
+49 | requests.get('https://api.astria.ai/gallery/packs')
+50 | ```
+51 |
+52 | </TabItem>
+53 | </Tabs>
+54 |
+55 | #### Response
+56 | ```json
+57 |
+58 | [
+59 |   {
+60 |     "id": 5,
+61 |     "base_tune_id": 1,
+62 |     "user_id": 1,
+63 |     "slug": "test-rv5-1-pack",
+64 |     "title": "test rv5.1 pack",
+65 |     "token": "ohwx",
+66 |     "created_at": "2024-01-17T12:35:13.379Z",
+67 |     "updated_at": "2024-04-04T12:14:52.094Z",
+68 |     "multiplier": 10,
+69 |     "model_type": null,
+70 |     "public_at": null,
+71 |     "cost_mc_hash": {
+72 |       "man": 200000, // cost in milli-cents - $20 USD
+73 |       "woman": 100000 // cost in milli-cents - $10 USD
+74 |     }
+75 |   }
+76 | ]
+77 |
+78 | ```
+79 | </div>
+80 | </div>
+81 |
+82 |
+
+
+--------------------------------------------------------------------------------
+/docs/api/2-pack/2-tunes/0-create.md:
+--------------------------------------------------------------------------------
+  1 | ---
+  2 | title: Create a tune from a pack
+  3 | hide_table_of_contents: true
+  4 | ---
+  5 |
+  6 | import Tabs from '@theme/Tabs';
+  7 | import TabItem from '@theme/TabItem';
+  8 |
+  9 | <div className="api-method">
+ 10 | <div>
+ 11 |
+ 12 | Creates a new fine-tune model from training images according to the pack base tune id, model type and adds prompts to generate images.
+ 13 |
+ 14 | ### Parameters
+ 15 |
+ 16 | #### `name` (required)
+ 17 | A class name the describes the fine-tune. e.g: `man`, `woman`, `cat`, `dog`, `boy`, `girl`, `style`. Class name must be supported by pack.
+ 18 |
+ 19 | #### `title` (required)
+ 20 | Describes the fine-tune. Ideally a UUID related to the transaction. See [idempotency](/docs/api/overview) for more information.
+ 21 |
+ 22 | #### `images` (required)
+ 23 | An array of images to train the fine-tune with. The images can be uploaded as multipart/form-data or as image_urls.
+ 24 |
+ 25 | #### `image_urls` (required)
+ 26 | An array of images to train the fine-tune with. The images can be uploaded as multipart/form-data or as image_urls.
+ 27 |
+ 28 | #### `callback` (optional)
+ 29 | A webhook URL to be called when the tune is finished training. The webhook will receive a POST request with the tune object. See [more on callbacks](/docs/api/overview#callbacks).
+ 30 |
+ 31 | #### `characteristics` (optional)
+ 32 | A free-form object that can be used to templatize the prompts text. e.g: `{"eye_color": "blue eyes"}` would than be used in the prompt text as `ohwx woman, {{eye_color}}, holding flowers`.
+ 33 |
+ 34 | #### `prompt_attributes.callback` (optional)
+ 35 | A webhook URL to be called when each prompt is finished inference. The webhook will receive a POST request with the prompt object. See [more on callbacks](/docs/api/overview#callbacks).
+ 36 |
+ 37 | #### `prompts_callback` (optional)
+ 38 | A webhook URL to be called when all the prompts are finished training. The webhook will receive a POST request with an array of prompts objects.
+ 39 |
+ 40 | #### `tune_ids` (optional)
+ 41 | Array of tune ids. If provided, will be used instead of the above attributes to create pack prompts only.
+ 42 |
+ 43 |
+ 44 | ### Returns
+ 45 |
+ 46 | Returns a tune object if successful which will start training immediately and call callback once training is complete.
+ 47 |
+ 48 | </div>
+ 49 |
+ 50 | <div>
+ 51 |
+ 52 | #### POST /p/:pack_id/tunes
+ 53 |
+ 54 | <Tabs groupId="lang">
+ 55 |   <TabItem value="curl" label="cURL" default>
+ 56 |
+ 57 | ```bash showLineNumbers
+ 58 | # With images as multipart/form-data
+ 59 | # Hard coded pack id 260 for corporate headshots from the gallery - https://www.astria.ai/gallery/packs.json
+ 60 | # https://www.astria.ai/gallery/tunes/690204/prompts
+ 61 | curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/p/260/tunes \
+ 62 |           -F tune[title]="John Doe - UUID - 1234-6789-1234-56789" \
+ 63 |           -F tune[name]=man \
+ 64 |           -F tune[callback]="https://optional-callback-url.com/webhooks/astria?user_id=1" \
+ 65 |           -F tune[characteristics][eye_color]="blue eyes" \
+ 66 |           -F tune[prompt_attributes][callback]="https://optional-callback-url.com/webhooks/astria_prompts?user_id=1" \
+ 67 |           -F "tune[images][]=@1.jpg" \
+ 68 |           -F "tune[images][]=@2.jpg" \
+ 69 |           -F "tune[images][]=@3.jpg" \
+ 70 |           -F "tune[images][]=@4.jpg"
+ 71 |
+ 72 | # With image_urls as form-data
+ 73 | curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/p/260/tunes \
+ 74 |           -F tune[title]="Grumpy cat - UUID - 1234-6789-1234-56789" \
+ 75 |           -F tune[name]=cat \
+ 76 |           -F tune[callback]="https://optional-callback-url.com/to-your-service-when-ready?user_id=1" \
+ 77 |           -F tune[prompt_attributes][callback]="https://optional-callback-url.com/webhooks/astria_prompts?user_id=1" \
+ 78 |           -F "tune[image_urls][]=https://i.imgur.com/HLHBnl9.jpeg" \
+ 79 |           -F "tune[image_urls][]=https://i.imgur.com/HLHBnl9.jpeg" \
+ 80 |           -F "tune[image_urls][]=https://i.imgur.com/HLHBnl9.jpeg" \
+ 81 |           -F "tune[image_urls][]=https://i.imgur.com/HLHBnl9.jpeg"
+ 82 |
+ 83 | # As JSON
+ 84 | cat > data.json <<- EOM
+ 85 | {
+ 86 |   "tune": {
+ 87 |     "title": "Grumpy Cat - UUID - 1234-6789-1234-56789",
+ 88 |     "name": "cat",
+ 89 |     "callback": "https://optional-callback-url.com/to-your-service-when-ready?user_id=1",
+ 90 |     "characteristics": {"eye_color": "blue eyes"},
+ 91 |     "prompt_attributes": {
+ 92 |       "callback": "https://optional-callback-url.com/webhooks/astria_prompts?user_id=1"
+ 93 |     },
+ 94 |     "image_urls": [
+ 95 |       "https://i.imgur.com/HLHBnl9.jpeg",
+ 96 |       "https://i.imgur.com/HLHBnl9.jpeg",
+ 97 |       "https://i.imgur.com/HLHBnl9.jpeg",
+ 98 |       "https://i.imgur.com/HLHBnl9.jpeg"
+ 99 |     ]
+100 |   }
+101 | }
+102 | EOM
+103 |
+104 | # Hard coded pack id 260 for corporate headshots from the gallery - https://www.astria.ai/gallery/packs.json
+105 | curl -X POST -H"Content-Type: application/json" -H "Authorization: Bearer $API_KEY" --data @data.json  https://api.astria.ai/p/260/tunes
+106 | ```
+107 |   </TabItem>
+108 |   <TabItem value="javascript" label="Node.js">
+109 |
+110 | ```javascript
+111 | // NodeJS 16
+112 | // With image_urls and fetch()
+113 | // For NodeJS 18 - do NOT import the below as it is built-in
+114 | import fetch from "node-fetch";
+115 |
+116 | const API_KEY = 'sd_XXXXXX';
+117 | const DOMAIN = 'https://api.astria.ai';
+118 |
+119 | function createTune() {
+120 |   let options = {
+121 |     method: 'POST',
+122 |     headers: { 'Authorization': 'Bearer ' + API_KEY, 'Content-Type': 'application/json' },
+123 |     body: JSON.stringify({
+124 |       tune: {
+125 |         "title": 'John Doe - UUID - 1234-6789-1234-56789',
+126 |         "name": "cat",
+127 |         "callback": "https://optional-callback-url.com/to-your-service-when-ready?user_id=1",
+128 |         "characteristics": {"eye_color": "blue eyes"},
+129 |         "prompt_attributes": {
+130 |           "callback": "https://optional-callback-url.com/webhooks/astria_prompts?user_id=1"
+131 |         },
+132 |         "image_urls": [
+133 |           "https://i.imgur.com/HLHBnl9.jpeg",
+134 |           "https://i.imgur.com/HLHBnl9.jpeg",
+135 |           "https://i.imgur.com/HLHBnl9.jpeg",
+136 |           "https://i.imgur.com/HLHBnl9.jpeg"
+137 |         ]
+138 |       }
+139 |     })
+140 |   };
+141 |   // Hard coded pack id 260 for corporate headshots from the gallery - https://www.astria.ai/gallery/packs.json
+142 |   return fetch(DOMAIN + '/p/260/tunes', options)
+143 |     .then(r => r.json())
+144 |     .then(r => console.log(r))
+145 | }
+146 |
+147 | createTune()
+148 |
+149 |
+150 | /// With form-data, fetch() and nested prompts
+151 | // For NodeJS 18 - do NOT import the two below as they are built-in
+152 | import fetch from "node-fetch";
+153 | import FormData from 'form-data';
+154 | import fs from 'fs';
+155 |
+156 | const API_KEY = 'sd_XXXX';
+157 | const DOMAIN = 'https://api.astria.ai';
+158 | function createTune() {
+159 |   let formData = new FormData();
+160 |   formData.append('tune[title]', 'John Doe - UUID - 1234-6789-1234-56789');
+161 |   formData.append('tune[name]', 'man');
+162 |   formData.append('tune[callback]', 'https://optional-callback-url.com/webhooks/astria?user_id=1');
+163 |   formData.append('tune[characteristics][eye_color]', 'blue eyes');
+164 |   formData.append('tune[prompt_attributes][callback]', 'https://optional-callback-url.com/webhooks/astria_prompts?user_id=1');
+165 |   // Load all JPGs from ./samples directory and append to FormData
+166 |   let files = fs.readdirSync('./samples');
+167 |   files.forEach(file => {
+168 |     if(file.endsWith('.jpg')) {
+169 |       formData.append('tune[images][]', fs.createReadStream(`./samples/${file}`), file);
+170 |     }
+171 |   });
+172 |   formData.append('tune[callback]', 'https://optional-callback-url.com/to-your-service-when-ready?user_id=1');
+173 |
+174 |   let options = {
+175 |     method: 'POST',
+176 |     headers: {
+177 |       'Authorization': 'Bearer ' + API_KEY
+178 |     },
+179 |     body: formData
+180 |   };
+181 |   // Hard coded pack id 260 for corporate headshots from the gallery - https://www.astria.ai/gallery/packs.json
+182 |   return fetch(DOMAIN + '/p/260/tunes', options)
+183 |     .then(r => r.json())
+184 |     .then(r => console.log(r));
+185 | }
+186 |
+187 | createTune();
+188 |
+189 | // Create prompts from pack  with tune_ids
+190 | function createTune(tuneIds) {
+191 |   let options = {
+192 |     method: 'POST',
+193 |     headers: { 'Authorization': 'Bearer ' + API_KEY, 'Content-Type': 'application/json' },
+194 |     body: JSON.stringify({
+195 |       tune: {
+196 |         tune_ids: tuneIds,
+197 |       }
+198 |     })
+199 |   };
+200 |   // Hard coded pack id 260 for corporate headshots from the gallery - https://www.astria.ai/gallery/packs.json
+201 |   return fetch(DOMAIN + '/p/260/tunes', options)
+202 |     .then(r => r.json())
+203 |     .then(r => console.log(r))
+204 | }
+205 |
+206 | createTune([89])
+207 |
+208 | ```
+209 |   </TabItem>
+210 |   <TabItem value="python" label="Python">
+211 |
+212 | ```python
+213 | import requests
+214 | headers = {'Authorization': f'Bearer {API_KEY}'}
+215 |
+216 | def load_image(file_path):
+217 |   with open(file_path, "rb") as f:
+218 |     return f.read()
+219 |
+220 | # Assuming `prompts` and `tune.images` are already defined in your context
+221 |
+222 | data = {
+223 |   "tune[title]": "John Doe - UUID - 1234-6789-1234-56789",
+224 |   "tune[name]": "man",
+225 | }
+226 | files = []
+227 |
+228 | for image in tune.images:
+229 |   image_data = load_image(image)  # Assuming image is a file path
+230 |   files.append(("tune[images][]", image_data))
+231 |
+232 | API_URL = 'https://api.astria.ai/p/260/tunes'
+233 | response = requests.post(API_URL, data=data, files=files, headers=headers)
+234 | response.raise_for_status()
+235 |
+236 |
+237 |
+238 | ## Alternatively - create prompts from pack with tune_ids
+239 | data = {
+240 |   "tune": {
+241 |     "tune_ids": [89]
+242 |   }
+243 | }
+244 | response = requests.post(API_URL, json=data, headers=headers)
+245 | ```
+246 |   </TabItem>
+247 | </Tabs>
+248 |
+249 | #### Response
+250 |
+251 | ```json
+252 |
+253 | {
+254 |   "id": 1,
+255 |   "title": "John Doe",
+256 |   "name": "woman",
+257 |   "eta": "2023-10-02T14:32:40.363Z",
+258 |   "trained_at": "2023-10-02T14:32:40.363Z",
+259 |   "started_training_at": "2023-10-02T14:32:05.229Z",
+260 |   "expires_at": "2023-11-01T14:32:40.363Z",
+261 |   "created_at": "2023-10-02T14:32:05.067Z",
+262 |   "updated_at": "2023-10-02T14:32:40.363Z",
+263 |   "url": "https://www.astria.ai/tunes/788416.json",
+264 |   "orig_images": [
+265 |     "https://sdbooth2-production.s3.amazonaws.com/mock",
+266 |     "https://sdbooth2-production.s3.amazonaws.com/mock",
+267 |     "https://sdbooth2-production.s3.amazonaws.com/mock",
+268 |     "https://sdbooth2-production.s3.amazonaws.com/mock",
+269 |     "https://sdbooth2-production.s3.amazonaws.com/mock",
+270 |     "https://sdbooth2-production.s3.amazonaws.com/mock",
+271 |     "https://sdbooth2-production.s3.amazonaws.com/mock",
+272 |     "https://sdbooth2-production.s3.amazonaws.com/mock",
+273 |     "https://sdbooth2-production.s3.amazonaws.com/mock",
+274 |     "https://sdbooth2-production.s3.amazonaws.com/mock"
+275 |   ]
+276 | }
+277 | ```
+278 | </div>
+279 | </div>
+280 |
+281 |
+
+
+--------------------------------------------------------------------------------
+/docs/api/2-pack/assign_prompts.png:
+--------------------------------------------------------------------------------
+https://raw.githubusercontent.com/astriaai/astria-docs/e50fe870d4d131ebfd10dabb604ef00a64873595/docs/api/2-pack/assign_prompts.png
+
+
+--------------------------------------------------------------------------------
+/docs/api/2-pack/create_pack.png:
+--------------------------------------------------------------------------------
+https://raw.githubusercontent.com/astriaai/astria-docs/e50fe870d4d131ebfd10dabb604ef00a64873595/docs/api/2-pack/create_pack.png
+
+
+--------------------------------------------------------------------------------
+/docs/api/20-sdxl-api.md:
+--------------------------------------------------------------------------------
+  1 | ---
+  2 | hide_table_of_contents: true
+  3 | image: ../use-cases/img/sdxl-output.jpg
+  4 | ---
+  5 |
+  6 | import Tabs from '@theme/Tabs';
+  7 | import TabItem from '@theme/TabItem';
+  8 |
+  9 |
+ 10 | # SDXL API usage
+ 11 |
+ 12 | For general tips on SDXL training and inference, see [SDXL training](/docs/use-cases/sdxl-training)
+ 13 |
+ 14 | <div className="api-method">
+ 15 | <div>
+ 16 |
+ 17 | Unlike SD15 checkpoint training, SDXL on Astria is trained as a LoRA+text-embedding. As such, inference is taking place a on a base line model such as SDXL 1.0 and `prompt.text` should specify the loaded lora such as `<lora:123456:0.83>` - will load lora with id=123456 and strength=0.83
+ 18 |
+ 19 | See [LoRA docs](/docs/features/lora) on lora syntax
+ 20 |
+ 21 | With SDXL you cannot combine multiple LoRAs.
+ 22 |
+ 23 | Use any SDXL model from [the gallery](https://www.astria.ai/gallery/tunes?branch=sdxl1) to do inference.
+ 24 |
+ 25 | :::warning
+ 26 | If you are receiving `422` error `model_type=pti is not supported. Use a checkpoint instead` - Change the request URL to https://api.astria.ai/tunes/666678/prompts with `666678` as a hard-coded tune_id of SDXL 1.0 from the gallery. See explanation above.
+ 27 | :::
+ 28 |
+ 29 | </div>
+ 30 | <div>
+ 31 |
+ 32 | #### POST /tunes/:id/prompts
+ 33 |
+ 34 | <Tabs groupId="lang">
+ 35 |   <TabItem value="curl" label="cURL" default>
+ 36 |
+ 37 | ```bash showLineNumbers
+ 38 | # Note the hard-coded 666678 which is the tune_id of SDXL 1.0 from the gallery
+ 39 | curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes/666678/prompts \
+ 40 |           -F prompt[text]="<lora:tune_id:strength> a painting of ohwx man in the style of Van Gogh" \
+ 41 |           -F prompt[negative_prompt]="old, blemish, wrin" \
+ 42 |           -F prompt[super_resolution]=true \
+ 43 |           -F prompt[face_correct]=true \
+ 44 |           -F prompt[callback]="https://optional-callback-url.com/to-your-service-when-ready?prompt_id=1"
+ 45 | ```
+ 46 |   </TabItem>
+ 47 |   <TabItem value="javascript" label="Node.js">
+ 48 |
+ 49 | ```javascript
+ 50 | const fetch = require('node-fetch');
+ 51 | const FormData = require('form-data');
+ 52 |
+ 53 | // Note the hard-coded 666678 which is the tune_id of SDXL 1.0 from the gallery
+ 54 | const API_URL = 'https://api.astria.ai/tunes/666678/prompts';
+ 55 | const API_KEY = 'YOUR_API_KEY'; // Replace with your actual API key
+ 56 | const headers = { Authorization: `Bearer ${API_KEY}` }
+ 57 |
+ 58 | const form = new FormData();
+ 59 | form.append('prompt[text]', '<lora:tune_id:strength> a painting of ohwx man in the style of Van Gogh');
+ 60 | form.append('prompt[negative_prompt]', 'old, blemish, wrin');
+ 61 | form.append('prompt[super_resolution]', true);
+ 62 | form.append('prompt[face_correct]', true);
+ 63 | form.append('prompt[callback]', 'https://optional-callback-url.com/to-your-service-when-ready?prompt_id=1');
+ 64 |
+ 65 | fetch(API_URL, {
+ 66 |   method: 'POST',
+ 67 |   headers: headers,
+ 68 |   body: form
+ 69 | }).then(response => response.json())
+ 70 |
+ 71 |
+ 72 | ```
+ 73 |   </TabItem>
+ 74 |   <TabItem value="python" label="Python">
+ 75 |
+ 76 | ```python
+ 77 | import requests
+ 78 |
+ 79 | # Note the hard-coded 666678 which is the tune_id of SDXL 1.0 from the gallery
+ 80 | API_URL = 'https://api.astria.ai/tunes/666678/prompts'
+ 81 | API_KEY = 'YOUR_API_KEY'  # Replace with your actual API key
+ 82 |
+ 83 | headers = {
+ 84 |     'Authorization': f'Bearer {API_KEY}'
+ 85 | }
+ 86 |
+ 87 | data = {
+ 88 |   'prompt[text]': '<lora:tune_id:strength> a painting of ohwx man in the style of Van Gogh',
+ 89 |   'prompt[negative_prompt]': 'old, blemish, wrin',
+ 90 |   'prompt[super_resolution]': True,
+ 91 |   'prompt[face_correct]': True,
+ 92 |   'prompt[callback]': 'https://optional-callback-url.com/to-your-service-when-ready?prompt_id=1'
+ 93 | }
+ 94 | files = []
+ 95 | files.append((f"tune[prompts_attributes][{i}][input_image]", load_image(prompt['input_image'])))
+ 96 |
+ 97 | response = requests.post(API_URL, headers=headers, data=data)
+ 98 | ```
+ 99 |   </TabItem>
+100 | </Tabs>
+101 |
+102 | </div>
+103 | </div>
+104 |
+
+
+--------------------------------------------------------------------------------
+/docs/api/3-like/0-create.md:
+--------------------------------------------------------------------------------
+ 1 | ---
+ 2 | title: Create a like
+ 3 | hide_table_of_contents: true
+ 4 | ---
+ 5 |
+ 6 | import Tabs from '@theme/Tabs';
+ 7 | import TabItem from '@theme/TabItem';
+ 8 |
+ 9 | <div className="api-method">
+10 | <div>
+11 |
+12 | Adds a like to a prompt.
+13 | If the prompt was created using a pack (i.e: `orig_prompt_id` is set) - a like will be added to the original prompt as well.
+14 |
+15 | ### Parameters
+16 |
+17 |
+18 | ### Returns
+19 |
+20 | Returns status code 201 if successful and no content.
+21 |
+22 | </div>
+23 |
+24 | <div>
+25 |
+26 | #### POST /prompts/:prompt_id/likes
+27 |
+28 | <Tabs groupId="lang">
+29 |   <TabItem value="curl" label="cURL" default>
+30 |
+31 | ```bash showLineNumbers
+32 | curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/prompts/:prompt_id/like
+33 | ```
+34 |   </TabItem>
+35 |   <TabItem value="javascript" label="Node.js">
+36 |
+37 | ```javascript
+38 | const fetch = require(`node-fetch');
+39 | const FormData = require('form-data');
+40 |
+41 | const API_URL = 'https://api.astria.ai/prompts/:prompt_id/like';
+42 | const API_KEY = 'YOUR_API_KEY'; // Replace with your actual API key
+43 | const headers = { Authorization: `Bearer ${API_KEY}` }
+44 |
+45 | fetch(API_URL, {
+46 |   method: 'POST',
+47 |   headers: headers,
+48 | }).then(response => response.json())
+49 |
+50 |
+51 | ```
+52 |   </TabItem>
+53 |   <TabItem value="python" label="Python">
+54 |
+55 | ```python
+56 | import requests
+57 |
+58 | API_URL = 'https://api.astria.ai/prompts/:prompt_id/like'
+59 | API_KEY = 'YOUR_API_KEY'  # Replace with your actual API key
+60 |
+61 | headers = {
+62 |     'Authorization': f'Bearer {API_KEY}'
+63 | }
+64 |
+65 |
+66 | response = requests.post(API_URL, headers=headers)
+67 | ```
+68 |   </TabItem>
+69 | </Tabs>
+70 |
+71 | #### Response
+72 |
+73 | `Status code: 201 Created`
+74 |
+75 | </div>
+76 | </div>
+77 |
+78 |
+
+
+--------------------------------------------------------------------------------
+/docs/api/3-like/1-delete.md:
+--------------------------------------------------------------------------------
+ 1 | ---
+ 2 | title: Delete a like
+ 3 | hide_table_of_contents: true
+ 4 | ---
+ 5 |
+ 6 | import Tabs from '@theme/Tabs';
+ 7 | import TabItem from '@theme/TabItem';
+ 8 |
+ 9 | <div className="api-method">
+10 | <div>
+11 |
+12 | Delete a like from a prompt.
+13 |
+14 | ### Parameters
+15 |
+16 |
+17 | ### Returns
+18 |
+19 | Returns status code 201 if successful and no content.
+20 |
+21 | </div>
+22 |
+23 | <div>
+24 |
+25 | #### POST /prompts/:prompt_id/likes
+26 |
+27 | <Tabs groupId="lang">
+28 |   <TabItem value="curl" label="cURL" default>
+29 |
+30 | ```bash showLineNumbers
+31 | curl -X POST -H "Authorization: Bearer $API_KEY" https://api.astria.ai/prompts/:prompt_id/like
+32 | ```
+33 |   </TabItem>
+34 |   <TabItem value="javascript" label="Node.js">
+35 |
+36 | ```javascript
+37 | const fetch = require(`node-fetch');
+38 | const FormData = require('form-data');
+39 |
+40 | const API_URL = 'https://api.astria.ai/prompts/:prompt_id/like';
+41 | const API_KEY = 'YOUR_API_KEY'; // Replace with your actual API key
+42 | const headers = { Authorization: `Bearer ${API_KEY}` }
+43 |
+44 | fetch(API_URL, {
+45 |   method: 'POST',
+46 |   headers: headers,
+47 | }).then(response => response.json())
+48 |
+49 |
+50 | ```
+51 |   </TabItem>
+52 |   <TabItem value="python" label="Python">
+53 |
+54 | ```python
+55 | import requests
+56 |
+57 | API_URL = 'https://api.astria.ai/prompts/:prompt_id/like'
+58 | API_KEY = 'YOUR_API_KEY'  # Replace with your actual API key
+59 |
+60 | headers = {
+61 |     'Authorization': f'Bearer {API_KEY}'
+62 | }
+63 |
+64 |
+65 | response = requests.post(API_URL, headers=headers)
+66 | ```
+67 |   </TabItem>
+68 | </Tabs>
+69 |
+70 | #### Response
+71 |
+72 | `Status code: 201 Created`
+73 |
+74 | </div>
+75 | </div>
+76 |
+77 |
+
+
+--------------------------------------------------------------------------------
+/docs/api/4-images/1-inspect.md:
+--------------------------------------------------------------------------------
+  1 | ---
+  2 | title: Inspect image
+  3 | hide_table_of_contents: true
+  4 | ---
+  5 |
+  6 | import Tabs from '@theme/Tabs';
+  7 | import TabItem from '@theme/TabItem';
+  8 |
+  9 | <div className="api-method">
+ 10 | <div>
+ 11 |
+ 12 | Inspects an image to extract attributes both for filtering/warning about bad training set images and as `characteristics` to be added to [the fine tune](/docs/api/tune/create/#characteristics-optional).
+ 13 |
+ 14 | ### Parameters
+ 15 |
+ 16 | #### `name` (required)
+ 17 | Class name of the object to be inspected in the image. This should be the same class name that will be used to create the tune object.
+ 18 |
+ 19 | #### `file` (required)
+ 20 | The image to inspect.
+ 21 |
+ 22 | #### `file_url` (optional)
+ 23 | The image url to inspect if `file` is not provided.
+ 24 |
+ 25 |
+ 26 | ### Returns
+ 27 | The below JSON schema is returned. It is possible that some attributes will not be returned.
+ 28 |
+ 29 | ```JSON
+ 30 | {
+ 31 |     "type": "object",
+ 32 |     "properties": {
+ 33 |       # Templating
+ 34 |       "name": {
+ 35 |         "type": "string",
+ 36 |         "enum": ["man", "woman", "boy", "girl", "baby", "cat", "dog", "NONE"],
+ 37 |       },
+ 38 |       "ethnicity": {
+ 39 |         "type": "string",
+ 40 |         "enum": ["caucasian", "black", "hispanic", "korean", "japanese", "chinese", "philippine"]
+ 41 |       },
+ 42 |       "age": {
+ 43 |         "type": "string",
+ 44 |         "enum": ["20 yo", "30 yo", "40 yo", "50 yo", "60 yo", "70 yo"]
+ 45 |       },
+ 46 |       "glasses": {
+ 47 |         "type": "string",
+ 48 |         "enum": ["glasses", "NONE"]
+ 49 |       },
+ 50 |       "eye_color": {
+ 51 |         "type": "string",
+ 52 |         "enum": ["blue eyes", "brown eyes", "green eyes", "gray eyes", "black eyes", "NONE"],
+ 53 |       },
+ 54 |       "hair_color": {
+ 55 |         "type": "string",
+ 56 |         "enum": ["blonde", "brunette", "red hair", "black hair", "NONE"]
+ 57 |       },
+ 58 |       "hair_length": {
+ 59 |         "type": "string",
+ 60 |         "enum": ["short hair", "medium hair", "long hair", "NONE"]
+ 61 |       },
+ 62 |       "hair_style": {
+ 63 |         "type": "string",
+ 64 |         "enum": ["dreadlocks", "bald", "cornrows", "straight hair", "curly hair", "wavy hair", "NONE"]
+ 65 |       },
+ 66 |       "facial_hair": {
+ 67 |         "type": "string",
+ 68 |         "enum": ["mustache", "beard", "goatee", "NONE"]
+ 69 |       },
+ 70 |       "is_bald": {
+ 71 |         "type": "string",
+ 72 |         "enum": ["bald", "NONE"]
+ 73 |       },
+ 74 |       # Filtering helpers
+ 75 |       "funny_face": {
+ 76 |         "type": "boolean",
+ 77 |       },
+ 78 |       "wearing_sunglasses": {
+ 79 |         "type": "boolean",
+ 80 |       },
+ 81 |       "wearing_hat": {
+ 82 |         "type": "boolean",
+ 83 |       },
+ 84 |       "blurry": {
+ 85 |         "type": "boolean",
+ 86 |       },
+ 87 |       "includes_multiple_people": {
+ 88 |         "type": "boolean",
+ 89 |       },
+ 90 |       "full_body_image_or_longshot": {
+ 91 |         "type": "boolean",
+ 92 |       },
+ 93 |       "selfie": {
+ 94 |         "type": "boolean",
+ 95 |       },
+ 96 |     }
+ 97 |   }
+ 98 |
+ 99 | ```
+100 | </div>
+101 | <div>
+102 |
+103 | #### POST /images/inspect
+104 | <Tabs groupId="lang">
+105 |   <TabItem value="curl" label="cURL" default>
+106 |
+107 | ```bash showLineNumbers
+108 |
+109 | curl -X POST "https://api.astria.ai/images/inspect" \
+110 |   -H "Authorization: Bearer YOUR_API_KEY" \
+111 |   -F "name=man" \
+112 |   -F "file=@/path/to/your/image.jpg"
+113 | ````
+114 |
+115 |   </TabItem>
+116 |   <TabItem value="python" label="Python">
+117 |
+118 | ```python
+119 | import requests
+120 |
+121 | url = "https://api.astria.ai/images/inspect"
+122 | headers = {
+123 |     "Authorization": "Bearer YOUR_API_KEY"
+124 | }
+125 | files = {
+126 |     "file": open("/path/to/your/image.jpg", "rb")
+127 | }
+128 | data = {
+129 |     "name": "man"
+130 | }
+131 |
+132 | response = requests.post(url, headers=headers, files=files, data=data)
+133 | print(response.json())
+134 | ```
+135 |
+136 |   </TabItem>
+137 |   <TabItem value="javascript" label="Node.js">
+138 |
+139 | ```javascript
+140 | const axios = require('axios');
+141 | const FormData = require('form-data');
+142 | const fs = require('fs');
+143 |
+144 | const url = "https://api.astria.ai/images/inspect";
+145 | const form = new FormData();
+146 | form.append("name", "man");
+147 | form.append("file", fs.createReadStream("/path/to/your/image.jpg"));
+148 |
+149 | axios.post(url, form, {
+150 |     headers: {
+151 |         "Authorization": `Bearer YOUR_API_KEY`,
+152 |         ...form.getHeaders()
+153 |     }
+154 | })
+155 | .then(response => {
+156 |     console.log(response.data);
+157 | })
+158 | .catch(error => {
+159 |     console.error(error);
+160 | });
+161 | ````
+162 |
+163 | </TabItem>
+164 | </Tabs>
+165 |
+166 | #### Response
+167 |
+168 | ```json
+169 | {
+170 |   "age": "20 yo",
+171 |   "blurry": false,
+172 |   "ethnicity": "caucasian",
+173 |   "eye_color": "brown eyes",
+174 |   "facial_hair": "",
+175 |   "full_body_image_or_longshot": false,
+176 |   "funny_face": false,
+177 |   "glasses": "",
+178 |   "hair_color": "brunette",
+179 |   "hair_length": "medium hair",
+180 |   "hair_style": "wavy hair",
+181 |   "includes_multiple_people": false,
+182 |   "is_bald": "",
+183 |   "name": "woman",
+184 |   "selfie": true,
+185 |   "wearing_hat": false,
+186 |   "wearing_sunglasses": false
+187 | }
+188 | ```
+189 | </div>
+190 | </div>
+191 |
+192 |
+193 |
+194 | ### Example implementation
+195 |
+196 | The images inspect API is meant to be used by the client-side of your app. The /images/inspect needs to be proxied by your server to avoid exposing your API key to the client.
+197 |
+198 | The example below implements two behaviors
+199 | 1. `createWarning` notifies the user about an attribute is true such as `funny_face` or `wearing_sunglasses`. The function expects a form input element containing the class `name` selected by the user.
+200 | 2. `aggregateCharacteristics` aggregates the most common values for each key in the characteristics object and sets the `characteristicsInputTarget` value to the aggregated characteristics.
+201 |
+202 | ```javascript
+203 |   async inspect(previewEl, file) {
+204 |     const form = document.getElementById('new_tune');
+205 |     const formValues = Object.fromEntries(new FormData(form));
+206 |     const name = formValues['tune[name]'];
+207 |     const csrfToken = document.querySelector("[name='csrf-token']").content;
+208 |     const formData = new FormData();
+209 |     formData.append('authenticity_token', csrfToken);
+210 |     formData.append('name', name);
+211 |
+212 |     // Check if file is an image and readable
+213 |     if (file.type.startsWith('image/')) {
+214 |       try {
+215 |         const resizedFile = await this.resizeImage(file);
+216 |         formData.append('file', resizedFile || file);
+217 |       } catch (error) {
+218 |         console.warn('Image resizing failed, uploading original file:', error);
+219 |         formData.append('file', file);
+220 |       }
+221 |     } else {
+222 |       formData.append('file', file);
+223 |     }
+224 |
+225 |     const response = await fetch('/images/inspect', {
+226 |       method: 'POST',
+227 |       body: formData,
+228 |     });
+229 |     const data = await response.json();
+230 |     if (!data['name']) {
+231 |       this.createWarning(previewEl, `Could not detect image`);
+232 |     }
+233 |
+234 |     // Iterate over hash and add warning messages for each true value
+235 |     Object.keys(data).forEach((key) => {
+236 |       if (key === 'name') {
+237 |         if (data[key] === '') {
+238 |           this.createWarning(previewEl, `Could not detect ${name} in the image`);
+239 |         } else if (data[key] && data[key] !== name) {
+240 |           this.createWarning(previewEl, `Could not detect ${name} in the image (2)`);
+241 |         }
+242 |       } else if (data[key] === true) {
+243 |         const warning = capitalizeFirstLetter(key.replace(/_/g, " "));
+244 |         this.createWarning(previewEl, warning);
+245 |       }
+246 |     });
+247 |
+248 |     this.characteristics.push(data);
+249 |     this.aggregateCharacteristics();
+250 |     previewEl.querySelector('.loading').classList.add('d-none');
+251 |     previewEl.querySelector('.remove-btn').classList.remove('d-none');
+252 |   }
+253 |
+254 |   // Helper function to resize the image
+255 |   async resizeImage(file) {
+256 |     return new Promise((resolve, reject) => {
+257 |       const img = new Image();
+258 |       const reader = new FileReader();
+259 |
+260 |       reader.onload = (e) => {
+261 |         img.onload = () => {
+262 |           const canvas = document.createElement('canvas');
+263 |           const maxDimension = 512; // Set max dimension for resizing
+264 |           let width = img.width;
+265 |           let height = img.height;
+266 |
+267 |           if (width <= maxDimension && height <= maxDimension) {
+268 |             console.log(`Image is already smaller than ${maxDimension}x${maxDimension}`)
+269 |             resolve(file);
+270 |             return;
+271 |           }
+272 |           // Calculate new dimensions while maintaining aspect ratio
+273 |           if (width > height) {
+274 |             if (width > maxDimension) {
+275 |               height = Math.round(height * maxDimension / width);
+276 |               width = maxDimension;
+277 |             }
+278 |           } else {
+279 |             if (height > maxDimension) {
+280 |               width = Math.round(width * maxDimension / height);
+281 |               height = maxDimension;
+282 |             }
+283 |           }
+284 |           console.log(`Resizing image to ${width}x${height} from ${img.width}x${img.height}`)
+285 |
+286 |           canvas.width = width;
+287 |           canvas.height = height;
+288 |           const ctx = canvas.getContext('2d');
+289 |           ctx.drawImage(img, 0, 0, width, height);
+290 |
+291 |           canvas.toBlob((blob) => {
+292 |             resolve(blob ? new File([blob], file.name, { type: file.type }) : null);
+293 |           }, file.type, 0.9); // Adjust quality if needed
+294 |         };
+295 |
+296 |         img.onerror = reject;
+297 |         img.src = e.target.result;
+298 |       };
+299 |
+300 |       reader.onerror = reject;
+301 |       reader.readAsDataURL(file);
+302 |     });
+303 |   }
+304 |
+305 |
+306 |   aggregateCharacteristics() {
+307 |     const aggregated = {};
+308 |     // Iterate over this.characteristics and select value which is more common into this.aggregatedCharacteristics
+309 |     // use only the characeteristics that are string
+310 |     this.characteristics.forEach((characteristic) => {
+311 |       Object.keys(characteristic).forEach((key) => {
+312 |         if (typeof characteristic[key] === 'string') {
+313 |           if (aggregated[key]) {
+314 |             aggregated[key].push(characteristic[key]);
+315 |           } else {
+316 |             aggregated[key] = [characteristic[key]];
+317 |           }
+318 |         }
+319 |       });
+320 |     });
+321 |     console.log('aggregated', aggregated);
+322 |
+323 |     const commonValues = {};
+324 |     // find most common value for each key and set aggregatedCharacteristics to that value
+325 |     Object.keys(aggregated).forEach((key) => {
+326 |       const values = aggregated[key];
+327 |       const mostCommonValue = values.sort((a, b) =>
+328 |         values.filter(v => v === a).length - values.filter(v => v === b).length
+329 |       ).pop();
+330 |       commonValues[key] = mostCommonValue;
+331 |     });
+332 |     console.log('commonValues', commonValues);
+333 |     this.characteristicsInputTarget.value = JSON.stringify(commonValues);
+334 |   }
+335 |
+336 | ```
+337 |
+
+
+--------------------------------------------------------------------------------
+/docs/api/5-themes/1-create.md:
+--------------------------------------------------------------------------------
+  1 | ---
+  2 | title: Create a theme
+  3 | hide_table_of_contents: true
+  4 | ---
+  5 |
+  6 | import Tabs from '@theme/Tabs';
+  7 | import TabItem from '@theme/TabItem';
+  8 |
+  9 | <div className="api-method">
+ 10 | <div>
+ 11 |
+ 12 | Themes API leverages a LLM (Large Language Models) to generate a variety of prompts based on a theme. The theme can be a short description of a concept, a mood, or a style. The API call will create 10 prompts which will start processing and generating images.
+ 13 |
+ 14 | ### Parameters
+ 15 |
+ 16 | #### `theme` (required)
+ 17 | Class name of the object to be inspected in the image. Currently only `man`, `woman` are supported.
+ 18 |
+ 19 | #### `tuen_ids` (requires)
+ 20 | A list of tune ids to be used for the theme. For each tune, 10 prompts will be generated.
+ 21 |
+ 22 | #### `prompt_attributes` (optional)
+ 23 | `num_images, w, h` can be overridden
+ 24 |
+ 25 |
+ 26 | ### Returns
+ 27 | Returns empty response with status code 201. The themes are created in the background and can be pulled using `GET /tunes/:id/prompts`.
+ 28 |
+ 29 |
+ 30 | </div>
+ 31 | <div>
+ 32 |
+ 33 | #### POST /themes
+ 34 | <Tabs groupId="lang">
+ 35 |   <TabItem value="curl" label="cURL" default>
+ 36 |
+ 37 | ```bash showLineNumbers
+ 38 |
+ 39 | curl -X POST "https://api.astria.ai/themes" \
+ 40 |   -H "Authorization: Bearer YOUR_API_KEY" \
+ 41 |   -F "theme[theme]=Corporate headshots" \
+ 42 |   -F "theme[tune_ids][]=123" \
+ 43 |   -F "theme[prompt_attributes][num_images]=123"
+ 44 | ````
+ 45 |
+ 46 |   </TabItem>
+ 47 |   <TabItem value="python" label="Python">
+ 48 |
+ 49 | ```python
+ 50 | import requests
+ 51 |
+ 52 | url = "https://api.astria.ai/themes"
+ 53 | headers = {
+ 54 |     "Authorization": "Bearer YOUR_API_KEY",
+ 55 |   "Content-Type": "application/json",
+ 56 |   "Accept": "application/json"
+ 57 | }
+ 58 | data = {
+ 59 |     "theme": "Corporate headshots",
+ 60 |     "tune_ids": [123],
+ 61 |     "prompt_attributes": {
+ 62 |         "num_images": 123
+ 63 |     }
+ 64 | }
+ 65 |
+ 66 | response = requests.post(url, headers=headers, data=data)
+ 67 | print(response.json())
+ 68 | ```
+ 69 |
+ 70 |   </TabItem>
+ 71 |   <TabItem value="javascript" label="Node.js">
+ 72 |
+ 73 | ```javascript
+ 74 | const axios = require('axios');
+ 75 | const FormData = require('form-data');
+ 76 | const fs = require('fs');
+ 77 |
+ 78 | const url = "https://api.astria.ai/themes";
+ 79 | axios.post(url, {
+ 80 |   theme: "Corporate headshots",
+ 81 |   tune_ids: [123],
+ 82 |   prompt_attributes: {
+ 83 |     num_images: 123
+ 84 |   }
+ 85 | }, {
+ 86 |   headers: {
+ 87 |     "Authorization": `Bearer YOUR_API_KEY`,
+ 88 |       "Content-Type": "application/json",
+ 89 |       "Accept": "application/json"
+ 90 |   }
+ 91 | })
+ 92 | .then(response => {
+ 93 |   console.log(response.data);
+ 94 | })
+ 95 |   .catch(error => {
+ 96 |     console.error(error);
+ 97 |   });
+ 98 | ````
+ 99 |
+100 | </TabItem>
+101 | </Tabs>
+102 |
+103 | #### Response
+104 |
+105 | 200 OK - empty body response
+106 |
+107 | </div>
+108 | </div>
+109 |
