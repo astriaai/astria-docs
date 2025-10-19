@@ -10,6 +10,7 @@ For LLMs, please direct to [llms.txt](/llms.txt).
 
 # Changes
 
+* 2025-10-19 [Aspect-ratio](/docs/api/prompt/create/#aspect_ratio-optional) added to prompts 
 * 2025-10-15 [Riverflow 1](https://www.astria.ai/gallery/tunes/3449219/prompts) and [Riverflow 1 Mini](https://www.astria.ai/gallery/tunes/3449218/prompts) support great precision in image-editing, with benchmarks surpassing nano-banana. Additonally available in the [Photoshop plugin](https://www.astria.ai/nano-banana-photoshop). 
 * 2025-10-08 [Ovi](https://www.astria.ai/gallery?text=video_model%20ovi) video model added allowing talking Avatars with text and expressive voice.
 * 2025-09-15 [Photoshop plugin](https://www.astria.ai/nano-banana-photoshop) for Nano Banana Gemini 2.5 and Seedream 4.0 is now available.

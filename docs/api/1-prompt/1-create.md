@@ -52,6 +52,9 @@ Integer. Number of diffusion steps to run . Range 0-50
 #### `use_lpw` (optional) 
 Boolean. Use weighted prompts.
 
+#### `aspect_ratio` (optional) 
+enum: `1:1`, `16:9`, `9:16`, `21:9`, `9:21`, `3:2`, `2:3`, `5:4`, `4:5`, `4:3`, `3:4` 
+
 #### `w` (optional) 
 width - In multiples of 8.
 
