@@ -10,6 +10,7 @@ For LLMs, please direct to [llms.txt](/llms.txt).
 
 # Changes
 
+* 2025-10-27 [Seedance Pro Fast](https://www.astria.ai/gallery?text=seedance) provides a great combination of quality and cost. [Docs](/docs/features/video/)
 * 2025-10-19 Added new upscaling `--upscale_v4`. See [gallery](https://www.astria.ai/gallery?text=--upscale_v4)  
 * 2025-10-19 [Aspect-ratio](/docs/api/prompt/create/#aspect_ratio-optional) added to prompts 
 * 2025-10-15 [Riverflow 1](https://www.astria.ai/gallery/tunes/3449219/prompts) and [Riverflow 1 Mini](https://www.astria.ai/gallery/tunes/3449218/prompts) support great precision in image-editing, with benchmarks surpassing nano-banana. Additonally available in the [Photoshop plugin](https://www.astria.ai/nano-banana-photoshop). 
@@ -21,7 +22,7 @@ For LLMs, please direct to [llms.txt](/llms.txt).
 * 2025-06-22 Seedance video model added - higher quality than VEO3, and easier UX using the new video button.
 * 2025-06-09 Flux Kontext added
 * 2025-04-28 Updated Flux controlnets to the latest and added better default conditioning scales and end conditioning.
-* 2025-03-20 [Image2Video](/docs/features/video/) available in BETA
+* 2025-03-20 [Image2Video](/docs/features/video/) available
 * 2025-03-02 Added `auto_extend` for [tune](/docs/api/tune/create/) so that only specific tunes can be extended.
 * 2025-02-18 Added video tutorial on how to [create a pack](/docs/api/pack/pack/) and [how to fine-tune](/docs/use-cases/ai-photoshoot/) 
 * 2025-02-01 [Multiperson](/docs/features/multiperson) for Flux in BETA 
