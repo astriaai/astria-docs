@@ -40,7 +40,7 @@ A prompt for the video model which describes camera movement, scene, and object 
 Example: `<lora:1533312:1.0>  ohwx woman hiking in the alps --video_prompt "Woman looking at the camera, smiling, puts hands on her hips, confident"`
 
 #### `--video_model`
-enum: `seedance_480p`, `seedance_720p`, `seedance_pro_1080p`, `hailuo02_1080p`
+enum: `seedance_480p`, `seedance_720p`, `seedance_1080p`, `seedance_pro_1080p`, `seedance_pro_fast_480p`, `seedance_pro_fast_720p`, `seedance_pro_fast_1080p`, `hailuo02_720p`, `hailuo02_1080p`, `wan22_720p`, `wan22_fast_720p`, `wan22_fast_580p`, `wan22_fast_480p`, `wan25_720p`, `kling25_5s`, `kling25_10s`, `veo31_fast_720p`, `veo31_fast_audio_720p`, `veo31_fast_1080p`, `veo31_fast_audio_1080p`, `ovi`
 `seedance_720p` is used by default.
 
 ## Example
