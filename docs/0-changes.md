@@ -10,6 +10,7 @@ For LLMs, please direct to [llms.txt](/llms.txt).
 
 # Changes
 
+* 2025-10-30 Added support for Super-resolution, `--upscale_v4`, film grain to Gemini Nano-Banana and Seedream.
 * 2025-10-27 [Seedance Pro Fast](https://www.astria.ai/gallery?text=seedance) provides a great combination of quality and cost. [Docs](/docs/features/video/)
 * 2025-10-19 Added new upscaling `--upscale_v4`. See [gallery](https://www.astria.ai/gallery?text=--upscale_v4)  
 * 2025-10-19 [Aspect-ratio](/docs/api/prompt/create/#aspect_ratio-optional) added to prompts 
