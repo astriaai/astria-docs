@@ -6,7 +6,7 @@ hide_table_of_contents: true
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-<div className="api-method">
+<div class="api-method">
 <div>
 
 Creates a new fine-tune model from training images which in turn will be used to create prompts and generate images.
@@ -60,7 +60,7 @@ Enum: `lora`, `pti`, `faceid`, `null` for checkpoint.
 For SDXL1 - API will default to `pti` and will ignore `model_type` parameter.
 
 #### `auto_extend` (optional)
-Boolean: `true`, `false`. If `true`, the tune will be automatically extended when it expires. Default is `false`. See [pricing](https://www.astria.ai/pricing). 
+Boolean: `true`, `false`. Default is `false`. If `true`, the tune will be automatically extended when it expires. This is a paid feature; see [pricing](https://www.astria.ai/pricing) for more details.
 
 #### `preset` (optional)
 Enum: `flux-lora-focus`, `flux-lora-portrait`, `flux-lora-fast` see details in the GUI, `null`. See [Flux lora training](/docs/use-cases/flux-finetuning/) for more information.
@@ -277,4 +277,3 @@ response.raise_for_status()
 ```
 </div>
 </div>
-
