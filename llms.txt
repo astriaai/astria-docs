@@ -1935,10 +1935,6 @@ https://raw.githubusercontent.com/astriaai/astria-docs/e50fe870d4d131ebfd10dabb6
  22 |
  23 | Use any SDXL model from [the gallery](https://www.astria.ai/gallery/tunes?branch=sdxl1) to do inference.
  24 |
- 25 | :::warning
- 26 | If you are receiving `422` error `model_type=pti is not supported. Use a checkpoint instead` - Change the request URL to https://api.astria.ai/tunes/666678/prompts with `666678` as a hard-coded tune_id of SDXL 1.0 from the gallery. See explanation above.
- 27 | :::
- 28 |
  29 | </div>
  30 | <div>
  31 |
