@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkastria_docs_2=self.webpackChunkastria_docs_2||[]).push([[9748],{5114:s=>{s.exports=JSON.parse('{"label":"upscaling","permalink":"/docs/tags/upscaling","allTagsPath":"/docs/tags","count":1,"items":[{"id":"features/tiled-upscale","title":"Tiled upscale","description":"BETA","permalink":"/docs/features/tiled-upscale"}]}')}}]);
