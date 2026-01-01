@@ -5,8 +5,6 @@ import poster from './img/image-to-video.jpeg';
 
 # Image2Video
 
-**BETA**
-
 <div style={{ display: "grid", gridTemplateColumns: '1fr', gap: '1.5rem' }}>
 <div>
 <figcaption>Image2Video</figcaption>

@@ -3,7 +3,6 @@ tags: [upscaling, super-resolution, image enhancement, creative upscaler, clarit
 image: ./img/tiled-upscale/tiledupscale_v2-1.jpeg
 ---
 # Tiled upscale
-**BETA**
 
 <div style={{ display: "grid", 'grid-template-columns': '1fr 1fr 1fr 1fr', gap: '1.5rem' }}>
 <div>

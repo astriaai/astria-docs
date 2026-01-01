@@ -1,5 +1,4 @@
 # Backend V1
-**BETA**
 
 Backend V1 is a complete rewrite of the original image inference and processing pipeline. Here are some of the improvements:
 

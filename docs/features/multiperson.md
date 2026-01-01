@@ -4,7 +4,6 @@ image: ./img/multiperson/multiperson_two_people.jpg
 ---
 
 # Multi-LoRA / Multi-Person for Flux 
-**BETA**
 
 <div style={{ display: "grid", 'grid-template-columns': '1fr 1fr', gap: '1.5rem' }}>
 <div>
