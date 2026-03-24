@@ -8,7 +8,6 @@ import TabItem from '@theme/TabItem';
 
 
 # FaceID
-**BETA**
 
 <div style={{ display: "grid", 'grid-template-columns': '1fr 1fr 1fr', gap: '1.5rem' }}>
 <div>
