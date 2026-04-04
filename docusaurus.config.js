@@ -35,6 +35,10 @@ const config = {
 
   plugins: [
     'docusaurus-plugin-image-zoom',
+    [require.resolve('@easyops-cn/docusaurus-search-local'), {
+      hashed: true,
+      indexBlog: false,
+    }],
   ],
   presets: [
     [
