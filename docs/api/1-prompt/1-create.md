@@ -105,6 +105,30 @@ URL to a one channel mask image. Used in conjunction with input_image_url parame
 #### `lora_scale` (optional) 
 Available only when used as `prompts_attributes` in `POST /tunes` request to override the default scale of the LoRA model.
 
+## Video
+
+Pass these alongside `text` to turn a prompt into a video. The image stage (driven by the chosen tune) renders the first frame from `text`; the video model then animates it using `video_prompt`. For text-to-video models the image stage can be skipped — see the model list.
+
+#### `video_model` (required for video) 
+enum: `seedance_480p`, `seedance_v15_720p`, `seedance_v15_audio_720p`, `seedance2_fast_480p`, `seedance2_fast_720p`, `seedance2_480p`, `seedance2_720p`, `seedance2_1080p`, `wan22_720p`, `wan22_fast_720p`, `wan22_fast_580p`, `wan22_fast_480p`, `wan25_720p`, `wan26_720p`, `wan26_1080p`, `wan27_720p`, `wan27_1080p`, `wan_animate_720p`, `ltx23_720p`, `ltx23_1080p`, `kling25`, `kling30_standard`, `kling30_standard_audio`, `kling30_pro`, `kling30_pro_audio`, `kling30_4k`, `kling30_motion_control`, `kling30_motion_control_pro`, `cinematic_video`, `dreamactor_m2`, `happyhorse_720p`, `happyhorse_1080p`, `happyhorse_motion_control`, `veo31_fast_720p`, `veo31_fast_audio_720p`, `veo31_fast_1080p`, `veo31_fast_audio_1080p`, `veo31_fast_4k`, `veo31_fast_audio_4k`, `veo31_lite_720p`, `veo31_lite_audio_720p`, `veo31_lite_1080p`, `veo31_lite_audio_1080p`. See [Image2Video](/docs/features/video/) for capabilities, pricing, and allowed durations per model.
+
+#### `video_prompt` (required for video) 
+Natural-language description of the motion / camera / scene action. Surround the value with quotes when posting via `multipart/form-data`. Should not include the LoRA token used for the image stage.
+
+#### `video_duration` (optional) 
+Integer seconds. Allowed values depend on `video_model` (see [Image2Video](/docs/features/video/)). Defaults vary per model (commonly 5; 8 for VEO3; 10 for motion-control / animate models).
+
+#### `video_first_frame` (optional)
+Binary multi-part image upload to use as the first frame, overriding the rendered image. When provided, the image stage is skipped and `text` is not required.
+
+#### `video_last_frame` (optional)
+Binary multi-part image upload for first+last keyframe models (e.g. `seedance_v15_*`, `wan21_*`, `kling*`, `ltx23_*`, `veo31_*`).
+
+#### `input_video` (optional)
+Binary multi-part video upload. Required for motion-control models: `kling30_motion_control`, `kling30_motion_control_pro`, `wan_animate_720p`, `dreamactor_m2`, `happyhorse_motion_control`.
+
+> Backwards-compatible legacy syntax: the `--video --video_model … --video_prompt "…" --duration N` CLI flags inside `text` are still accepted and promoted into the dedicated columns server-side. New integrations should use the form fields above.
+
 ### Returns
 
 Returns a prompt object if successful which will start processing if tune is processed.

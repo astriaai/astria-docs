@@ -10,6 +10,9 @@ For LLMs, please direct to [llms.txt](/llms.txt).
 
 # Changes
 
+* 2026-04-29 [Astria Claude Skills](https://github.com/astriaai/astria-claude-skills) — open-sourced Claude Code skills for working with the Astria API (prompt writing, packs guide, navigation, partner-model integration, and more).
+* 2026-04-29 Video parameters are now first-class form fields: `prompt[video_model]`, `prompt[video_prompt]`, `prompt[video_duration]`. The pre-existing `--video --video_model … --video_prompt "…" --duration N` flags inside `text` continue to work — fully backward compatible. See [API](/docs/api/prompt/create/#video) and [Image2Video](/docs/features/video/).
+* 2026-04-29 [HappyHorse](https://www.astria.ai/gallery?text=happyhorse) (Alibaba) video model added: `happyhorse_720p` (77¢/5s), `happyhorse_1080p` (132¢/5s), `happyhorse_motion_control` (154¢/10s). Supports image-to-video, reference-to-video, text-to-video, and video-edit motion control. [Docs](/docs/features/video/).
 * 2025-10-30 Added support for Super-resolution, `--upscale_v4`, film grain to Gemini Nano-Banana and Seedream.
 * 2025-10-27 [Seedance Pro Fast](https://www.astria.ai/gallery?text=seedance) provides a great combination of quality and cost. [Docs](/docs/features/video/)
 * 2025-10-19 Added new upscaling `--upscale_v4`. See [gallery](https://www.astria.ai/gallery?text=--upscale_v4)  
