@@ -39,6 +39,22 @@ const config = {
       hashed: true,
       indexBlog: false,
     }],
+    // Mirror the canonical /llms.txt (from static/) to /docs/llms.txt so it is
+    // reachable under the docs path as well. Single source of truth is
+    // static/llms.txt — this copy is regenerated on every build.
+    function llmsTxtMirrorPlugin() {
+      return {
+        name: 'llms-txt-mirror',
+        async postBuild({ outDir }) {
+          const fs = require('fs');
+          const path = require('path');
+          const src = path.join(outDir, 'llms.txt');
+          const destDir = path.join(outDir, 'docs');
+          fs.mkdirSync(destDir, { recursive: true });
+          fs.copyFileSync(src, path.join(destDir, 'llms.txt'));
+        },
+      };
+    },
   ],
   presets: [
     [

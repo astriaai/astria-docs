@@ -6,7 +6,7 @@ title: Changes
 
 Check out the [API overview](/docs/api/overview/) and then consider starting from the [Packs API](/docs/api/pack/pack/) or reviewing the reference implementation on [Headshot starter](https://github.com/astriaai/headshots-starter)
 
-For LLMs, please direct to [llms.txt](/llms.txt).
+For LLMs, please direct to [llms.txt](pathname:///docs/llms.txt).
 
 # Changes
 
