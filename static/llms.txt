@@ -568,122 +568,125 @@
  11 |
  12 | ### Parameters
  13 |
- 14 | #### `offset` (optional)
- 15 | Starting offset for the list of prompts. Default: 0. Current page size is 20.
+ 14 | #### `before_id` (optional, preferred)
+ 15 | Keyset-pagination cursor. Returns tunes with `id` lower than the given value, following the default newest-first (id-descending) order. To fetch the next page, pass the `id` of the last tune on the current page, and repeat until an empty page is returned, e.g. `GET /tunes?limit=120&before_id=12345`. Prefer this over `offset`: its cost stays constant no matter how deep you page.
  16 |
- 17 | ### Returns
- 18 |
- 19 | An array of all fine-tunes owned by the authenticated user
- 20 | </div>
- 21 |
- 22 | <div>
- 23 |
- 24 | #### GET /tunes
- 25 | <Tabs groupId="lang">
- 26 |   <TabItem value="curl" label="cURL" default>
+ 17 | #### `limit` (optional)
+ 18 | Page size. Default: 20. Maximum: 120.
+ 19 |
+ 20 | #### `offset` (optional)
+ 21 | Starting offset for the list of tunes. Default: 0. Suitable for shallow paging only — API requests with offset above 200 return HTTP 400 with an error message pointing to `before_id`.
+ 22 |
+ 23 | ### Returns
+ 24 |
+ 25 | An array of all fine-tunes owned by the authenticated user
+ 26 | </div>
  27 |
- 28 | ```bash showLineNumbers
- 29 | curl -X GET -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes
- 30 | ```
- 31 |
- 32 | </TabItem>
- 33 |   <TabItem value="nodejs" label="Node.js">
- 34 |
- 35 | ```javascript showLineNumbers
- 36 | const headers = { Authorization: `Bearer ${API_KEY}` }
- 37 | fetch('https://api.astria.ai/tunes', { headers: headers });
- 38 | ```
- 39 |   </TabItem>
- 40 |   <TabItem value="python" label="Python">
- 41 |
- 42 | ```python showLineNumbers
- 43 | import requests
- 44 | headers={'Authorization': f'Bearer {API_KEY}'}
- 45 | requests.get('https://api.astria.ai/tunes', headers=headers)
- 46 | ```
+ 28 | <div>
+ 29 |
+ 30 | #### GET /tunes
+ 31 | <Tabs groupId="lang">
+ 32 |   <TabItem value="curl" label="cURL" default>
+ 33 |
+ 34 | ```bash showLineNumbers
+ 35 | curl -X GET -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes
+ 36 | ```
+ 37 |
+ 38 | </TabItem>
+ 39 |   <TabItem value="nodejs" label="Node.js">
+ 40 |
+ 41 | ```javascript showLineNumbers
+ 42 | const headers = { Authorization: `Bearer ${API_KEY}` }
+ 43 | fetch('https://api.astria.ai/tunes', { headers: headers });
+ 44 | ```
+ 45 |   </TabItem>
+ 46 |   <TabItem value="python" label="Python">
  47 |
- 48 |   </TabItem>
- 49 | </Tabs>
- 50 |
- 51 | #### Response
- 52 | ```json
+ 48 | ```python showLineNumbers
+ 49 | import requests
+ 50 | headers={'Authorization': f'Bearer {API_KEY}'}
+ 51 | requests.get('https://api.astria.ai/tunes', headers=headers)
+ 52 | ```
  53 |
- 54 | [
- 55 |   {
- 56 |     "id": 1,
- 57 |     "title": "John Doe",
- 58 |     "name": "woman",
- 59 |     "token": "ohwx",
- 60 |     "base_tune_id": null,
- 61 |     "args": null,
- 62 |     "steps": null,
- 63 |     "face_crop": null,
- 64 |     "ckpt_url": "https://sdbooth2-production.s3.amazonaws.com/mock",
- 65 |     "ckpt_urls": [
- 66 |       "https://sdbooth2-production.s3.amazonaws.com/mock"
- 67 |     ],
- 68 |     "trained_at": "2023-10-02T14:32:40.363Z",
- 69 |     "started_training_at": "2023-10-02T14:32:05.229Z",
- 70 |     "expires_at": "2023-11-01T14:32:40.363Z",
- 71 |     "created_at": "2023-10-02T14:32:05.067Z",
- 72 |     "branch": "sdxl1",
- 73 |     "model_type": "lora",
- 74 |     "updated_at": "2023-10-02T14:32:40.363Z",
- 75 |     "url": "https://www.astria.ai/tunes/788416.json",
- 76 |     "orig_images": [
- 77 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
- 78 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
- 79 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
- 80 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
- 81 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
- 82 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+ 54 |   </TabItem>
+ 55 | </Tabs>
+ 56 |
+ 57 | #### Response
+ 58 | ```json
+ 59 |
+ 60 | [
+ 61 |   {
+ 62 |     "id": 1,
+ 63 |     "title": "John Doe",
+ 64 |     "name": "woman",
+ 65 |     "token": "ohwx",
+ 66 |     "base_tune_id": null,
+ 67 |     "args": null,
+ 68 |     "steps": null,
+ 69 |     "face_crop": null,
+ 70 |     "ckpt_url": "https://sdbooth2-production.s3.amazonaws.com/mock",
+ 71 |     "ckpt_urls": [
+ 72 |       "https://sdbooth2-production.s3.amazonaws.com/mock"
+ 73 |     ],
+ 74 |     "trained_at": "2023-10-02T14:32:40.363Z",
+ 75 |     "started_training_at": "2023-10-02T14:32:05.229Z",
+ 76 |     "expires_at": "2023-11-01T14:32:40.363Z",
+ 77 |     "created_at": "2023-10-02T14:32:05.067Z",
+ 78 |     "branch": "sdxl1",
+ 79 |     "model_type": "lora",
+ 80 |     "updated_at": "2023-10-02T14:32:40.363Z",
+ 81 |     "url": "https://www.astria.ai/tunes/788416.json",
+ 82 |     "orig_images": [
  83 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
  84 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
  85 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
- 86 |       "https://sdbooth2-production.s3.amazonaws.com/mock"
- 87 |     ]
- 88 |   },
- 89 |   {
- 90 |     "id": 775459,
- 91 |     "title": "Marry Jane",
- 92 |     "name": null,
- 93 |     "is_api": false,
- 94 |     "token": "ohwx",
- 95 |     "base_tune_id": null,
- 96 |     "args": null,
- 97 |     "steps": null,
- 98 |     "face_crop": null,
- 99 |     "ckpt_url": "https://sdbooth2-production.s3.amazonaws.com/mock",
-100 |     "ckpt_urls": [
-101 |       "https://sdbooth2-production.s3.amazonaws.com/mock"
-102 |     ],
-103 |     "trained_at": "2023-09-23T16:07:49.137Z",
-104 |     "started_training_at": "2023-09-23T16:07:37.334Z",
-105 |     "expires_at": "2023-10-23T16:07:49.137Z",
-106 |     "created_at": "2023-09-23T16:07:36.606Z",
-107 |     "branch": "sdxl1",
-108 |     "model_type": "lora",
-109 |     "updated_at": "2023-09-23T16:07:49.138Z",
-110 |     "url": "https://www.astria.ai/tunes/775459.json",
-111 |     "orig_images": [
-112 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
-113 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
-114 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
-115 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
-116 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
-117 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+ 86 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+ 87 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+ 88 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+ 89 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+ 90 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+ 91 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+ 92 |       "https://sdbooth2-production.s3.amazonaws.com/mock"
+ 93 |     ]
+ 94 |   },
+ 95 |   {
+ 96 |     "id": 775459,
+ 97 |     "title": "Marry Jane",
+ 98 |     "name": null,
+ 99 |     "is_api": false,
+100 |     "token": "ohwx",
+101 |     "base_tune_id": null,
+102 |     "args": null,
+103 |     "steps": null,
+104 |     "face_crop": null,
+105 |     "ckpt_url": "https://sdbooth2-production.s3.amazonaws.com/mock",
+106 |     "ckpt_urls": [
+107 |       "https://sdbooth2-production.s3.amazonaws.com/mock"
+108 |     ],
+109 |     "trained_at": "2023-09-23T16:07:49.137Z",
+110 |     "started_training_at": "2023-09-23T16:07:37.334Z",
+111 |     "expires_at": "2023-10-23T16:07:49.137Z",
+112 |     "created_at": "2023-09-23T16:07:36.606Z",
+113 |     "branch": "sdxl1",
+114 |     "model_type": "lora",
+115 |     "updated_at": "2023-09-23T16:07:49.138Z",
+116 |     "url": "https://www.astria.ai/tunes/775459.json",
+117 |     "orig_images": [
 118 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
 119 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
-120 |       "https://sdbooth2-production.s3.amazonaws.com/mock"
-121 |     ]
-122 |   }
-123 |  ]
-124 | ```
-125 | </div>
-126 | </div>
-127 |
-
-
+120 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+121 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+122 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+123 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+124 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+125 |       "https://sdbooth2-production.s3.amazonaws.com/mock",
+126 |       "https://sdbooth2-production.s3.amazonaws.com/mock"
+127 |     ]
+128 |   }
+129 |  ]
+130 | ```
+131 | </div>
+132 | </div>
 --------------------------------------------------------------------------------
 /docs/api/0-tune/5-delete.md:
 --------------------------------------------------------------------------------
@@ -1335,70 +1338,73 @@
 11 |
 12 | ### Parameters
 13 |
-14 | #### `offset` (optional)
-15 | Starting offset for the list of prompts. Default: 0. Current page size is 20.
+14 | #### `before_id` (optional, preferred)
+15 | Keyset-pagination cursor. Returns prompts with `id` lower than the given value, following the default newest-first (id-descending) order. To fetch the next page, pass the `id` of the last prompt on the current page, and repeat until an empty page is returned, e.g. `GET /prompts?limit=120&before_id=12345`. Prefer this over `offset`: its cost stays constant no matter how deep you page.
 16 |
-17 | ### Returns
-18 |
-19 | An array of prompts owned by the authenticated user. If used as a nested resource (in the url), will return prompts owned by the tune.
-20 | </div>
-21 |
-22 | <div>
-23 |
-24 | #### GET /tunes/:id/prompts
-25 | <Tabs groupId="lang">
-26 |   <TabItem value="curl" label="cURL" default>
+17 | #### `limit` (optional)
+18 | Page size. Default: 20. Maximum: 120.
+19 |
+20 | #### `offset` (optional)
+21 | Starting offset for the list of prompts. Default: 0. Suitable for shallow paging only — offsets above 10,000 return HTTP 400 with an error message pointing to `before_id`.
+22 |
+23 | ### Returns
+24 |
+25 | An array of prompts owned by the authenticated user. If used as a nested resource (in the url), will return prompts owned by the tune.
+26 | </div>
 27 |
-28 | ```bash showLineNumbers
-29 | curl -X GET -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes/1/prompts
-30 | ```
-31 |
-32 | </TabItem>
-33 |   <TabItem value="nodejs" label="Node.js">
-34 |
-35 | ```javascript showLineNumbers
-36 | const headers = { Authorization: `Bearer ${API_KEY}` }
-37 | fetch('https://api.astria.ai/tunes/1/prompts', { headers: headers });
-38 | ```
-39 |   </TabItem>
-40 |   <TabItem value="python" label="Python">
-41 |
-42 | ```python showLineNumbers
-43 | import requests
-44 | headers = {'Authorization': f'Bearer {API_KEY}'}
-45 | requests.get('https://api.astria.ai/tunes/1/prompts', headers=headers)
-46 | ```
+28 | <div>
+29 |
+30 | #### GET /tunes/:id/prompts
+31 | <Tabs groupId="lang">
+32 |   <TabItem value="curl" label="cURL" default>
+33 |
+34 | ```bash showLineNumbers
+35 | curl -X GET -H "Authorization: Bearer $API_KEY" https://api.astria.ai/tunes/1/prompts
+36 | ```
+37 |
+38 | </TabItem>
+39 |   <TabItem value="nodejs" label="Node.js">
+40 |
+41 | ```javascript showLineNumbers
+42 | const headers = { Authorization: `Bearer ${API_KEY}` }
+43 | fetch('https://api.astria.ai/tunes/1/prompts', { headers: headers });
+44 | ```
+45 |   </TabItem>
+46 |   <TabItem value="python" label="Python">
 47 |
-48 | </TabItem>
-49 | </Tabs>
-50 |
-51 | #### Response
-52 | ```json
+48 | ```python showLineNumbers
+49 | import requests
+50 | headers = {'Authorization': f'Bearer {API_KEY}'}
+51 | requests.get('https://api.astria.ai/tunes/1/prompts', headers=headers)
+52 | ```
 53 |
-54 | [
-55 |   {
-56 |     "id": 1,
-57 |     "callback": "https://optional-callback-url.com/to-your-service-when-ready?user_id=your_internal_user_id&transaction_id=internal_transaction_id",
-58 |     "text": "a painting of ohwx man in the style of Van Gogh",
-59 |     "negative_prompt": "old, blemish, wrinkles, mole",
-60 |     "cfg_scale": null,
-61 |     "steps": null,
-62 |     "seed": null,
-63 |     "trained_at": null,
-64 |     "started_training_at": null,
-65 |     "created_at": "2022-10-06T16:12:54.505Z",
-66 |     "updated_at": "2022-10-06T16:12:54.505Z",
-67 |     "tune_id": 1,
-68 |     "url": "http://api.astria.ai/tunes/1/prompts/1.json"
-69 |   }
-70 |  ]
-71 | ```
-72 | </div>
-73 | </div>
-74 |
-75 |
-
-
+54 | </TabItem>
+55 | </Tabs>
+56 |
+57 | #### Response
+58 | ```json
+59 |
+60 | [
+61 |   {
+62 |     "id": 1,
+63 |     "callback": "https://optional-callback-url.com/to-your-service-when-ready?user_id=your_internal_user_id&transaction_id=internal_transaction_id",
+64 |     "text": "a painting of ohwx man in the style of Van Gogh",
+65 |     "negative_prompt": "old, blemish, wrinkles, mole",
+66 |     "cfg_scale": null,
+67 |     "steps": null,
+68 |     "seed": null,
+69 |     "trained_at": null,
+70 |     "started_training_at": null,
+71 |     "created_at": "2022-10-06T16:12:54.505Z",
+72 |     "updated_at": "2022-10-06T16:12:54.505Z",
+73 |     "tune_id": 1,
+74 |     "url": "http://api.astria.ai/tunes/1/prompts/1.json"
+75 |   }
+76 |  ]
+77 | ```
+78 | </div>
+79 | </div>
+80 |
 --------------------------------------------------------------------------------
 /docs/api/1-prompt/5-delete.md:
 --------------------------------------------------------------------------------

@@ -11,8 +11,14 @@ import TabItem from '@theme/TabItem';
 
 ### Parameters
 
+#### `before_id` (optional, preferred)
+Keyset-pagination cursor. Returns prompts with `id` lower than the given value, following the default newest-first (id-descending) order. To fetch the next page, pass the `id` of the last prompt on the current page, and repeat until an empty page is returned, e.g. `GET /prompts?limit=120&before_id=12345`. Prefer this over `offset`: its cost stays constant no matter how deep you page.
+
+#### `limit` (optional)
+Page size. Default: 20. Maximum: 120.
+
 #### `offset` (optional)
-Starting offset for the list of prompts. Default: 0. Current page size is 20.
+Starting offset for the list of prompts. Default: 0. Suitable for shallow paging only — offsets above 10,000 return HTTP 400 with an error message pointing to `before_id`.
 
 ### Returns
 
