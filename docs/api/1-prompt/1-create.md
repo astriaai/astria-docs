@@ -22,6 +22,12 @@ A comma separated list of words that should not appear in the image.
 #### `callback` (optional) 
 a URL that will be called when the prompt is done processing. The callback is a POST request where the body contains the prompt object. See [more](/docs/api/overview#callbacks).
 
+#### `workspace_id` (optional)
+Integer. Creates and bills the prompt in a workspace that the authenticated user can access. Omit it to use the user's personal scope.
+
+#### `community` (optional)
+Boolean. Share the finished prompt to the Astria community feed.
+
 #### `num_images` (optional) 
 Number of images to generate. Range: 1-8.
 
@@ -55,6 +61,12 @@ Boolean. Use weighted prompts.
 #### `aspect_ratio` (optional) 
 enum: `1:1`, `16:9`, `9:16`, `21:9`, `9:21`, `3:2`, `2:3`, `5:4`, `4:5`, `4:3`, `3:4` 
 
+#### `ar` (optional)
+Legacy aspect-ratio field. enum: `1:1`, `portrait`, `16:9`, `landscape`. New integrations should use `aspect_ratio`.
+
+#### `resolution` (optional)
+Output resolution tier. enum: `1K`, `2K`, `4K`. Availability depends on the selected foundation model; unsupported combinations return a validation error.
+
 #### `w` (optional) 
 width - In multiples of 8.
 
@@ -69,6 +81,12 @@ enum: null, `1`, If not specified will default to the [account version](https://
 
 #### `style` (optional) 
 enum: null, `Cinematic`, `Animated`, `Digital Art`, `Photographic`, `Fantasy art`, `Neonpunk`, `Enhance`, `Comic book`, `Lowpoly`, `Line art`. See [more](/docs/features/styles).
+
+#### `prompt_expansion` (optional)
+Boolean. Ask supported models to expand the supplied prompt before generation. Defaults to `false`.
+
+#### `theme` (optional)
+String metadata used to group prompts generated as part of the same theme.
 
 #### `color_grading` (optional) 
 enum: `Film Velvia`, `Film Portra`, `Ektar`.
@@ -93,6 +111,9 @@ Boolean toggle. True for text to image controlnet. False for image to image cont
 #### `input_image` (optional) 
 Binary multi-part request with the image. Used in conjunction with controlnet parameter.
 
+#### `input_image_base64` (optional)
+Base64 data URL alternative to `input_image`, for example `data:image/png;base64,...`.
+
 #### `input_image_url` (optional) 
 URL to an image. Used in conjunction with controlnet parameter.
 
@@ -105,15 +126,23 @@ URL to a one channel mask image. Used in conjunction with input_image_url parame
 #### `lora_scale` (optional) 
 Available only when used as `prompts_attributes` in `POST /tunes` request to override the default scale of the LoRA model.
 
+#### `pack_id` (optional)
+Integer. Authors the prompt as a template prompt in an accessible pack. A template prompt must reference a fine-tuned tune.
+
+#### `base_pack_id` (optional)
+Integer. Records an accessible pack as the provenance for a one-off prompt without making the prompt a reusable pack template.
+
 ## Video
 
 Pass these alongside `text` to turn a prompt into a video. The image stage (driven by the chosen tune) renders the first frame from `text`; the video model then animates it using `video_prompt`. For text-to-video models the image stage can be skipped — see the model list.
 
 #### `video_model` (required for video) 
-enum: `seedance_480p`, `seedance_v15_720p`, `seedance_v15_audio_720p`, `seedance2_fast_480p`, `seedance2_fast_720p`, `seedance2_480p`, `seedance2_720p`, `seedance2_1080p`, `wan22_720p`, `wan22_fast_720p`, `wan22_fast_580p`, `wan22_fast_480p`, `wan25_720p`, `wan26_720p`, `wan26_1080p`, `wan27_720p`, `wan27_1080p`, `wan_animate_720p`, `ltx23_720p`, `ltx23_1080p`, `kling25`, `kling30_standard`, `kling30_standard_audio`, `kling30_pro`, `kling30_pro_audio`, `kling30_4k`, `kling30_motion_control`, `kling30_motion_control_pro`, `cinematic_video`, `dreamactor_m2`, `happyhorse_720p`, `happyhorse_1080p`, `happyhorse_motion_control`, `veo31_fast_720p`, `veo31_fast_audio_720p`, `veo31_fast_1080p`, `veo31_fast_audio_1080p`, `veo31_fast_4k`, `veo31_fast_audio_4k`, `veo31_lite_720p`, `veo31_lite_audio_720p`, `veo31_lite_1080p`, `veo31_lite_audio_1080p`. See [Image2Video](/docs/features/video/) for capabilities, pricing, and allowed durations per model.
+enum: `seedance_480p`, `seedance_v15_720p`, `seedance_v15_audio_720p`, `seedance2_fast_480p`, `seedance2_fast_720p`, `seedance2_fast_1080p`, `seedance2_fast_4k`, `seedance2_480p`, `seedance2_720p`, `seedance2_1080p`, `seedance2_4k`, `wan22_720p`, `wan22_fast_720p`, `wan22_fast_580p`, `wan22_fast_480p`, `wan25_720p`, `wan26_720p`, `wan26_1080p`, `wan27_720p`, `wan27_1080p`, `wan_animate_720p`, `ltx23_720p`, `ltx23_1080p`, `kling25`, `kling30_standard`, `kling30_standard_audio`, `kling30_pro`, `kling30_pro_audio`, `kling30_4k`, `kling30_motion_control`, `kling30_motion_control_pro`, `cinematic_video`, `dreamactor_m2`, `happyhorse_720p`, `happyhorse_1080p`, `happyhorse_motion_control`, `veo31_fast_720p`, `veo31_fast_audio_720p`, `veo31_fast_1080p`, `veo31_fast_audio_1080p`, `veo31_fast_4k`, `veo31_fast_audio_4k`, `veo31_lite_720p`, `veo31_lite_audio_720p`, `veo31_lite_1080p`, `veo31_lite_audio_1080p`. See [Image2Video](/docs/features/video/) for capabilities, pricing, and allowed durations per model.
 
 #### `video_prompt` (required for video) 
-Natural-language description of the motion / camera / scene action. Surround the value with quotes when posting via `multipart/form-data`. Should not include the LoRA token used for the image stage.
+Natural-language description of the motion / camera / scene action. Surround the value with quotes when posting via `multipart/form-data`.
+
+For Seedance 2 reference-to-video, include each existing reference tune as `<faceid:TUNE_ID:1> TUNE_NAME` (or the corresponding `lora` token). The tune's class name must immediately follow the token. Astria resolves those tunes and supplies their images as video references; Seedance 2 accepts up to nine reference images in total.
 
 #### `video_duration` (optional) 
 Integer seconds. Allowed values depend on `video_model` (see [Image2Video](/docs/features/video/)). Defaults vary per model (commonly 5; 8 for VEO3; 10 for motion-control / animate models).
@@ -121,11 +150,43 @@ Integer seconds. Allowed values depend on `video_model` (see [Image2Video](/docs
 #### `video_first_frame` (optional)
 Binary multi-part image upload to use as the first frame, overriding the rendered image. When provided, the image stage is skipped and `text` is not required.
 
+#### `video_first_frame_url` (optional)
+URL alternative to `video_first_frame`.
+
 #### `video_last_frame` (optional)
-Binary multi-part image upload for first+last keyframe models (e.g. `seedance_v15_*`, `wan21_*`, `kling*`, `ltx23_*`, `veo31_*`).
+Binary multi-part image upload for first+last keyframe models (e.g. `seedance_v15_*`, `seedance2_*`, `wan21_*`, `kling*`, `ltx23_*`, `veo31_*`).
+
+#### `video_last_frame_url` (optional)
+URL alternative to `video_last_frame`.
+
+#### `source_image_url` (optional)
+URL of an existing generated image to animate as the first frame. This skips the image-generation stage. If `video_first_frame` or `video_first_frame_url` is also provided, the explicit first frame takes precedence.
 
 #### `input_video` (optional)
-Binary multi-part video upload. Required for motion-control models: `kling30_motion_control`, `kling30_motion_control_pro`, `wan_animate_720p`, `dreamactor_m2`, `happyhorse_motion_control`.
+Binary multi-part video upload. Seedance 2 uses it as a reference video. It is also required for motion-control models: `kling30_motion_control`, `kling30_motion_control_pro`, `wan_animate_720p`, `dreamactor_m2`, `happyhorse_motion_control`.
+
+#### `input_video_url` (optional)
+URL alternative to `input_video`.
+
+#### `audio_reference` (optional)
+Binary multi-part audio upload for models that accept reference audio, including `seedance2_*`. Set `video_audio=true` so the output includes audio. You can refer to the track as `@Audio1` in `video_prompt`; Astria adds that token on provider paths that require it when no `@Audio` token is present.
+
+#### `audio_reference_url` (optional)
+URL alternative to `audio_reference`.
+
+#### `video_audio` (optional)
+Boolean. Generate an audio track when the selected model supports generated audio, including `seedance2_*`. Defaults to `false`. Set it to `true` when using `audio_reference`.
+
+#### `video_upscale_model` (optional)
+Post-process the generated video with an upscaler. enum: `seedvr2`.
+
+#### `video_upscale_target_resolution` (optional)
+Target for `video_upscale_model`. enum: `720p`, `1080p`, `2k`, `4k`. Defaults to `1080p` when an upscaler is selected.
+
+#### `video_fps_model` (optional)
+Post-process the generated video with frame interpolation. enum: `video_fps_increaser`. It can be combined with video upscaling.
+
+For Seedance 2, first/last-frame mode cannot be combined with `input_video` or `audio_reference`. Use either first/last frames or reference video/audio in one request.
 
 > Backwards-compatible legacy syntax: the `--video --video_model … --video_prompt "…" --duration N` CLI flags inside `text` are still accepted and promoted into the dedicated columns server-side. New integrations should use the form fields above.
 
@@ -225,4 +286,3 @@ response = requests.post(API_URL, headers=headers, files=files, data=data)
 ```
 </div>
 </div>
-
