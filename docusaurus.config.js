@@ -76,6 +76,7 @@ const config = {
               'features/face-swap',
               'use-cases/masked-portraits',
               'use-cases/sdxl-training',
+              'api/sdxl-api',
             ];
             const archivedDocIdSet = new Set(archivedDocIds);
 
