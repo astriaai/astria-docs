@@ -64,6 +64,37 @@ const config = {
         docs: {
           sidebarCollapsed: false,
           sidebarPath: require.resolve('./sidebars.js'),
+          async sidebarItemsGenerator({
+            defaultSidebarItemsGenerator,
+            ...args
+          }) {
+            const sidebarItems = await defaultSidebarItemsGenerator(args);
+            const archivedDocIds = [
+              'features/lcm',
+              'features/backend-v1',
+              'features/multiperson',
+              'features/face-swap',
+              'use-cases/masked-portraits',
+              'use-cases/sdxl-training',
+            ];
+            const archivedDocIdSet = new Set(archivedDocIds);
+
+            const removeArchivedDocs = (items) => items
+              .filter((item) => item.type !== 'doc' || !archivedDocIdSet.has(item.id))
+              .map((item) => item.type === 'category'
+                ? {...item, items: removeArchivedDocs(item.items)}
+                : item);
+
+            return [
+              ...removeArchivedDocs(sidebarItems),
+              {
+                type: 'category',
+                label: 'Archived',
+                collapsed: true,
+                items: archivedDocIds.map((id) => ({type: 'doc', id})),
+              },
+            ];
+          },
         },
         blog: {
           showReadingTime: true,
