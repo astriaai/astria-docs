@@ -35,6 +35,12 @@ Describes camera movement, scene, and object interactions. Keep image-stage LoRA
 
 Example: `<lora:1533312:1.0> ohwx woman hiking in the alps` (in `text`) + `Woman looking at the camera, smiling, puts hands on her hips, confident` (in `video_prompt`).
 
+#### `image_references` (optional)
+Ordered array of multipart image uploads for reference-to-video models. Repeat `prompt[image_references][]` for each image.
+
+#### `image_reference_urls` (optional)
+Ordered array of public image URLs, as an alternative to `image_references`. Repeat `prompt[image_reference_urls][]` for each URL. Order is preserved within each array.
+
 #### `video_duration` (optional)
 Integer seconds. Allowed values depend on the chosen model — see the table.
 
@@ -113,7 +119,23 @@ curl -X POST -H "Authorization: Bearer $API_KEY" \
   -F 'prompt[video_audio]=true'
 ```
 
-Use the corresponding `*_url` field instead when the file is already publicly accessible. Do not combine Seedance 2 first/last frames with `input_video` or `audio_reference`; these are separate media modes.
+Use the corresponding `*_url` field instead when the file is already publicly accessible. Do not combine Seedance 2 or Seedance 2.5 first/last frames with `image_references`, `image_reference_urls`, `input_video`, or `audio_reference`; these are separate media modes.
+
+### Ordered image references
+
+Use `image_references` when each frame should be conditioned directly by a sequence of images rather than tune training images. The same field works with any compatible reference-to-video model; model-specific image limits apply.
+
+```bash
+curl -X POST -H "Authorization: Bearer $API_KEY" \
+  https://api.astria.ai/tunes/$TUNE_ID/prompts \
+  -F 'prompt[video_model]=seedance2_fast_720p' \
+  -F 'prompt[video_prompt]=Begin on the back detail, orbit around the model, and end on the front view' \
+  -F 'prompt[video_duration]=8' \
+  -F 'prompt[image_references][]=@/path/to/back.jpg' \
+  -F 'prompt[image_references][]=@/path/to/front.jpg'
+```
+
+For hosted images, send repeated `prompt[image_reference_urls][]` fields instead. The prompt response exposes the stored references as an ordered `image_references` array of URLs. On models with exclusive media modes, image references cannot be combined with first/last frames.
 
 ### Motion control
 
@@ -185,7 +207,7 @@ Cost is the per-prompt charge in cents at the base duration listed for the model
 ### Capability matrix
 
 - **Text-to-video** (no first frame required): `seedance2_*`, `happyhorse_720p`, `happyhorse_1080p`.
-- **Multi-reference images**: `seedance2_*` (up to nine total), `happyhorse_720p`, `happyhorse_1080p`.
+- **Multi-reference images** (`image_references[]` / `image_reference_urls[]`): `seedance2_*`, `seedance25*`, `minimax_h3_2k`, `wan30_*`, `happyhorse_720p`, `happyhorse_1080p`, `ray32_*`, `gemini_omni_flash`. Limits vary by model (nine for Seedance 2 and MiniMax H3, ten for WAN 3.0, and up to thirty for Seedance 2.5).
 - **Reference video** (`input_video` / `input_video_url`): `seedance2_*` and motion-control models.
 - **Reference audio** (`audio_reference` / `audio_reference_url`): `seedance2_*`.
 - **Generated audio** (`video_audio=true`): `seedance2_*`.

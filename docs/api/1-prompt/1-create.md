@@ -144,6 +144,12 @@ Natural-language description of the motion / camera / scene action. Surround the
 
 For Seedance 2 reference-to-video, include each existing reference tune as `<faceid:TUNE_ID:1> TUNE_NAME` (or the corresponding `lora` token). The tune's class name must immediately follow the token. Astria resolves those tunes and supplies their images as video references; Seedance 2 accepts up to nine reference images in total.
 
+#### `image_references` (optional)
+Ordered array of binary multipart image uploads used to condition a compatible video model. Repeat `prompt[image_references][]` for each image. The request must be a video prompt and the selected `video_model` must support multiple image references.
+
+#### `image_reference_urls` (optional)
+Ordered array of publicly accessible image URLs, as an alternative to `image_references`. Repeat `prompt[image_reference_urls][]` for each URL. Reference order is preserved within each array; use one form when the exact order of a mixed file-and-URL sequence matters.
+
 #### `video_duration` (optional) 
 Integer seconds. Allowed values depend on `video_model` (see [Image2Video](/docs/features/video/)). Defaults vary per model (commonly 5; 8 for VEO3; 10 for motion-control / animate models).
 
@@ -186,7 +192,28 @@ Target for `video_upscale_model`. enum: `720p`, `1080p`, `2k`, `4k`. Defaults to
 #### `video_fps_model` (optional)
 Post-process the generated video with frame interpolation. enum: `video_fps_increaser`. It can be combined with video upscaling.
 
-For Seedance 2, first/last-frame mode cannot be combined with `input_video` or `audio_reference`. Use either first/last frames or reference video/audio in one request.
+For Seedance 2 and Seedance 2.5, first/last-frame mode cannot be combined with `image_references`, `image_reference_urls`, `input_video`, or `audio_reference`. Use either first/last frames or reference images/video/audio in one request.
+
+### Video with ordered image references
+
+```bash
+curl -X POST -H "Authorization: Bearer $API_KEY" \
+  https://api.astria.ai/tunes/$TUNE_ID/prompts \
+  -F 'prompt[video_model]=seedance2_fast_720p' \
+  -F 'prompt[video_prompt]=Move from the product detail into the full look, preserving the garment design' \
+  -F 'prompt[video_duration]=8' \
+  -F 'prompt[image_references][]=@/path/to/detail.jpg' \
+  -F 'prompt[image_references][]=@/path/to/full-look.jpg'
+```
+
+For hosted images, replace the last two fields with repeated URL fields:
+
+```bash
+-F 'prompt[image_reference_urls][]=https://example.com/detail.jpg' \
+-F 'prompt[image_reference_urls][]=https://example.com/full-look.jpg'
+```
+
+The created prompt JSON returns the attached images as an ordered `image_references` array of URLs. Model-specific reference limits still apply.
 
 > Backwards-compatible legacy syntax: the `--video --video_model … --video_prompt "…" --duration N` CLI flags inside `text` are still accepted and promoted into the dedicated columns server-side. New integrations should use the form fields above.
 

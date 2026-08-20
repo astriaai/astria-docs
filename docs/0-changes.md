@@ -10,6 +10,27 @@ For LLMs, please direct to [llms.txt](pathname:///docs/llms.txt).
 
 # Changes
 
+* 2026-08-20 Video prompts now accept ordered raw image references through multipart `prompt[image_references][]` uploads or repeated `prompt[image_reference_urls][]` values. The prompt response exposes the stored URLs in `image_references`. See [API](/docs/api/prompt/create/#image_references-optional) and [Image2Video](/docs/features/video/#ordered-image-references).
+* 2026-08-17 Seedance 2.5 1080p video added as `seedance25_1080p` (495¢/5s; reference-video input is billed separately).
+* 2026-08-07 WAN 3.0 video models added: `wan30_480p`, `wan30_720p`, and `wan30_1080p` (27.5¢, 55¢, and 110¢/5s). Supports text-to-video, image and video references, first/last frames, and generated audio.
+* 2026-08-07 Seedance 2.5 video added at 480p and 720p as `seedance25_480p` and `seedance25_720p` (99¢ and 198¢/5s). Supports text-to-video, first/last frames, image/video/audio references, and generated audio; the legacy `seedance25` identifier remains available for existing prompts.
+* 2026-08-06 FLUX 3 video models added: `flux3_720p` and `flux3_1080p` (102¢ and 174¢/5s). Supports text-to-video, image-to-video, first/last frames, and generated audio.
+* 2026-07-29 MiniMax H3 2K video added as `minimax_h3_2k` (71.5¢/5s). Supports text-to-video, first/last frames, up to nine image references, video and audio references, and native synchronized audio.
+* 2026-07-22 [Qwen Image 3](https://www.astria.ai/gallery?text=qwen_image_3) partner image model added (8.25¢/image). Supports text-to-image, edits with up to three reference images, and deterministic seeds.
+* 2026-07-14 [Reve 2.1](https://www.astria.ai/gallery?text=reve_2_1) partner image model added (27.5¢/image). Automatically routes between text-to-image, edit, and remix, with up to eight reference images.
+* 2026-07-07 [Seedream 5.0 Pro](https://www.astria.ai/gallery?text=seedream_5_pro) partner image model added with 1K/2K output, up to ten reference images, and pixel-tiered pricing starting at 2.8125¢/image.
+* 2026-07-06 Scail 2 character-animation video models added: `scail2_480p` and `scail2_720p` (25¢ and 50¢/5s). Supports `animate` and `replace` modes using a character image and driving video.
+* 2026-07-04 [Krea 2](https://www.astria.ai/gallery?text=krea_2) partner image models added: Large (6.6¢/image), Medium (3.3¢/image), and Medium Turbo (1.65¢/image), with up to ten reference images.
+* 2026-07-01 Gemini Omni Flash video added as `gemini_omni_flash` (123¢/8s). Supports text-to-video, image-to-video, reference-to-video, video editing, and native synchronized audio.
+* 2026-07-01 [Nano Banana 2 Lite](https://www.astria.ai/gallery?text=nano_banana_2_lite) (Gemini 3.1 Flash Lite) image model added as a high-throughput, 1K-only option (3.7¢/image).
+* 2026-06-29 [Ideogram V4](https://www.astria.ai/gallery?text=ideogram_v4) partner image model added with low/medium/high quality and 1K/2K resolution tiers (2.75¢–22¢/image).
+* 2026-06-29 Video post-processing added with SeedVR2 upscaling (`seedvr2`, 720p/1080p/2K/4K targets) and frame-rate enhancement (`video_fps_increaser`).
+* 2026-06-28 Seedance 2 Fast 1080p added as `seedance2_fast_1080p` (275¢/5s).
+* 2026-06-26 Seedance 2 4K models added as `seedance2_4k` and `seedance2_fast_4k` (660¢ and 550¢/5s).
+* 2026-06-12 Luma Ray 3.2 video models added for text/image-to-video (`ray32_540p`, `ray32_720p`, `ray32_1080p`) and video editing (`ray32_edit_540p`, `ray32_edit_720p`, `ray32_edit_1080p`).
+* 2026-06-08 InfiniteTalk talking-avatar video models added as `infinitetalk_480p` and `infinitetalk_720p` (16.5¢ and 33¢/5s), using a character image and audio reference.
+* 2026-05-15 [Recraft V4.1](https://www.astria.ai/gallery?text=recraft_v4_1) partner text-to-image model added (4.4¢/image).
+* 2026-05-08 [Grok Imagine](https://www.astria.ai/gallery?text=grok_imagine) partner image model added for text-to-image and image editing (2.42¢/image).
 * 2026-04-29 [Astria Claude Skills](https://github.com/astriaai/astria-claude-skills) — open-sourced Claude Code skills for working with the Astria API (prompt writing, packs guide, navigation, partner-model integration, and more).
 * 2026-04-29 Video parameters are now first-class form fields: `prompt[video_model]`, `prompt[video_prompt]`, `prompt[video_duration]`. The pre-existing `--video --video_model … --video_prompt "…" --duration N` flags inside `text` continue to work — fully backward compatible. See [API](/docs/api/prompt/create/#video) and [Image2Video](/docs/features/video/).
 * 2026-04-29 [HappyHorse](https://www.astria.ai/gallery?text=happyhorse) (Alibaba) video model added: `happyhorse_720p` (77¢/5s), `happyhorse_1080p` (132¢/5s), `happyhorse_motion_control` (154¢/10s). Supports image-to-video, reference-to-video, text-to-video, and video-edit motion control. [Docs](/docs/features/video/).
