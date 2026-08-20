@@ -77,6 +77,10 @@ const config = {
               'use-cases/masked-portraits',
               'use-cases/sdxl-training',
               'api/sdxl-api',
+              'use-cases/finetuning-guide',
+              'use-cases/room-redesign',
+              'use-cases/toonify',
+              'use-cases/faq',
             ];
             const archivedDocIdSet = new Set(archivedDocIds);
 
