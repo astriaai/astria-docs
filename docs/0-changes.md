@@ -11,62 +11,62 @@ For LLMs, please direct to [llms.txt](pathname:///docs/llms.txt).
 # Changes
 
 * 2026-08-20 Video prompts now accept ordered raw image references through multipart `prompt[image_references][]` uploads or repeated `prompt[image_reference_urls][]` values. The prompt response exposes the stored URLs in `image_references`. See [API](/docs/api/prompt/create/#image_references-optional) and [Image2Video](/docs/features/video/#ordered-image-references).
-* 2026-08-17 Seedance 2.5 1080p video added as `seedance25_1080p` (495¢/5s; reference-video input is billed separately).
-* 2026-08-07 WAN 3.0 video models added: `wan30_480p`, `wan30_720p`, and `wan30_1080p` (27.5¢, 55¢, and 110¢/5s). Supports text-to-video, image and video references, first/last frames, and generated audio.
-* 2026-08-07 Seedance 2.5 video added at 480p and 720p as `seedance25_480p` and `seedance25_720p` (99¢ and 198¢/5s). Supports text-to-video, first/last frames, image/video/audio references, and generated audio; the legacy `seedance25` identifier remains available for existing prompts.
-* 2026-08-06 FLUX 3 video models added: `flux3_720p` and `flux3_1080p` (102¢ and 174¢/5s). Supports text-to-video, image-to-video, first/last frames, and generated audio.
-* 2026-07-29 MiniMax H3 2K video added as `minimax_h3_2k` (71.5¢/5s). Supports text-to-video, first/last frames, up to nine image references, video and audio references, and native synchronized audio.
-* 2026-07-22 [Qwen Image 3](https://www.astria.ai/gallery?text=qwen_image_3) partner image model added (8.25¢/image). Supports text-to-image, edits with up to three reference images, and deterministic seeds.
-* 2026-07-14 [Reve 2.1](https://www.astria.ai/gallery?text=reve_2_1) partner image model added (27.5¢/image). Automatically routes between text-to-image, edit, and remix, with up to eight reference images.
-* 2026-07-07 [Seedream 5.0 Pro](https://www.astria.ai/gallery?text=seedream_5_pro) partner image model added with 1K/2K output, up to ten reference images, and pixel-tiered pricing starting at 2.8125¢/image.
-* 2026-07-06 Scail 2 character-animation video models added: `scail2_480p` and `scail2_720p` (25¢ and 50¢/5s). Supports `animate` and `replace` modes using a character image and driving video.
-* 2026-07-04 [Krea 2](https://www.astria.ai/gallery?text=krea_2) partner image models added: Large (6.6¢/image), Medium (3.3¢/image), and Medium Turbo (1.65¢/image), with up to ten reference images.
-* 2026-07-01 Gemini Omni Flash video added as `gemini_omni_flash` (123¢/8s). Supports text-to-video, image-to-video, reference-to-video, video editing, and native synchronized audio.
-* 2026-07-01 [Nano Banana 2 Lite](https://www.astria.ai/gallery?text=nano_banana_2_lite) (Gemini 3.1 Flash Lite) image model added as a high-throughput, 1K-only option (3.7¢/image).
-* 2026-06-29 [Ideogram V4](https://www.astria.ai/gallery?text=ideogram_v4) partner image model added with low/medium/high quality and 1K/2K resolution tiers (2.75¢–22¢/image).
+* 2026-08-17 Seedance 2.5 1080p video added as `seedance25_1080p`.
+* 2026-08-07 WAN 3.0 video models added: `wan30_480p`, `wan30_720p`, and `wan30_1080p`. Supports text-to-video, image and video references, first/last frames, and generated audio.
+* 2026-08-07 Seedance 2.5 video added at 480p and 720p as `seedance25_480p` and `seedance25_720p`. Supports text-to-video, first/last frames, image/video/audio references, and generated audio; the legacy `seedance25` identifier remains available for existing prompts.
+* 2026-08-06 FLUX 3 video models added: `flux3_720p` and `flux3_1080p`. Supports text-to-video, image-to-video, first/last frames, and generated audio.
+* 2026-07-29 MiniMax H3 2K video added as `minimax_h3_2k`. Supports text-to-video, first/last frames, up to nine image references, video and audio references, and native synchronized audio.
+* 2026-07-22 [Qwen Image 3](https://www.astria.ai/gallery?text=qwen_image_3) partner image model added. Supports text-to-image, edits with up to three reference images, and deterministic seeds.
+* 2026-07-14 [Reve 2.1](https://www.astria.ai/gallery?text=reve_2_1) partner image model added. Automatically routes between text-to-image, edit, and remix, with up to eight reference images.
+* 2026-07-07 [Seedream 5.0 Pro](https://www.astria.ai/gallery?text=seedream_5_pro) partner image model added with 1K/2K output and up to ten reference images.
+* 2026-07-06 Scail 2 character-animation video models added: `scail2_480p` and `scail2_720p`. Supports `animate` and `replace` modes using a character image and driving video.
+* 2026-07-04 [Krea 2](https://www.astria.ai/gallery?text=krea_2) partner image models added in Large, Medium, and Medium Turbo variants, with up to ten reference images.
+* 2026-07-01 Gemini Omni Flash video added as `gemini_omni_flash`. Supports text-to-video, image-to-video, reference-to-video, video editing, and native synchronized audio.
+* 2026-07-01 [Nano Banana 2 Lite](https://www.astria.ai/gallery?text=nano_banana_2_lite) (Gemini 3.1 Flash Lite) image model added as a high-throughput, 1K-only option.
+* 2026-06-29 [Ideogram V4](https://www.astria.ai/gallery?text=ideogram_v4) partner image model added with low/medium/high quality and 1K/2K resolution tiers.
 * 2026-06-29 Video post-processing added with SeedVR2 upscaling (`seedvr2`, 720p/1080p/2K/4K targets) and frame-rate enhancement (`video_fps_increaser`).
-* 2026-06-28 Seedance 2 Fast 1080p added as `seedance2_fast_1080p` (275¢/5s).
-* 2026-06-26 Seedance 2 4K models added as `seedance2_4k` and `seedance2_fast_4k` (660¢ and 550¢/5s).
+* 2026-06-28 Seedance 2 Fast 1080p added as `seedance2_fast_1080p`.
+* 2026-06-26 Seedance 2 4K models added as `seedance2_4k` and `seedance2_fast_4k`.
 * 2026-06-12 Luma Ray 3.2 video models added for text/image-to-video (`ray32_540p`, `ray32_720p`, `ray32_1080p`) and video editing (`ray32_edit_540p`, `ray32_edit_720p`, `ray32_edit_1080p`).
-* 2026-06-08 InfiniteTalk talking-avatar video models added as `infinitetalk_480p` and `infinitetalk_720p` (16.5¢ and 33¢/5s), using a character image and audio reference.
-* 2026-05-15 [Recraft V4.1](https://www.astria.ai/gallery?text=recraft_v4_1) partner text-to-image model added (4.4¢/image).
-* 2026-05-08 [Grok Imagine](https://www.astria.ai/gallery?text=grok_imagine) partner image model added for text-to-image and image editing (2.42¢/image).
+* 2026-06-08 InfiniteTalk talking-avatar video models added as `infinitetalk_480p` and `infinitetalk_720p`, using a character image and audio reference.
+* 2026-05-15 [Recraft V4.1](https://www.astria.ai/gallery?text=recraft_v4_1) partner text-to-image model added.
+* 2026-05-08 [Grok Imagine](https://www.astria.ai/gallery?text=grok_imagine) partner image model added for text-to-image and image editing.
 * 2026-04-29 [Astria Claude Skills](https://github.com/astriaai/astria-claude-skills) — open-sourced Claude Code skills for working with the Astria API (prompt writing, packs guide, navigation, partner-model integration, and more).
 * 2026-04-29 Video parameters are now first-class form fields: `prompt[video_model]`, `prompt[video_prompt]`, `prompt[video_duration]`. The pre-existing `--video --video_model … --video_prompt "…" --duration N` flags inside `text` continue to work — fully backward compatible. See [API](/docs/api/prompt/create/#video) and [Image2Video](/docs/features/video/).
-* 2026-04-29 [HappyHorse](https://www.astria.ai/gallery?text=happyhorse) (Alibaba) video model added: `happyhorse_720p` (77¢/5s), `happyhorse_1080p` (132¢/5s), `happyhorse_motion_control` (154¢/10s). Supports image-to-video, reference-to-video, text-to-video, and video-edit motion control. [Docs](/docs/features/video/).
+* 2026-04-29 [HappyHorse](https://www.astria.ai/gallery?text=happyhorse) (Alibaba) video models added: `happyhorse_720p`, `happyhorse_1080p`, and `happyhorse_motion_control`. Supports image-to-video, reference-to-video, text-to-video, and video-edit motion control. [Docs](/docs/features/video/).
 * 2026-04-24 Kling 4K image-to-video model added (`kling30_4k`).
-* 2026-04-21 [GPT Image 2](https://www.astria.ai/gallery?text=gpt_image_2) partner image model added with quality × resolution pricing (low/medium/high × 1K/2K/4K). Native mask support, OpenAI-direct routing.
+* 2026-04-21 [GPT Image 2](https://www.astria.ai/gallery?text=gpt_image_2) partner image model added with low/medium/high quality and 1K/2K/4K resolution options. Native mask support, OpenAI-direct routing.
 * 2026-04-13 Veo 3.1 Fast 4K and Veo 3.1 Lite video models added.
 * 2026-04-10 [Seedance 2](https://www.astria.ai/gallery?text=seedance2) video model added (480p / 720p / 1080p / 2K, plus fast variants). Supports text-to-video, reference-to-video, audio reference, first/last frame.
-* 2026-04-05 Grok 2 Image partner text-to-image model added (7.7¢/image).
-* 2026-04-04 [GPT Image 1.5](https://www.astria.ai/gallery?text=gpt_image_15) partner image model added via WavespeedApi. Quality (low/medium/high) × size (1024×1024, 1024×1536, 1536×1024) pricing.
+* 2026-04-05 Grok 2 Image partner text-to-image model added.
+* 2026-04-04 [GPT Image 1.5](https://www.astria.ai/gallery?text=gpt_image_15) partner image model added via WavespeedApi. Supports low/medium/high quality and 1024×1024, 1024×1536, and 1536×1024 output sizes.
 * 2026-04-04 WAN 2.7 1080p image-to-video added.
-* 2026-04-02 [WAN 2.7](https://www.astria.ai/gallery?text=wan27) and WAN 2.7 Pro partner image models added (3.3¢ and 8.25¢/image).
+* 2026-04-02 [WAN 2.7](https://www.astria.ai/gallery?text=wan27) and WAN 2.7 Pro partner image models added.
 * 2026-03-29 WAN 2.6 video model added.
 * 2026-03-27 LTX 2.3 video model added (720p/1080p).
-* 2026-03-14 [Flux Klein 9B](https://www.astria.ai/gallery?text=flux_klein) partner image model added (1.76¢/image, up to 3 reference images).
-* 2026-03-13 [Recraft V4](https://www.astria.ai/gallery?text=recraft_v4) and Recraft V4 Pro partner image models added (4.4¢ and 27.5¢/image).
-* 2026-02-24 [Seedream 5.0 Lite](https://www.astria.ai/gallery?text=seedream_5) partner image model added (4.4¢/image).
+* 2026-03-14 [Flux Klein 9B](https://www.astria.ai/gallery?text=flux_klein) partner image model added with up to three reference images.
+* 2026-03-13 [Recraft V4](https://www.astria.ai/gallery?text=recraft_v4) and Recraft V4 Pro partner image models added.
+* 2026-02-24 [Seedream 5.0 Lite](https://www.astria.ai/gallery?text=seedream_5) partner image model added.
 * 2026-02-15 Kling 3 Pro and Kling 3 Motion Control video models added.
 * 2026-02-10 DreamActor M2 video model added (motion control).
 * 2026-02-07 Kling 3 video model added.
 * 2026-01-25 Kling 2.6 image-to-video and Wan Animate video models added via Fal.
-* 2026-01-08 P-Image Edit partner model added via Replicate (1.1¢/image).
-* 2026-01-07 [Flux 2 Turbo](https://www.astria.ai/gallery?text=flux2_turbo) partner image model added (0.8¢/MP for both input and output, supports up to 4 input images).
+* 2026-01-08 P-Image Edit partner model added via Replicate.
+* 2026-01-07 [Flux 2 Turbo](https://www.astria.ai/gallery?text=flux2_turbo) partner image model added with support for up to four input images.
 * 2026-01-07 LTX 2 video model added.
 * 2025-12-28 Seedance v1.5 video model added (480p/720p, with audio variants).
-* 2025-12-03 [Seedream 4.5](https://www.astria.ai/gallery?text=seedream_4_5) partner image model added (4.4¢/image, min 3686400 px).
-* 2025-11-29 [Flux 2 Pro](https://www.astria.ai/gallery?text=flux2_pro) partner image model added with 1MP base + per-MP and per-reference image surcharges; supports 2K (4MP) output.
+* 2025-12-03 [Seedream 4.5](https://www.astria.ai/gallery?text=seedream_4_5) partner image model added with a minimum output size of 3686400 pixels.
+* 2025-11-29 [Flux 2 Pro](https://www.astria.ai/gallery?text=flux2_pro) partner image model added with support for 2K (4MP) output.
 * 2025-10-30 Added support for Super-resolution, `--upscale_v4`, film grain to Gemini Nano-Banana and Seedream.
-* 2025-10-27 [Seedance Pro Fast](https://www.astria.ai/gallery?text=seedance) provides a great combination of quality and cost. [Docs](/docs/features/video/)
-* 2025-10-23 [Hyperrealism](https://www.astria.ai/gallery?text=hyperrealism) partner image model added (4¢/image).
+* 2025-10-27 [Seedance Pro Fast](https://www.astria.ai/gallery?text=seedance) video model added. [Docs](/docs/features/video/)
+* 2025-10-23 [Hyperrealism](https://www.astria.ai/gallery?text=hyperrealism) partner image model added.
 * 2025-10-16 Veo 3.1 video model added (Vertex routing).
 * 2025-10-19 Added new upscaling `--upscale_v4`. See [gallery](https://www.astria.ai/gallery?text=--upscale_v4)  
 * 2025-10-19 [Aspect-ratio](/docs/api/prompt/create/#aspect_ratio-optional) added to prompts 
 * 2025-10-15 [Riverflow 1](https://www.astria.ai/gallery/tunes/3449219/prompts) and [Riverflow 1 Mini](https://www.astria.ai/gallery/tunes/3449218/prompts) support great precision in image-editing, with benchmarks surpassing nano-banana. Additonally available in the [Photoshop plugin](https://www.astria.ai/nano-banana-photoshop). 
 * 2025-10-08 [Ovi](https://www.astria.ai/gallery?text=video_model%20ovi) video model added allowing talking Avatars with text and expressive voice.
 * 2025-09-25 Kling 2.5 and WAN 2.5 video models added.
-* 2025-09-18 [Reve](https://www.astria.ai/gallery?text=reve) partner image model added (5¢/image).
+* 2025-09-18 [Reve](https://www.astria.ai/gallery?text=reve) partner image model added.
 * 2025-09-15 [Photoshop plugin](https://www.astria.ai/nano-banana-photoshop) for Nano Banana Gemini 2.5 and Seedream 4.0 is now available.
 * 2025-08-05 Veo 3 Fast video model added.
 * 2025-08-03 WAN 2.2 Fast video model added (480p/580p/720p).
