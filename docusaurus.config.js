@@ -70,13 +70,20 @@ const config = {
           }) {
             const sidebarItems = await defaultSidebarItemsGenerator(args);
             const archivedDocIds = [
+              'features/faceid',
+              'features/tiled-upscale',
               'features/lcm',
               'features/backend-v1',
               'features/multiperson',
               'features/face-swap',
+              'use-cases/virtual-try-on',
+              'use-cases/controlnet',
+              'use-cases/product-shots',
+              'use-cases/upscale',
               'use-cases/masked-portraits',
               'use-cases/sdxl-training',
               'api/sdxl-api',
+              'api/themes/create',
               'use-cases/finetuning-guide',
               'use-cases/room-redesign',
               'use-cases/toonify',
@@ -88,7 +95,8 @@ const config = {
               .filter((item) => item.type !== 'doc' || !archivedDocIdSet.has(item.id))
               .map((item) => item.type === 'category'
                 ? {...item, items: removeArchivedDocs(item.items)}
-                : item);
+                : item)
+              .filter((item) => item.type !== 'category' || item.items.length > 0);
 
             return [
               ...removeArchivedDocs(sidebarItems),
