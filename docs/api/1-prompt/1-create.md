@@ -137,7 +137,16 @@ Integer. Records an accessible pack as the provenance for a one-off prompt witho
 Pass these alongside `text` to turn a prompt into a video. The image stage (driven by the chosen tune) renders the first frame from `text`; the video model then animates it using `video_prompt`. For text-to-video models the image stage can be skipped — see the model list.
 
 #### `video_model` (required for video) 
-enum: `seedance_480p`, `seedance_v15_720p`, `seedance_v15_audio_720p`, `seedance2_fast_480p`, `seedance2_fast_720p`, `seedance2_fast_1080p`, `seedance2_fast_4k`, `seedance2_480p`, `seedance2_720p`, `seedance2_1080p`, `seedance2_4k`, `wan22_720p`, `wan22_fast_720p`, `wan22_fast_580p`, `wan22_fast_480p`, `wan25_720p`, `wan26_720p`, `wan26_1080p`, `wan27_720p`, `wan27_1080p`, `wan_animate_720p`, `ltx23_720p`, `ltx23_1080p`, `kling25`, `kling30_standard`, `kling30_standard_audio`, `kling30_pro`, `kling30_pro_audio`, `kling30_4k`, `kling30_motion_control`, `kling30_motion_control_pro`, `cinematic_video`, `dreamactor_m2`, `happyhorse_720p`, `happyhorse_1080p`, `happyhorse_motion_control`, `veo31_fast_720p`, `veo31_fast_audio_720p`, `veo31_fast_1080p`, `veo31_fast_audio_1080p`, `veo31_fast_4k`, `veo31_fast_audio_4k`, `veo31_lite_720p`, `veo31_lite_audio_720p`, `veo31_lite_1080p`, `veo31_lite_audio_1080p`. See [Image2Video](/docs/features/video/) for capabilities, pricing, and allowed durations per model.
+A video model family such as `seedance25`, `seedance2_fast`, `veo31_fast`, or `kling30_pro`. Pick the output resolution with [`video_resolution`](#video_resolution-optional) and audio with [`video_audio`](#video_audio-optional). The live catalog of families, their resolutions, and their default resolution is returned in `video_model_families` by `GET https://api.astria.ai/cli/models`; see [Image2Video](/docs/features/video/#model-families) for the current table. An unknown `video_model` returns a 422 that lists the accepted families.
+
+Legacy variant ids that bake the resolution and audio into the name (`seedance25_720p`, `seedance2_fast_480p`, `veo31_fast_audio_1080p`, ...) are still accepted and mean the same model as before. An explicit `video_resolution` or `video_audio` moves a variant id within its family, so `video_model=seedance25_720p` with `video_resolution=1080p` renders `seedance25_1080p`.
+
+Accepted variant ids: `seedance_480p`, `seedance_v15_720p`, `seedance_v15_audio_720p`, `seedance2_fast_480p`, `seedance2_fast_720p`, `seedance2_fast_1080p`, `seedance2_fast_4k`, `seedance2_480p`, `seedance2_720p`, `seedance2_1080p`, `seedance2_4k`, `wan22_720p`, `wan22_fast_720p`, `wan22_fast_580p`, `wan22_fast_480p`, `wan25_720p`, `wan26_720p`, `wan26_1080p`, `wan27_720p`, `wan27_1080p`, `wan_animate_720p`, `ltx23_720p`, `ltx23_1080p`, `kling25`, `kling30_standard`, `kling30_standard_audio`, `kling30_pro`, `kling30_pro_audio`, `kling30_4k`, `kling30_motion_control`, `kling30_motion_control_pro`, `cinematic_video`, `dreamactor_m2`, `happyhorse_720p`, `happyhorse_1080p`, `happyhorse_motion_control`, `veo31_fast_720p`, `veo31_fast_audio_720p`, `veo31_fast_1080p`, `veo31_fast_audio_1080p`, `veo31_fast_4k`, `veo31_fast_audio_4k`, `veo31_lite_720p`, `veo31_lite_audio_720p`, `veo31_lite_1080p`, `veo31_lite_audio_1080p`. See [Image2Video](/docs/features/video/) for capabilities, pricing, and allowed durations per model.
+
+#### `video_resolution` (optional)
+Output resolution within the `video_model` family, for example `480p`, `720p`, `1080p`, or `4k`. Allowed values are listed per family as `resolutions` in `GET /cli/models`. When omitted, a family uses its `default_resolution` and a legacy variant id keeps its own resolution. An unsupported value returns a 422 such as `video_resolution must be one of 480p, 720p, 1080p for seedance25`. Families without a resolution choice (for example `kling30_pro`, `seedance25_draft`, and `cinematic_video`) take no `video_resolution`; sending one returns a 422.
+
+Inside prompt text, the equivalent flag is `--video_resolution 1080p`.
 
 #### `video_prompt` (required for video) 
 Natural-language description of the motion / camera / scene action. Surround the value with quotes when posting via `multipart/form-data`.
@@ -183,6 +192,8 @@ URL alternative to `audio_reference`.
 #### `video_audio` (optional)
 Boolean. Generate an audio track when the selected model supports generated audio, including `seedance2_*`. Defaults to `false`. Set it to `true` when using `audio_reference`.
 
+For families that price audio as a separate model (Veo 3.1 Fast, Veo 3.1 Lite, Seedance 1.5 Pro, LTX-2 Fast, Kling 2.6 Pro, Kling 3.0 Standard, and Kling 3.0 Pro), `video_audio=true` selects the family's audio variant: `video_model=veo31_fast` + `video_resolution=1080p` + `video_audio=true` renders `veo31_fast_audio_1080p`. Other families pass `video_audio` to the model as `generate_audio`. An explicit `video_audio=false` also moves an `_audio` variant id to its silent variant.
+
 #### `video_upscale_model` (optional)
 Post-process the generated video with an upscaler. enum: `seedvr2`.
 
@@ -193,6 +204,29 @@ Target for `video_upscale_model`. enum: `720p`, `1080p`, `2k`, `4k`. Defaults to
 Post-process the generated video with frame interpolation. enum: `video_fps_increaser`. It can be combined with video upscaling.
 
 For Seedance 2 and Seedance 2.5, first/last-frame mode cannot be combined with `image_references`, `image_reference_urls`, `input_video`, or `audio_reference`. Use either first/last frames or reference images/video/audio in one request.
+
+### Video with a model family and resolution
+
+```bash
+curl -X POST -H "Authorization: Bearer $API_KEY" \
+  https://api.astria.ai/tunes/$TUNE_ID/prompts \
+  -F 'prompt[video_model]=seedance25' \
+  -F 'prompt[video_resolution]=1080p' \
+  -F 'prompt[video_prompt]=A lone explorer walks across endless dunes at sunrise, cinematic.' \
+  -F 'prompt[video_duration]=5' \
+  -F 'prompt[aspect_ratio]=16:9' \
+  -F 'prompt[video_audio]=true'
+```
+
+Omit `prompt[video_resolution]` to render at the family's default resolution (`720p` for `seedance25`). The legacy form `prompt[video_model]=seedance25_1080p` creates the same prompt.
+
+For a family with a separate audio variant, `video_audio` picks the variant:
+
+```bash
+-F 'prompt[video_model]=veo31_fast' \
+-F 'prompt[video_resolution]=1080p' \
+-F 'prompt[video_audio]=true'   # renders veo31_fast_audio_1080p
+```
 
 ### Video with ordered image references
 
@@ -215,11 +249,31 @@ For hosted images, replace the last two fields with repeated URL fields:
 
 The created prompt JSON returns the attached images as an ordered `image_references` array of URLs. Model-specific reference limits still apply.
 
-> Backwards-compatible legacy syntax: the `--video --video_model … --video_prompt "…" --duration N` CLI flags inside `text` are still accepted and promoted into the dedicated columns server-side. New integrations should use the form fields above.
+> Backwards-compatible legacy syntax: the `--video --video_model … --video_resolution … --video_prompt "…" --duration N` CLI flags inside `text` are still accepted and promoted into the dedicated columns server-side. New integrations should use the form fields above.
 
 ### Returns
 
 Returns a prompt object if successful which will start processing if tune is processed.
+
+For video prompts the object includes the resolved model:
+
+* `video_model` — the resolved variant id, for example `seedance25_1080p`. This is unchanged for existing integrations, including prompts created with a family name.
+* `video_model_family` — the family, for example `seedance25`.
+* `video_resolution` — the resolution, for example `1080p`, or `null` for families without a resolution choice.
+* `video_audio` — whether audio was requested.
+
+```json
+{
+  "id": 2,
+  "is_video": true,
+  "video_model": "seedance25_1080p",
+  "video_model_family": "seedance25",
+  "video_resolution": "1080p",
+  "video_prompt": "A lone explorer walks across endless dunes at sunrise, cinematic.",
+  "video_duration": 5,
+  "video_audio": true
+}
+```
 
 </div>
 

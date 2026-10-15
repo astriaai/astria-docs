@@ -21,14 +21,17 @@ See example prompts in the [gallery](https://www.astria.ai/gallery?branch=flux1&
 
 ### Overview
 
-Astria Image2Video supports a wide catalog of image-to-video, text-to-video, reference-to-video, and motion-control video models. Pick a `video_model` and pass a `video_prompt` describing the motion; Astria renders the first frame using the prompt's image stage (the chosen tune + `text`) and animates it.
+Astria Image2Video supports a wide catalog of image-to-video, text-to-video, reference-to-video, and motion-control video models. Pick a `video_model` family, optionally a `video_resolution`, and pass a `video_prompt` describing the motion; Astria renders the first frame using the prompt's image stage (the chosen tune + `text`) and animates it.
 
 ### Form fields
 
 Pass these alongside `text` on `POST /tunes/:id/prompts`:
 
 #### `video_model` (required)
-The model to animate with. See the [enum table](#models) below.
+The model family to animate with, for example `seedance25` or `veo31_fast`. See [Model families](#model-families) below. Legacy variant ids such as `seedance25_720p` or `veo31_fast_audio_1080p` are still accepted; see [Variant ids](#models).
+
+#### `video_resolution` (optional)
+Output resolution within the family, for example `720p` or `1080p`. When omitted, the family's default resolution is used. Families without a resolution choice take no `video_resolution`; sending one returns a 422. With a legacy variant id, an explicit `video_resolution` replaces the id's own resolution within its family.
 
 #### `video_prompt` (required)
 Describes camera movement, scene, and object interactions. Keep image-stage LoRA tokens in `text`. For Seedance 2 reference-to-video, put reference tune tokens directly in `video_prompt` using `<faceid:TUNE_ID:1> TUNE_NAME` (or the corresponding `lora` token) so Astria can supply those tunes' images to the video model.
@@ -72,7 +75,7 @@ Multipart reference-audio upload. Supported by `seedance2_*`. Set `video_audio=t
 URL alternative to `audio_reference`.
 
 #### `video_audio` (optional)
-Boolean. Generate an audio track when supported by the model. Defaults to `false`. Set it to `true` when using `audio_reference`.
+Boolean. Generate an audio track when supported by the model. Defaults to `false`. Set it to `true` when using `audio_reference`. For families that price audio separately (marked *Toggle* in [Model families](#model-families)), `video_audio=true` selects the audio variant, for example `veo31_fast` + `1080p` + audio renders `veo31_fast_audio_1080p`.
 
 #### `aspect_ratio` (optional)
 Forwarded to the video model when it supports an aspect-ratio knob. Seedance 2 accepts `16:9`, `9:16`, `1:1`, `4:3`, `3:4`, `21:9`, or `adaptive`. For image-to-video the aspect ratio is derived from the input image.
@@ -88,6 +91,23 @@ curl -X POST -H "Authorization: Bearer $API_KEY" \
   -F 'prompt[video_duration]=5' \
   -F 'prompt[aspect_ratio]=16:9'
 ```
+
+### Family and resolution
+
+Address a model as a family plus a separate `video_resolution`. This prompt renders Seedance 2.5 at 1080p; omit `video_resolution` to use the family's default (`720p`).
+
+```bash
+curl -X POST -H "Authorization: Bearer $API_KEY" \
+  https://api.astria.ai/tunes/$TUNE_ID/prompts \
+  -F 'prompt[video_model]=seedance25' \
+  -F 'prompt[video_resolution]=1080p' \
+  -F 'prompt[video_prompt]=A lone explorer walks across endless dunes at sunrise, cinematic.' \
+  -F 'prompt[video_duration]=5' \
+  -F 'prompt[aspect_ratio]=16:9' \
+  -F 'prompt[video_audio]=true'
+```
+
+The prompt response keeps `video_model` as the resolved variant id (`seedance25_1080p`) and adds `video_model_family` (`seedance25`) and `video_resolution` (`1080p`).
 
 ### Text-to-video
 
@@ -151,9 +171,55 @@ curl -X POST -H "Authorization: Bearer $API_KEY" \
   -F 'prompt[input_video]=@/path/to/reference.mp4'
 ```
 
-### Models
+### Model families
 
-Cost is the per-prompt charge in cents at the base duration listed for the model; videos longer than the base scale linearly. `_audio` variants generate an audio track.
+The current families, generated from `video_model_families` in the live catalog at [`GET https://api.astria.ai/cli/models`](https://api.astria.ai/cli/models). Fetch the catalog for the up-to-date list and each family's capability flags (`supports_last_frame`, `supports_image_references`, `supports_audio_reference`, `needs_input_video`, `generates_audio`, `native_audio`, `exclusive_media_modes`, `aspect_ratios`).
+
+- **`video_resolution`**: the values the family accepts. *— (none)* means the family has no resolution choice and rejects `video_resolution` with a 422.
+- **Default**: the resolution used when `video_resolution` is omitted.
+- **`video_audio`**: *Toggle* families price audio separately, so `video_audio=true` picks the audio variant. Other families that generate audio pass `video_audio` to the model as `generate_audio`.
+
+| `video_model` family   | Title                   | `video_resolution`      | Default | `video_audio`                           |
+|------------------------|-------------------------|-------------------------|---------|-----------------------------------------|
+| `seedance25`           | Seedance 2.5            | `480p`, `720p`, `1080p` | `720p`  | Passed to the model as `generate_audio` |
+| `seedance25_draft`     | Seedance 2.5 Draft 480p | — (none)                | —       | Passed to the model as `generate_audio` |
+| `wan30`                | WAN 3.0                 | `480p`, `720p`, `1080p` | `720p`  | Passed to the model as `generate_audio` |
+| `wan30_edit`           | WAN 3.0 Edit            | `480p`, `720p`, `1080p` | `720p`  | Passed to the model as `generate_audio` |
+| `wan30_prime_edit`     | WAN 3.0 Prime Edit      | `480p`, `720p`, `1080p` | `720p`  | Passed to the model as `generate_audio` |
+| `flux3`                | FLUX 3                  | `720p`, `1080p`         | `720p`  | Passed to the model as `generate_audio` |
+| `minimax_h3_max`       | MiniMax H3 Max          | `480p`, `768p`          | `480p`  | Native audio                            |
+| `minimax_h3`           | MiniMax H3              | `2k`                    | `2k`    | Native audio                            |
+| `seedance25_edit`      | Seedance 2.5 Edit       | `480p`, `720p`, `1080p` | `720p`  | Passed to the model as `generate_audio` |
+| `seedance2`            | Seedance 2              | `720p`                  | `720p`  | Passed to the model as `generate_audio` |
+| `seedance2_fast`       | Seedance 2 Fast         | `480p`, `720p`          | `720p`  | Passed to the model as `generate_audio` |
+| `seedance_v15`         | Seedance 1.5 Pro        | `720p`, `1080p`         | `720p`  | Toggle: `true` picks the audio variant  |
+| `kling30_standard`     | Kling 3.0 Standard      | — (none)                | —       | Toggle: `true` picks the audio variant  |
+| `kling30_pro`          | Kling 3.0 Pro           | — (none)                | —       | Toggle: `true` picks the audio variant  |
+| `cinematic_video`      | Cinematic Video         | — (none)                | —       | —                                       |
+| `veo31_fast`           | Veo 3.1 Fast            | `720p`, `1080p`, `4k`   | `720p`  | Toggle: `true` picks the audio variant  |
+| `veo31_lite`           | Veo 3.1 Lite            | `720p`, `1080p`         | `720p`  | Toggle: `true` picks the audio variant  |
+| `infinitetalk`         | InfiniteTalk            | `480p`, `720p`          | `720p`  | —                                       |
+| `scail2`               | Scail 2                 | `480p`, `720p`          | `720p`  | —                                       |
+| `happyhorse`           | HappyHorse              | `720p`, `1080p`         | `720p`  | —                                       |
+| `ray32`                | Ray 3.2                 | `540p`, `720p`, `1080p` | `720p`  | —                                       |
+| `gemini_omni_11_flash` | Gemini Omni 1.1 Flash   | — (none)                | —       | —                                       |
+
+The catalog lists the variants offered to the CLI and agents. The API also accepts the families behind the variant ids in the table below; for example, `seedance2_4k` is `seedance2` + `4k`. An unknown `video_model` returns a 422 that lists every accepted family, and an unsupported resolution returns a 422 such as `video_resolution must be one of 480p, 720p, 1080p for seedance25`.
+
+### CLI and MCP
+
+The [astria CLI](https://github.com/astriaai/astria-cli) 1.20.0 and later take the family and resolution separately:
+
+```bash
+astria video --video-model seedance2_fast --video-resolution 720p \
+  --video-prompt "<faceid:1234:1> woman walks down a runway" --duration 5 --wait
+```
+
+The Astria MCP `generate_video` tool accepts `video_resolution` alongside `video_model`, its `generate_audio` flag picks the audio variant of *Toggle* families, and `list_models` returns `video_model_families`. Pass `num_images` 1 when calling `generate_video` from the MCP or CLI; otherwise the image-stage default number of images is used.
+
+### Variant ids {#models}
+
+Each variant id is a family + resolution (+ audio) combination and remains a valid `video_model`. Cost is the per-prompt charge in cents at the base duration listed for the model; videos longer than the base scale linearly. `_audio` variants generate an audio track.
 
 | `video_model`                  | base cost (¢) | `video_duration` |
 |--------------------------------|--------------:|------------------|
@@ -221,5 +287,7 @@ The pre-2026-04 syntax embedding flags inside `text` is still accepted and promo
 ```text
 <lora:1533312:1.0> ohwx woman hiking in the alps --video --video_model seedance_v15_720p --duration 5 --video_prompt "Woman looking at the camera, smiling, confident"
 ```
+
+The text syntax also accepts `--video_resolution`, for example `--video_model seedance_v15 --video_resolution 1080p`.
 
 New integrations should prefer the dedicated form fields.
