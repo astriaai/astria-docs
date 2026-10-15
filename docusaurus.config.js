@@ -72,6 +72,8 @@ const config = {
             const archivedDocIds = [
               'features/faceid',
               'features/tiled-upscale',
+              'features/outpainting',
+              'features/prompt-masking',
               'features/lcm',
               'features/backend-v1',
               'features/multiperson',
