@@ -11,7 +11,8 @@ import TabItem from '@theme/TabItem';
 
 ### Parameters
 
-No parameters
+#### `expand[]` (optional)
+`captions` adds `captions`, the caption of each image in `orig_images` order. See [image_captions](/docs/api/tune/create/#image_captions-optional).
 
 ### Returns
 

@@ -30,6 +30,11 @@ An array of images to train the fine-tune with. The images can be uploaded as mu
 #### `image_urls` (required)
 An array of images to train the fine-tune with. The images can be uploaded as multipart/form-data or as image_urls.
 
+#### `image_captions` (optional)
+An array of captions, one per image and in the same order as `image_urls` (or `images`). When both `images` and `image_urls` are sent, the uploaded `images` come first. A caption names the view the image shows: `front`, `back`, `side`, `detail` or `logo`. A close-up names its side, e.g. `front detail`, `back detail` or `back logo`. e.g: `-F "tune[image_captions][]=front" -F "tune[image_captions][]=back"`.
+
+When a reference has both `front` and `back` captions, a prompt that asks for one view (`--view front` or `--view back`, or a prompt text that mentions only one of them) leaves out the images whose caption names the other side. A caption of `skip` keeps an image out of generations. Retrieve captions with `expand[]=captions` on [GET /tunes/:id](/docs/api/tune/retrieve).
+
 #### `callback` (optional)
 A webhook URL to be called when the tune is finished training. The webhook will receive a POST request with the tune object. See [more on callbacks](/docs/api/overview#callbacks).
 
