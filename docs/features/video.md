@@ -62,20 +62,19 @@ URL alternative to `video_last_frame`.
 #### `source_image_url` (optional)
 URL of an existing generated image to animate. This skips the image-generation stage. An explicit `video_first_frame` takes precedence.
 
-#### `input_video` (optional)
-Multipart video upload. Seedance 2 uses it as a reference video; motion-control models require it as their driving video.
+#### `video_references[]` (optional)
+Ordered array of source or reference videos. Repeat `prompt[video_references][]` for each one; each item can be a multipart upload, a signed upload ID, or a public URL, in any mix. The prompt names them by position as `@Video1`, `@Video2`. Motion-control models require one as their driving video, and Edit models take one as their source.
 
-#### `input_video_url` (optional)
-URL alternative to `input_video`.
+#### `audio_references[]` (optional)
+Ordered array of reference audio tracks, supplied like `video_references[]` and named `@Audio1`, `@Audio2`. Attaching one sets `video_audio=true`. Astria adds the token on provider paths that require it.
 
-#### `audio_reference` (optional)
-Multipart reference-audio upload. Supported by `seedance2_*`. Set `video_audio=true` so the output includes audio. You can refer to the track as `@Audio1`; Astria adds that token on provider paths that require it when the prompt has no `@Audio` token.
+Seedance 2.5 accepts up to 10 videos and 10 audio tracks in one request, each 2–30 seconds, with at most 30 seconds in total for videos and a separate 30 seconds for audio. Every other model accepts one of each. `max_reference_videos` and `max_reference_audios` in the [live catalog](https://api.astria.ai/cli/models) give each model's limit.
 
-#### `audio_reference_url` (optional)
-URL alternative to `audio_reference`.
+#### `input_video`, `input_video_url`, `audio_reference`, `audio_reference_url` (legacy)
+Still accepted, as the first item of the matching array. Do not send a legacy field together with its array. Responses keep `input_video` and `audio_reference` as the first item of `video_references` and `audio_references`.
 
 #### `video_audio` (optional)
-Boolean. Generate an audio track when supported by the model. Defaults to `false`. Set it to `true` when using `audio_reference`. For families that price audio separately (marked *Toggle* in [Model families](#model-families)), `video_audio=true` selects the audio variant, for example `veo31_fast` + `1080p` + audio renders `veo31_fast_audio_1080p`.
+Boolean. Generate an audio track when supported by the model. Defaults to `false`. It is set automatically when `audio_references[]` is attached. For families that price audio separately (marked *Toggle* in [Model families](#model-families)), `video_audio=true` selects the audio variant, for example `veo31_fast` + `1080p` + audio renders `veo31_fast_audio_1080p`.
 
 #### `aspect_ratio` (optional)
 Forwarded to the video model when it supports an aspect-ratio knob. Seedance 2 accepts `16:9`, `9:16`, `1:1`, `4:3`, `3:4`, `21:9`, or `adaptive`. For image-to-video the aspect ratio is derived from the input image.
@@ -125,7 +124,7 @@ curl -X POST -H "Authorization: Bearer $API_KEY" \
 
 ### Seedance 2 reference media
 
-Seedance 2 can condition a video on multiple tune images, one reference video, and one audio reference. Mention existing tunes in `video_prompt` using the same token and class-name syntax as image generation. Up to nine reference images are sent in total (up to three per tune).
+Seedance 2 can condition a video on multiple tune images, one reference video, and one audio reference; Seedance 2.5 takes up to 10 of each. Mention existing tunes in `video_prompt` using the same token and class-name syntax as image generation. Up to nine reference images are sent in total (up to three per tune).
 
 ```bash
 curl -X POST -H "Authorization: Bearer $API_KEY" \
@@ -134,12 +133,13 @@ curl -X POST -H "Authorization: Bearer $API_KEY" \
   -F 'prompt[video_prompt]=<faceid:1234:1> woman walks onto the stage in time with @Audio1 while the camera follows' \
   -F 'prompt[video_duration]=8' \
   -F 'prompt[aspect_ratio]=16:9' \
-  -F 'prompt[input_video]=@/path/to/movement-reference.mp4' \
-  -F 'prompt[audio_reference]=@/path/to/music-reference.mp3' \
+  -F 'prompt[video_references][]=@/path/to/movement-reference.mp4' \
+  -F 'prompt[video_references][]=@/path/to/camera-reference.mp4' \
+  -F 'prompt[audio_references][]=@/path/to/music-reference.mp3' \
   -F 'prompt[video_audio]=true'
 ```
 
-Use the corresponding `*_url` field instead when the file is already publicly accessible. Do not combine Seedance 2 or Seedance 2.5 first/last frames with `image_references`, `image_reference_urls`, `input_video`, or `audio_reference`; these are separate media modes.
+Use a public URL as the item instead when the file is already publicly accessible. Do not combine Seedance 2 or Seedance 2.5 first/last frames with `image_references`, `image_reference_urls`, `video_references`, or `audio_references`; these are separate media modes.
 
 ### Ordered image references
 
@@ -159,7 +159,7 @@ For hosted images, send repeated `prompt[image_reference_urls][]` fields instead
 
 ### Motion control
 
-Motion-control models replay the motion from `input_video` while restyling the subject. Models: `kling30_motion_control`, `kling30_motion_control_pro`, `wan_animate_720p`, `dreamactor_m2`, `happyhorse_motion_control`.
+Motion-control models replay the motion from `video_references[]` while restyling the subject. Models: `kling30_motion_control`, `kling30_motion_control_pro`, `wan_animate_720p`, `dreamactor_m2`, `happyhorse_motion_control`.
 
 ```bash
 curl -X POST -H "Authorization: Bearer $API_KEY" \
@@ -168,7 +168,7 @@ curl -X POST -H "Authorization: Bearer $API_KEY" \
   -F 'prompt[video_model]=kling30_motion_control_pro' \
   -F 'prompt[video_prompt]=match the dance moves' \
   -F 'prompt[video_duration]=10' \
-  -F 'prompt[input_video]=@/path/to/reference.mp4'
+  -F 'prompt[video_references][]=@/path/to/reference.mp4'
 ```
 
 ### Model families
@@ -274,11 +274,11 @@ Each variant id is a family + resolution (+ audio) combination and remains a val
 
 - **Text-to-video** (no first frame required): `seedance2_*`, `happyhorse_720p`, `happyhorse_1080p`.
 - **Multi-reference images** (`image_references[]` / `image_reference_urls[]`): `seedance2_*`, `seedance25*`, `minimax_h3_2k`, `wan30_*`, `happyhorse_720p`, `happyhorse_1080p`, `ray32_*`, `gemini_omni_flash`. Limits vary by model (nine for Seedance 2 and MiniMax H3, ten for WAN 3.0, and up to thirty for Seedance 2.5).
-- **Reference video** (`input_video` / `input_video_url`): `seedance2_*` and motion-control models.
-- **Reference audio** (`audio_reference` / `audio_reference_url`): `seedance2_*`.
+- **Reference video** (`video_references[]`): `seedance25*`, `seedance2_*` and motion-control models. Several per request on `seedance25` and `seedance25_draft`.
+- **Reference audio** (`audio_references[]`): `seedance25*` and `seedance2_*`. Several per request on `seedance25` and `seedance25_draft`.
 - **Generated audio** (`video_audio=true`): `seedance2_*`.
 - **First+last keyframe** (`video_last_frame`): `seedance_v15_*`, `seedance2_*`, `wan21_*`, `wan26_*`, `wan27_*`, `wan_fast_*`, `ltx23_*`, `kling*`, `veo31_*`, `hailuo*`.
-- **Motion control** (requires `input_video`): `kling30_motion_control*`, `wan_animate_720p`, `dreamactor_m2`, `happyhorse_motion_control`.
+- **Motion control** (requires one `video_references[]` item): `kling30_motion_control*`, `wan_animate_720p`, `dreamactor_m2`, `happyhorse_motion_control`.
 
 ### Backwards compatibility
 

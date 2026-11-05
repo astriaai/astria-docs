@@ -177,20 +177,17 @@ URL alternative to `video_last_frame`.
 #### `source_image_url` (optional)
 URL of an existing generated image to animate as the first frame. This skips the image-generation stage. If `video_first_frame` or `video_first_frame_url` is also provided, the explicit first frame takes precedence.
 
-#### `input_video` (optional)
-Binary multi-part video upload. Seedance 2 uses it as a reference video. It is also required for motion-control models: `kling30_motion_control`, `kling30_motion_control_pro`, `wan_animate_720p`, `dreamactor_m2`, `happyhorse_motion_control`.
+#### `video_references[]` (optional)
+Ordered source or reference videos, named `@Video1`, `@Video2` in `video_prompt`. Each item can be a binary multi-part upload, a signed upload ID, or a public URL. Seedance 2.5 accepts up to 10 with at most 30 seconds in total; other models accept one. See [video](/docs/features/video). One is required for motion-control models: `kling30_motion_control`, `kling30_motion_control_pro`, `wan_animate_720p`, `dreamactor_m2`, `happyhorse_motion_control`.
 
-#### `input_video_url` (optional)
-URL alternative to `input_video`.
+#### `audio_references[]` (optional)
+Ordered reference audio tracks, supplied the same way and named `@Audio1`, `@Audio2`. Seedance 2.5 accepts up to 10 with at most 30 seconds in total; other models accept one. Attaching one sets `video_audio=true`.
 
-#### `audio_reference` (optional)
-Binary multi-part audio upload for models that accept reference audio, including `seedance2_*`. Set `video_audio=true` so the output includes audio. You can refer to the track as `@Audio1` in `video_prompt`; Astria adds that token on provider paths that require it when no `@Audio` token is present.
-
-#### `audio_reference_url` (optional)
-URL alternative to `audio_reference`.
+#### `input_video`, `input_video_url`, `audio_reference`, `audio_reference_url` (legacy)
+Still accepted, as the first item of the matching array. Do not send a legacy field together with its array. Music Cover takes its single source as `audio_reference` or `audio_reference_url`.
 
 #### `video_audio` (optional)
-Boolean. Generate an audio track when the selected model supports generated audio, including `seedance2_*`. Defaults to `false`. Set it to `true` when using `audio_reference`.
+Boolean. Generate an audio track when the selected model supports generated audio, including `seedance2_*`. Defaults to `false`. It is set automatically when `audio_references[]` is attached.
 
 For families that price audio as a separate model (Veo 3.1 Fast, Veo 3.1 Lite, Seedance 1.5 Pro, LTX-2 Fast, Kling 2.6 Pro, Kling 3.0 Standard, and Kling 3.0 Pro), `video_audio=true` selects the family's audio variant: `video_model=veo31_fast` + `video_resolution=1080p` + `video_audio=true` renders `veo31_fast_audio_1080p`. Other families pass `video_audio` to the model as `generate_audio`. An explicit `video_audio=false` also moves an `_audio` variant id to its silent variant.
 
@@ -203,7 +200,7 @@ Target for `video_upscale_model`. enum: `720p`, `1080p`, `2k`, `4k`. Defaults to
 #### `video_fps_model` (optional)
 Post-process the generated video with frame interpolation. enum: `video_fps_increaser`. It can be combined with video upscaling.
 
-For Seedance 2 and Seedance 2.5, first/last-frame mode cannot be combined with `image_references`, `image_reference_urls`, `input_video`, or `audio_reference`. Use either first/last frames or reference images/video/audio in one request.
+For Seedance 2 and Seedance 2.5, first/last-frame mode cannot be combined with `image_references`, `image_reference_urls`, `video_references`, or `audio_references`. Use either first/last frames or reference images/video/audio in one request.
 
 ### Video with a model family and resolution
 
